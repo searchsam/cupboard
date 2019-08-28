@@ -1,4 +1,7 @@
 
 type Product @model {
     id: ID! @globalId
+    name: String!
+    brand: Brand! @hasOne
+    features: Features! @hasMany
 }

@@ -1,0 +1,6 @@
+
+type Feature @model {
+    id: ID!
+    feature: String!
+    product: Product! @belognsTo
+}

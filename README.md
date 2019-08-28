@@ -1,2 +1,3 @@
 # cupboard
-Simple dashbd for database cupdb storage.
+
+Simple dashboard for simple database cupboard storage

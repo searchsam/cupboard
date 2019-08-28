@@ -1,0 +1,7 @@
+
+type Wish @model {
+    id: ID!
+    quantity: Int!
+    user: User! @hasMany
+    products: Product! @hasMany
+}
