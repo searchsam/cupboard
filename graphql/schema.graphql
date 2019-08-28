@@ -9,3 +9,4 @@ type Query
 type Mutation
 
 #import user.graphql
+#import product.graphql
