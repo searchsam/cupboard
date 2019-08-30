@@ -2,6 +2,34 @@
 type Product @model {
     id: ID! @globalId
     name: String!
-    brand: Brand! @hasOne
-    features: Features! @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+    features: Feature! @hasMany
+    user: User! @belongsTo
+    wishes: Request! @hasMany
+    pantries: Pantry! @hasMany
+}
+
+input CreateProductInput {
+    name: String!
+    user: CreateUserRelation
+    features: CreateFeatureRelation
+}
+
+input CreateUserRelation {
+    connect: ID!
+}
+
+input CreateFeatureRelation {
+    create: CreateFeatureInput
+    connect: ID!
+}
+
+extend type Query {
+    products: [Product!]! @all
+    product(id: ID! @eq): Product! @find
+}
+
+extend type Mutation {
+    createProduct(input: CreateProductInput! @spread): Product! @create
 }

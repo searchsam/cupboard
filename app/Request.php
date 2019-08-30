@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 
-class Product extends Model
+class Request extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,7 +13,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id'
+        'user_id'
     ];
 
     public function user(): BelongsTo
@@ -21,7 +21,7 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function wish(): HasMany
+    public function wishes(): HasMany
     {
         return $this->hasMany(Wish::class);
     }

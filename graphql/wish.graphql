@@ -1,7 +1,38 @@
 
 type Wish @model {
     id: ID!
-    quantity: Int!
-    user: User! @hasMany
-    products: Product! @hasMany
+    status: Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+    request: Request! @belongsTo
+    product: Product! @belongsTo
+}
+
+input CreateWishInput {
+    status: WishStatus!
+    request: CreateRequestRelation
+    product: CreateProductRelation
+}
+
+enum WishStatus {
+    UNGRANT @enum(value: 0)
+    GRANT @enum(value: 1)
+}
+
+input CreateRequestRelation {
+    connect: ID!
+}
+
+input CreateProductRelation {
+    connect: ID!
+    create: CreateProductInput!
+}
+
+extend type Query {
+    wishes: [Wish!]! @all
+    wish(id: ID! @eq): Wish! @find
+}
+
+extend type Mutation {
+    createWish(input: CreateWishInput! @spread): Wish! @create
 }

@@ -1,0 +1,30 @@
+
+type Call @model {
+    id: ID!
+    created_at: DateTime!
+    updated_at: DateTime!
+    order: Order! @belongsTo
+    request: Request! @belongsTo
+}
+
+input CreateCallInput {
+    order: CreateOrderRelation
+    request: CreateRequestRelation
+}
+
+input CreateRequestRelation {
+    connect: ID!
+}
+
+input CreateOrderRelation {
+    connect: ID!
+}
+
+extend type Query {
+    calls: [Call!]! @all
+    call(id: ID! @eq): Call! @find
+}
+
+extend type Mutation {
+    createCall(input: CreateCallInput! @spread): Call! @create
+}

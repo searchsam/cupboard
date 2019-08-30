@@ -1,0 +1,35 @@
+
+type Request @model {
+    id: ID!
+    created_at: DateTime!
+    updated_at: DateTime!
+    user: User! @belongsTo
+    wishes: [Wish!]! @hasMany
+}
+
+input CreateRequestInput {
+    user: CreateUserRelation
+}
+
+input CreateWishRequestInput {
+    user: CreateUserRelation
+    wishes: CreateWishRelation
+}
+
+input CreateUserRelation {
+    connect: ID!
+}
+
+input CreateWishRelation {
+    create: [CreateWishInput!]!
+}
+
+extend type Query {
+    requests: [Request!]! @all
+    request(id: ID! @eq): Request! @find
+}
+
+extend type Mutation {
+    createRequest(input: CreateRequestInput! @spread): Request! @create
+    createWishRequest(input: CreateWishRequestInput! @spread): Request! @create
+}

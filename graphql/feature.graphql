@@ -1,6 +1,21 @@
 
 type Feature @model {
     id: ID!
-    feature: String!
-    product: Product! @belognsTo
+    name: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    product: Product! @belongsTo
+}
+
+input CreateFeatureInput {
+    name: String!
+    products: CreateProductRelation
+}
+
+input CreateProductRelation {
+    connect: ID!
+}
+
+extend type Mutation {
+    createFeature(input: CreateFeatureInput! @spread): Feature! @create
 }

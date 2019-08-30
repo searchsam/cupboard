@@ -1,5 +1,0 @@
-
-type Brand @model {
-    id: ID!
-    product: Product! @belognsTo
-}

@@ -1,0 +1,32 @@
+
+type Order @model {
+    id: ID!
+    status: Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+    user: User! @belongsTo
+    calls: [Call!]! @hasMany
+}
+
+enum OrderStatus {
+    INACTIVE @enum(value: 0)
+    ACTIVE @enum(value: 1)
+}
+
+input CreateOrderInput {
+    status: OrderStatus!
+    user: CreateUserRelation
+}
+
+input CreateUserRelation {
+    connect: ID!
+}
+
+extend type Query {
+    orders: [Order!]! @all
+    order(id: ID! @eq): Order! @find
+}
+
+extend type Mutation {
+    createOrder(input: CreateOrderInput! @spread): Order! @create
+}
