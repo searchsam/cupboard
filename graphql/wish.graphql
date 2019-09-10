@@ -2,6 +2,7 @@
 type Wish @model {
     id: ID!
     status: Int!
+    quantity: Int!
     created_at: DateTime!
     updated_at: DateTime!
     request: Request! @belongsTo
@@ -10,6 +11,7 @@ type Wish @model {
 
 input CreateWishInput {
     status: WishStatus!
+    quantity: Int!
     request: CreateRequestRelation
     product: CreateProductRelation
 }

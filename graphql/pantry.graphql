@@ -1,14 +1,19 @@
 
 type Pantry @model {
     id: ID!
-    quantity: Int!
+    status: Int!
     created_at: DateTime!
     updated_at: DateTime!
     product: Product! @belongsTo
 }
 
+enum WishStatus {
+    UNAVAILABLE @enum(value: 0)
+    AVAILABLE @enum(value: 1)
+}
+
 input CreatePantryInput {
-    quantity: Int!
+    status: WishStatus
     product: CreateProductRelation
 }
 

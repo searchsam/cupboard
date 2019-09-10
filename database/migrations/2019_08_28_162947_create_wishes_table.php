@@ -16,6 +16,7 @@ class CreateWishesTable extends Migration
         Schema::create('wishes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->tinyInteger('status');
+            $table->integer('quantity');
             $table->unsignedBigInteger('request_id');
             $table->foreign('request_id')->references('id')->on('requests');
             $table->unsignedBigInteger('product_id');

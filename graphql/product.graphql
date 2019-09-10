@@ -5,19 +5,13 @@ type Product @model {
     created_at: DateTime!
     updated_at: DateTime!
     features: Feature! @hasMany
-    user: User! @belongsTo
     wishes: Request! @hasMany
     pantries: Pantry! @hasMany
 }
 
 input CreateProductInput {
     name: String!
-    user: CreateUserRelation
     features: CreateFeatureRelation
-}
-
-input CreateUserRelation {
-    connect: ID!
 }
 
 input CreateFeatureRelation {
