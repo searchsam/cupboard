@@ -4,19 +4,28 @@ type User @model {
     name: String!
     email: String!
     password: String!
+    type: Int!
     created_at: DateTime!
     updated_at: DateTime!
     products: [Product!]! @hasMany
     requests: [Request!]! @hasMany
 }
 
+enum UserType {
+    SuperUser @enum(value: 0)
+    Admin @enum(value: 1)
+    Client @enum(value: 2)
+}
+
 input CreateUserInput {
     name: String!
     email: String!
     password: String! @bcrypt
+    type: UserType!
 }
 
 extend type Query {
+    me: User! @middleware(checks:["auth:api"]) @auth
     users: [User!]! @all
     user(id: ID! @eq): User! @find
 }
