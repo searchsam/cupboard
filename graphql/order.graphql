@@ -2,6 +2,7 @@
 type Order @model {
     id: ID!
     status: Int!
+    deathline: Date!
     created_at: DateTime!
     updated_at: DateTime!
     user: User! @belongsTo
