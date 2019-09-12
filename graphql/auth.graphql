@@ -1,4 +1,10 @@
+"""
+Login Input fields
+"""
 input LoginInput {
+    """
+    User Name
+    """
     username: String!
     password: String!
 }
