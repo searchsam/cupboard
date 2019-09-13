@@ -13,7 +13,7 @@ class Pantry extends Model
      * @var array
      */
     protected $fillable = [
-        'quantity', 'product_id'
+        'quantity', 'order_id'
     ];
 
     public function product(): BelongsTo

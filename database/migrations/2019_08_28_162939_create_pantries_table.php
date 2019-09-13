@@ -16,8 +16,8 @@ class CreatePantriesTable extends Migration
         Schema::create('pantries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->tinyInteger('status');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->timestamps();
         });
     }
