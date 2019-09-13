@@ -1,24 +1,52 @@
 import Vue from "vue";
 import Router from "vue-router";
+import { AUTH_TOKEN } from "./vue-apollo";
+
 import Home from "./views/Home.vue";
+import Login from "./views/Login.vue";
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: "/",
+      name: "login",
+      component: Login,
+      meta: {
+        auth: false
+      }
+    },
+    {
+      path: "/home",
       name: "home",
-      component: Home
+      component: Home,
+      meta: {
+        auth: true
+      }
     },
     {
       path: "/about",
       name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+      component: () => import("./views/About.vue"),
+      meta: {
+        auth: true
+      }
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth) {
+    if (!localStorage.getItem(AUTH_TOKEN)) {
+      console.log("here too");
+      return router.push({ name: "login" });
+    }
+
+    next();
+  }
+
+  return next();
+});
+
+export default router;
