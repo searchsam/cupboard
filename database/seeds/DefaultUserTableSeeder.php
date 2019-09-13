@@ -12,9 +12,18 @@ class DefaultUserTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => Str::random(10),
-            'email' => Str::random(10).'@gmail.com',
-            'password' => bcrypt('password'),
+            [
+                'name' => 'Super User',
+                'email' => 'suadmin@getnerdify.com',
+                'password' => bcrypt('cupboard'),
+                'type' => 0
+            ],
+            [
+                'name' => 'Samuel Gutierrez',
+                'email' => 'samuel@getnerdify.com',
+                'password' => bcrypt('321321'),
+                'type' => 2
+            ]
         ]);
     }
 }
