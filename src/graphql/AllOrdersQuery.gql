@@ -1,0 +1,8 @@
+
+query ActiveOrders($status: Int!) {
+  activeOrders(status: $status) {
+    id
+    deadline
+    status
+  }
+}

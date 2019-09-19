@@ -10,6 +10,8 @@ Vue.use(VueApollo);
 
 // Name of the localStorage item
 export const AUTH_TOKEN = "apollo-token";
+export const USER_TYPE = "api-user-type";
+export const AUTH_USER = "auth-api-user";
 
 // Http endpoint
 const httpEndpoint =

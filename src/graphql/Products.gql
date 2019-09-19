@@ -1,5 +1,5 @@
 
-query Products {
+query {
     products {
       id
       name

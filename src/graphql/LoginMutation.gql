@@ -2,5 +2,9 @@
 mutation($data: LoginInput!) {
   login(input: $data) {
     access_token
+    user {
+        id
+        type
+    }
   }
 }
