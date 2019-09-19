@@ -2,7 +2,7 @@
 type Order @model {
     id: ID!
     status: Int!
-    deadline: Date!
+    deadline: DateTime!
     created_at: DateTime!
     updated_at: DateTime!
     user: User! @belongsTo
@@ -15,17 +15,19 @@ enum OrderStatus {
 }
 
 input CreateOrderInput {
-    status: OrderStatus!
+    status: Int!
+    deadline: Date!
     user: CreateUserRelation
 }
 
 input CreateUserRelation {
-    connect: ID!
+    connect: ID! @globalId(decode: "ID")
 }
 
 extend type Query {
     orders: [Order!]! @all
     order(id: ID! @eq): Order! @find
+    activeOrders(status: Int! @eq): [Order!]! @all
 }
 
 extend type Mutation {

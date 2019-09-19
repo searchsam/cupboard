@@ -13,7 +13,7 @@ class DefaultUserTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'Super User',
+                'name' => 'SuperUser Admin',
                 'email' => 'suadmin@getnerdify.com',
                 'password' => bcrypt('cupboard'),
                 'type' => 0
