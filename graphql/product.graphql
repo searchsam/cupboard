@@ -6,7 +6,6 @@ type Product @model {
     updated_at: DateTime!
     features: Feature! @hasMany
     wishes: Request! @hasMany
-    pantries: Pantry! @hasMany
 }
 
 input CreateProductInput {
@@ -21,7 +20,6 @@ input CreateFeatureRelation {
 
 extend type Query {
     products: [Product!]! @all
-    product(id: ID! @eq): Product! @find
 }
 
 extend type Mutation {

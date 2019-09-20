@@ -13,7 +13,7 @@ class Wish extends Model
      * @var array
      */
     protected $fillable = [
-        'status', 'request_id', 'product_id'
+        'status', 'quantity', 'request_id', 'product_id'
     ];
 
     public function request(): BelongsTo

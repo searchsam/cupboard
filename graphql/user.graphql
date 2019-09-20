@@ -4,23 +4,21 @@ type User @model {
     name: String!
     email: String!
     password: String!
+    type: Int!
     created_at: DateTime!
     updated_at: DateTime!
-    products: [Product!]! @hasMany
     requests: [Request!]! @hasMany
+}
+
+enum UserType {
+    SUPERUSER @enum(value: 0)
+    ADMIN @enum(value: 1)
+    CLIENT @enum(value: 2)
 }
 
 input CreateUserInput {
     name: String!
     email: String!
     password: String! @bcrypt
-}
-
-extend type Query {
-    users: [User!]! @all
-    user(id: ID! @eq): User! @find
-}
-
-extend type Mutation {
-    createUser(input: CreateUserInput! @spread): User! @create
+    type: Int!
 }

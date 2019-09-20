@@ -4,28 +4,19 @@ type Pantry @model {
     status: Int!
     created_at: DateTime!
     updated_at: DateTime!
-    product: Product! @belongsTo
+    order: Order! @belongsTo
 }
 
-enum WishStatus {
-    UNAVAILABLE @enum(value: 0)
-    AVAILABLE @enum(value: 1)
+enum PantryStatus {
+    SOLDOUT @enum(value: 0)
+    STOCK @enum(value: 1)
 }
 
 input CreatePantryInput {
-    status: WishStatus
-    product: CreateProductRelation
+    status: PantryStatus
+    orders: CreateOrderRelation
 }
 
-input CreateProductRelation {
+input CreateOrderRelation {
     connect: ID!
-}
-
-extend type Query {
-    pantries: [Pantry!]! @all
-    pantry(id: ID! @eq): Pantry! @find
-}
-
-extend type Mutation {
-    createPantry(input: CreatePantryInput! @spread): Pantry! @create
 }

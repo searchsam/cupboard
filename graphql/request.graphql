@@ -11,13 +11,8 @@ input CreateRequestInput {
     user: CreateUserRelation
 }
 
-input CreateWishRequestInput {
-    user: CreateUserRelation
-    wishes: CreateWishRelation
-}
-
 input CreateUserRelation {
-    connect: ID!
+    connect: ID! @globalId(decode: "ID")
 }
 
 input CreateWishRelation {
@@ -25,11 +20,9 @@ input CreateWishRelation {
 }
 
 extend type Query {
-    requests: [Request!]! @all
-    request(id: ID! @eq): Request! @find
+    requests(user_id: ID! @globalId(decode: "ID") @eq): [Request!]! @all
 }
 
 extend type Mutation {
     createRequest(input: CreateRequestInput! @spread): Request! @create
-    createWishRequest(input: CreateWishRequestInput! @spread): Request! @create
 }

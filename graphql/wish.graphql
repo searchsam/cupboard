@@ -1,8 +1,8 @@
 
 type Wish @model {
     id: ID!
-    status: Int!
-    quantity: Int!
+    status: Int
+    quantity: Int
     created_at: DateTime!
     updated_at: DateTime!
     request: Request! @belongsTo
@@ -10,8 +10,8 @@ type Wish @model {
 }
 
 input CreateWishInput {
-    status: WishStatus!
-    quantity: Int!
+    status: Int
+    quantity: Int
     request: CreateRequestRelation
     product: CreateProductRelation
 }
@@ -26,15 +26,6 @@ input CreateRequestRelation {
 }
 
 input CreateProductRelation {
-    connect: ID!
-    create: CreateProductInput!
-}
-
-extend type Query {
-    wishes: [Wish!]! @all
-    wish(id: ID! @eq): Wish! @find
-}
-
-extend type Mutation {
-    createWish(input: CreateWishInput! @spread): Wish! @create
+    connect: ID
+    create: CreateProductInput
 }

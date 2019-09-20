@@ -16,3 +16,4 @@ type Mutation
 #import order.graphql
 #import call.graphql
 #import pantry.graphql
+#import auth.graphql

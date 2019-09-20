@@ -18,9 +18,9 @@ class CreateWishesTable extends Migration
             $table->tinyInteger('status');
             $table->integer('quantity');
             $table->unsignedBigInteger('request_id');
-            $table->foreign('request_id')->references('id')->on('requests');
+            $table->foreign('request_id')->references('id')->on('requests')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
