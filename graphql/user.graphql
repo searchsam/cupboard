@@ -22,13 +22,3 @@ input CreateUserInput {
     password: String! @bcrypt
     type: Int!
 }
-
-extend type Query {
-    me: User! @middleware(checks:["auth:api"]) @auth
-    users: [User!]! @all
-    user(id: ID! @globalId(decode: "ID") @eq): User! @find
-}
-
-extend type Mutation {
-    createUser(input: CreateUserInput! @spread): User! @create
-}

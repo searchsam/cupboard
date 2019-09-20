@@ -26,15 +26,6 @@ input CreateRequestRelation {
 }
 
 input CreateProductRelation {
-    connect: ID!
-    create: CreateProductInput!
-}
-
-extend type Query {
-    wishes: [Wish!]! @all
-    wish(id: ID! @eq): Wish! @find
-}
-
-extend type Mutation {
-    createWish(input: CreateWishInput! @spread): Wish! @create
+    connect: ID
+    create: CreateProductInput
 }

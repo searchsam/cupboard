@@ -20,7 +20,6 @@ input CreateFeatureRelation {
 
 extend type Query {
     products: [Product!]! @all
-    product(id: ID! @eq): Product! @find
 }
 
 extend type Mutation {

@@ -26,10 +26,8 @@ input CreateUserRelation {
 
 extend type Query {
     orders: [Order!]! @all
-    order(id: ID! @eq): Order! @find
-    activeOrders(status: Int! @eq): [Order!]! @all
 }
 
 extend type Mutation {
-    createOrder(input: CreateOrderInput! @spread): Order! @create
+    createOrder(input: CreateOrderInput! @spread): Order! @field(resolver: "OrderMutator@create")
 }

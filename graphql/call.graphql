@@ -8,23 +8,17 @@ type Call @model {
 }
 
 input CreateCallInput {
-    order: CreateOrderRelation
     request: CreateRequestRelation
 }
 
 input CreateRequestRelation {
-    connect: ID!
+    create: CreateRequestInput!
 }
 
 input CreateOrderRelation {
     connect: ID!
 }
 
-extend type Query {
-    calls: [Call!]! @all
-    call(id: ID! @eq): Call! @find
-}
-
 extend type Mutation {
-    createCall(input: CreateCallInput! @spread): Call! @create
+    createCall(input: CreateCallInput! @spread): Call! @field(resolver: "CallMutator@create")
 }

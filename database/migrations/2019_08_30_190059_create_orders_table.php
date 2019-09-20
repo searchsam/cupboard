@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->tinyInteger('status');
             $table->dateTime('deadline');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
