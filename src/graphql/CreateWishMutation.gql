@@ -1,5 +1,5 @@
 
-mutation($data: CreateWishInput!) {
+mutation CreateWish($data: CreateWishInput!) {
   createWish(input: $data) {
     id
     status

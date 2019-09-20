@@ -5,7 +5,6 @@
   >
     <div class="flex items-center flex-shrink-0 text-white mr-6">
       <img
-        alt="Vue logo"
         src="@/assets/logo_nerdify.svg"
         class="fill-current h-8 w-8 mr-2"
         width="54"
@@ -56,9 +55,11 @@ import { onLogout } from "@/vue-apollo.js";
 
 export default {
   name: "NavBar",
-  data: () => ({
-    user_type: Vue.prototype.$authUserType
-  }),
+  data() {
+    return {
+      user_type: Vue.prototype.$authUserType
+    };
+  },
   methods: {
     logout() {
       onLogout(this.$apollo.provider.defaultClient);

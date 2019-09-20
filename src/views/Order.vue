@@ -2,7 +2,7 @@
   <div class="order">
     <NavBar />
     <div class="container mx-auto px-4">
-      <div v-if="show_header" class="p-5 mt-20" id="header">
+      <div v-if="showHeader" class="p-5 mt-20" id="header">
         <h1 class="block text-bold inline-block text-4xl mr-6">Ordenes</h1>
         <button
           type="button"
@@ -15,25 +15,29 @@
       </div>
       <div v-else class="p-5 mt-20" id="header">
         <CreateOrderForm
-          :msg="show_header"
-          @show_header="showCreateOrderForm"
+          :msg="showHeader"
+          @showHeader="showCreateOrderForm"
+          @orderObjectForm="captureNewOrder"
         />
       </div>
-      <OrderList />
+      <OrderList :msg="newOrder" />
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
 import NavBar from "@/components/NavBar.vue";
-import OrderList from "@/components/order/OrderListApollo.vue";
-import CreateOrderForm from "@/components/order/CreateOrderFormApollo.vue";
+import OrderList from "@/components/order/OrderList.vue";
+import CreateOrderForm from "@/components/order/CreateOrderForm.vue";
 
 export default {
   name: "order",
-  data: () => ({
-    show_header: true
-  }),
+  data() {
+    return {
+      showHeader: true,
+      newOrder: null
+    };
+  },
   components: {
     NavBar,
     OrderList,
@@ -41,7 +45,10 @@ export default {
   },
   methods: {
     showCreateOrderForm() {
-      this.show_header = !this.show_header;
+      this.showHeader = !this.showHeader;
+    },
+    captureNewOrder(orderObjectForm) {
+      this.newOrder = orderObjectForm;
     }
   }
 };

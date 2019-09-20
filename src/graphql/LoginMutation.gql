@@ -1,5 +1,5 @@
 
-mutation($data: LoginInput!) {
+mutation Login($data: LoginInput!) {
   login(input: $data) {
     access_token
     user {

@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
 import { AUTH_TOKEN } from "./vue-apollo";
-import { USER_TYPE } from "./vue-apollo";
 
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
@@ -51,21 +50,18 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.meta.auth) {
     if (!localStorage.getItem(AUTH_TOKEN)) {
-      return router.push({ name: "login" });
+      return next("/login");
     }
 
     next();
   }
 
   if (to.meta.admin) {
-    if (
-      localStorage.getItem(USER_TYPE) == "true" &&
-      localStorage.getItem(USER_TYPE) <= 1
-    ) {
+    if (Vue.prototype.$authUserType <= 1) {
       return next();
     }
 
-    from();
+    next(from.path);
   }
 
   return next();
