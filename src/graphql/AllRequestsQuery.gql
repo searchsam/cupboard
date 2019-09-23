@@ -1,0 +1,6 @@
+
+query Requests($id: ID!) {
+  requests(user_id: $id) {
+    id
+  }
+}

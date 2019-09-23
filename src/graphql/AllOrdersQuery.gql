@@ -1,0 +1,8 @@
+
+query Orders {
+  orders {
+    id
+    status
+    deadline
+  }
+}

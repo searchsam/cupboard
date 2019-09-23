@@ -1,15 +1,15 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <body id="app">
     <router-view />
-  </div>
+  </body>
 </template>
 
 <style lang="sass">
 @tailwind base
 @tailwind components
 @tailwind utilities
+
+body
+    color: #A0AEC0
+    font-weight: bold
 </style>
