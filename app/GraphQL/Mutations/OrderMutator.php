@@ -28,7 +28,7 @@ class OrderMutator
     {
         // TODO implement the resolver
         $params = \Arr::only($args, ['status', 'deadline', 'user']);
-        
+
         if (Order::where('status', 1)->exists()) {
             throw new CustomException(
                 'Ya existe una orden activa.',
@@ -40,6 +40,15 @@ class OrderMutator
             throw new CustomException(
                 'Ya existe una orden para una fecha posterior.',
                 'La fecha seleccionada esta en el rango de fecha de una orden existente.'
+            );
+
+            return null;
+        }
+
+        if ((int) $params['user']["connect"] > 1) {
+            throw new CustomException(
+                'Permiso denegado.',
+                'Tu usuario no posee los permisos necesarios para realizar esta accion.'
             );
 
             return null;

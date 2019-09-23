@@ -4,15 +4,15 @@ type Feature @model {
     name: String!
     created_at: DateTime!
     updated_at: DateTime!
-    product: Product! @belongsTo
+    fact: Fact! @hasOne
 }
 
 input CreateFeatureInput {
     name: String!
-    products: CreateProductRelation
+    fact: CreateFactRelation
 }
 
-input CreateProductRelation {
+input CreateFactRelation {
     connect: ID!
 }
 

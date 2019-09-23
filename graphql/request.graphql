@@ -5,6 +5,7 @@ type Request @model {
     updated_at: DateTime!
     user: User! @belongsTo
     wishes: [Wish!]! @hasMany
+    call: Call! @hasOne
 }
 
 input CreateRequestInput {

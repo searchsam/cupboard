@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany, HasOne};
 
 class Request extends Model
 {
@@ -19,6 +19,11 @@ class Request extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function call(): HasOne
+    {
+        return $this->hasOne(Call::class);
     }
 
     public function wishes(): HasMany

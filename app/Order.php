@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasOne, HasMany};
 
 class Order extends Model
 {
@@ -24,5 +24,10 @@ class Order extends Model
     public function calls(): HasMany
     {
         return $this->hasMany(Call::class);
+    }
+
+    public function pantry(): HasOne
+    {
+        return $this->hasOne(Pantry::class);
     }
 }
