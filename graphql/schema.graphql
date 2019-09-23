@@ -17,3 +17,4 @@ type Mutation
 #import call.graphql
 #import pantry.graphql
 #import auth.graphql
+#import fact.graphql

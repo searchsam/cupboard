@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
+use Illuminate\Database\Eloquent\Relations\{HasMany, HasOne};
 
 class Product extends Model
 {
@@ -16,13 +16,13 @@ class Product extends Model
         'name', 'user_id'
     ];
 
-    public function user(): BelongsTo
+    public function wish(): HasOne
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(Wish::class);
     }
 
-    public function wish(): HasMany
+    public function facts(): HasMany
     {
-        return $this->hasMany(Wish::class);
+        return $this->hasMany(Fact::class);
     }
 }

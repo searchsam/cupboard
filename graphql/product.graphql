@@ -4,18 +4,12 @@ type Product @model {
     name: String!
     created_at: DateTime!
     updated_at: DateTime!
-    features: Feature! @hasMany
-    wishes: Request! @hasMany
+    facts: [Fact!]! @hasMany
+    wish: Wish! @hasOne
 }
 
 input CreateProductInput {
     name: String!
-    features: CreateFeatureRelation
-}
-
-input CreateFeatureRelation {
-    create: CreateFeatureInput
-    connect: ID!
 }
 
 extend type Query {

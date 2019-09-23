@@ -1,0 +1,23 @@
+
+type Fact @model {
+    id: ID!
+    created_at: DateTime!
+    updated_at: DateTime!
+    product: Product! @belongsTo
+    feature: Feature! @belongsTo
+}
+
+input CreateFactInput {
+    product: CreateProductRelation
+    feature: CreateFeatureRelation
+}
+
+input CreateProductRelation {
+    connect: ID
+    create: CreateProductInput
+}
+
+input CreateFeatureRelation {
+    connect: ID
+    create: CreateFeatureInput
+}

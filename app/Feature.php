@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Feature extends Model
 {
@@ -13,11 +13,11 @@ class Feature extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'product_id'
+        'name'
     ];
 
-    public function product(): BelongsTo
+    public function fact(): HasOne
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasOne(Fact::class);
     }
 }
