@@ -83,7 +83,8 @@ export default {
           }
         })
         .then(() => {
-          this.$emit("showHeader", this.msg);
+          this.showCreateOrderButton();
+          // this.$emit("showHeader", this.msg);
         })
         .catch(error => {
           this.error = error.message;

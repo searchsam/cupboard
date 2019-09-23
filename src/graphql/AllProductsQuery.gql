@@ -1,7 +1,13 @@
 
 query Products {
-  products {
-    id
-    name
-  }
+    products {
+      id
+      name
+      facts {
+        id
+        feature {
+          name
+        }
+      }
+    }
 }
