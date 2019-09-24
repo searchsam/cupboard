@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany, HasOne};
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Request extends Model
 {
@@ -13,7 +13,7 @@ class Request extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id'
+        'user_id', 'order_id', 'description', 'quantity', 'status'
     ];
 
     public function user(): BelongsTo
@@ -21,13 +21,8 @@ class Request extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function call(): HasOne
+    public function order(): BelongsTo
     {
-        return $this->hasOne(Call::class);
-    }
-
-    public function wishes(): HasMany
-    {
-        return $this->hasMany(Wish::class);
+        return $this->belongsTo(Order::class);
     }
 }

@@ -1,29 +1,24 @@
 
 type Request @model {
     id: ID!
-    created_at: DateTime!
-    updated_at: DateTime!
+    description: String!
+    quantity: String!
+    status: Int
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+    order: Order! @hasOne
     user: User! @belongsTo
-    wishes: [Wish!]! @hasMany
-    call: Call! @hasOne
 }
 
 input CreateRequestInput {
-    user: CreateUserRelation
+    description: String!
+    quantity: String!
 }
 
-input CreateUserRelation {
-    connect: ID! @globalId(decode: "ID")
+extend type Query @middleware(checks: ["auth:api"]) {
+    requests(order_id: ID! @globalId(decode: "ID") @eq): [Request!]! @all
 }
 
-input CreateWishRelation {
-    create: [CreateWishInput!]!
-}
-
-extend type Query {
-    requests(user_id: ID! @globalId(decode: "ID") @eq): [Request!]! @all
-}
-
-extend type Mutation {
-    createRequest(input: CreateRequestInput! @spread): Request! @create
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    createRequest(input: CreateRequestInput! @spread): Request @field(resolver: "RequestMutator@create")
 }

@@ -21,9 +21,9 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function calls(): HasMany
+    public function requests(): HasMany
     {
-        return $this->hasMany(Call::class);
+        return $this->hasMany(Request::class);
     }
 
     public function pantry(): HasOne

@@ -13,11 +13,11 @@ class Pantry extends Model
      * @var array
      */
     protected $fillable = [
-        'quantity', 'order_id'
+        'status', 'order_id'
     ];
 
-    public function product(): BelongsTo
+    public function order(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Order::class);
     }
 }
