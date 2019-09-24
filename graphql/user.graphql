@@ -21,3 +21,7 @@ input CreateUserInput {
     email: String!
     password: String! @bcrypt
 }
+
+extend type Query @middleware(checks: ["auth:api"]) {
+    users: [User!]! @all
+}

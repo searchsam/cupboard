@@ -20,7 +20,8 @@ class CreateRequestsTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
             $table->string('description');
-            $table->integer('quantity');
+            $table->string('quantity');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

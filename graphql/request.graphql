@@ -2,22 +2,23 @@
 type Request @model {
     id: ID!
     description: String!
-    quantity: Int!
+    quantity: String!
+    status: Int
     createdAt: DateTime! @rename(attribute: "created_at")
     updatedAt: DateTime! @rename(attribute: "updated_at")
-    order: Call! @hasOne
+    order: Order! @hasOne
     user: User! @belongsTo
 }
 
 input CreateRequestInput {
     description: String!
-    quantity: Int!
+    quantity: String!
 }
 
-extend type Query {
-    requests(user_id: ID! @globalId(decode: "ID") @eq): [Request!]! @all
+extend type Query @middleware(checks: ["auth:api"]) {
+    requests(order_id: ID! @globalId(decode: "ID") @eq): [Request!]! @all
 }
 
-extend type Mutation {
-    createRequest(input: CreateRequestInput! @spread): Request! @create
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    createRequest(input: CreateRequestInput! @spread): Request @field(resolver: "RequestMutator@create")
 }
