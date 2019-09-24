@@ -9,12 +9,7 @@ type Query
 type Mutation
 
 #import user.graphql
-#import product.graphql
 #import request.graphql
-#import wish.graphql
-#import feature.graphql
 #import order.graphql
-#import call.graphql
 #import pantry.graphql
 #import auth.graphql
-#import fact.graphql

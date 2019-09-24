@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany, HasOne};
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 
 class Request extends Model
 {
@@ -21,13 +21,13 @@ class Request extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function call(): HasOne
+    public function orders(): HasMany
     {
-        return $this->hasOne(Call::class);
+        return $this->hasMany(Order::class);
     }
 
-    public function wishes(): HasMany
+    public function requests(): HasMany
     {
-        return $this->hasMany(Wish::class);
+        return $this->hasMany(Request::class);
     }
 }

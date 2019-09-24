@@ -1,23 +1,17 @@
 
 type Request @model {
     id: ID!
-    created_at: DateTime!
-    updated_at: DateTime!
+    description: String!
+    quantity: Int!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+    order: Call! @hasOne
     user: User! @belongsTo
-    wishes: [Wish!]! @hasMany
-    call: Call! @hasOne
 }
 
 input CreateRequestInput {
-    user: CreateUserRelation
-}
-
-input CreateUserRelation {
-    connect: ID! @globalId(decode: "ID")
-}
-
-input CreateWishRelation {
-    create: [CreateWishInput!]!
+    description: String!
+    quantity: Int!
 }
 
 extend type Query {
