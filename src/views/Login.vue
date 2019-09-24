@@ -2,7 +2,7 @@
   <div id="login" class="container mx-auto px-4 p4">
     <form
       id="login"
-      class="p-4"
+      class="inline-block align-middle p-4"
       action=""
       method="POST"
       @submit.prevent="login()"

@@ -1,16 +1,18 @@
 <template>
-  <body id="app">
-    <NavBar />
-    <RouterView />
+  <body id="app" class="h-screen">
+    <div class="flex h-full">
+      <div class="w-1/6"><NavBar /></div>
+      <div class="w-5/6 w-full m-5"><RouterView /></div>
+    </div>
   </body>
 </template>
 
 <script type="text/javascript">
 import NavBar from "@/components/NavBar.vue";
 export default {
-    components: {
-      NavBar
-    }
+  components: {
+    NavBar
+  }
 };
 </script>
 
@@ -23,7 +25,5 @@ export default {
 
 body
     font-family: 'Open Sans', sans-serif
-    // color: #C7C7C7
-    background-color: #f5f5f5
-    // font-weight: bold
+    background-color: #F5F5F5
 </style>

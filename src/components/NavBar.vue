@@ -1,51 +1,28 @@
 <template lang="html">
-  <nav
-    id="nav"
-    class="navbar flex items-center justify-between flex-wrap p-6 shadow bg-white"
-  >
-    <div class="flex items-center flex-shrink-0 text-white mr-6">
-      <img
-        src="@/assets/logo_nerdify.svg"
-        class="fill-current h-8 w-8 mr-2"
-        width="54"
-        height="54"
-      />
-      <span class="font-semibold text-xl tracking-tight text-yellow-500">
-        CupBoard
+  <aside class="text-center relative sidebar bg-white h-full">
+    <div class="block p-5">
+      <span class="object-center font-semibold text-xl text-yellow-400">
+        CB
       </span>
     </div>
-    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-      <div class="text-sm lg:flex-grow">
+    <div>
         <router-link
-          to="/home"
-          class="block mt-4 lg:inline-block lg:mt-0 hover:text-yellow-500 mr-4"
-        >
-          Inicio
-        </router-link>
-        <router-link
-          to="/order"
-          class="block mt-4 lg:inline-block lg:mt-0 hover:text-yellow-500 mr-4"
+          to="/orders"
+          class="block hover:bg-yellow-400 p-5"
         >
           Ordenes
         </router-link>
-        <router-link
-          to="/requests"
-          class="block mt-4 lg:inline-block lg:mt-0 hover:text-yellow-500 mr-4"
-        >
-          Solicitudes
-        </router-link>
       </div>
-      <div>
+      <div class=" inset-x-0 bottom-0 absolute hover:bg-gray-400">
         <a
           href="#"
           @click.prevent="logout"
-          class="inline-block text-sm px-4 py-2 leading-none hover:text-black mt-4 lg:mt-0"
+          class="block p-5"
         >
           Salir
         </a>
       </div>
-    </div>
-  </nav>
+  </aside>
 </template>
 
 <script type="text/javascript">
@@ -56,8 +33,14 @@ export default {
   methods: {
     logout() {
       onLogout(this.$apollo.provider.defaultClient);
+      localStorage.removeItem("auType");
       this.$router.push({ name: "login" });
     }
   }
 };
 </script>
+
+<style lang="sass">
+.sidebar
+  flex-direction: column
+</style>

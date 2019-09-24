@@ -14,24 +14,20 @@ let router = new Router({
       path: "/",
       name: "login",
       component: Login,
-      meta: {
-        auth: false
-      }
+      meta: { auth: false }
     },
     {
       path: "/orders",
       name: "orders",
       component: Order,
-      meta: {
-        auth: true
-      }
-  },
-  {
-    path: "/request:id",
-    name: "request",
-    component: Request,
-    meta: { auth: true }
-  }
+      meta: { auth: true }
+    },
+    {
+      path: "/request:id",
+      name: "request",
+      component: Request,
+      meta: { auth: true }
+    }
   ]
 });
 
