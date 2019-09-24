@@ -1,52 +1,38 @@
 <template lang="html">
-  <div id="login" class="container mx-auto px-4 p4">
-    <form
-      id="login"
-      class="inline-block align-middle p-4"
-      action=""
-      method="POST"
-      @submit.prevent="login()"
-    >
-      <!-- Email Input -->
-      <div class="mb-4">
-        <input
-          class="h-12 border"
-          type="email"
-          v-model="username"
-          name="username"
-          placeholder="Email"
-        />
-      </div>
-      <!-- Password Input -->
-      <div class="mb-4">
-        <input
-          class="h-12 border"
-          name="password"
-          type="password"
-          v-model="password"
-          placeholder="Password"
-        />
-      </div>
-      <!-- Error Message -->
-      <div
-        v-if="error"
-        class="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3"
-        role="alert"
-      >
-        <p>{{ error }}</p>
-      </div>
-      <!-- Submit Button -->
-      <div class="mb-4">
-        <button class="h-12 w-48 border bg-blue-400 text-white" type="submit">
-          Iniciar Sesion
-        </button>
-      </div>
-    </form>
+    <div id="login" class="container mx-auto px-4">
+
+  <form method="POST" @submit.prevent="login" class="block">
+    <!-- Email Input -->
+    <input
+      class="mb-4 h-12 border-2 border-gray-400 placeholder-gray-400"
+      type="email"
+      v-model="username"
+      name="username"
+      placeholder="Email"
+    />
+    <br />
+    <!-- Password Input -->
+    <input
+      class="mb-4 h-12 border-2 border-gray-400 placeholder-gray-400"
+      name="password"
+      type="password"
+      v-model="password"
+      placeholder="Password"
+    />
+    <!-- Error Message -->
+    <Alert :msg="error" />
+    <br />
+    <!-- Submit Button -->
+    <button class="h-12 w-56 border bg-blue-400 text-white" type="submit">
+      Iniciar Sesion
+    </button>
+  </form>
   </div>
 </template>
 
 <script type="text/javascript">
 import { onLogin } from "@/vue-apollo.js";
+import Alert from "@/components/error/Alert.vue";
 
 export default {
   name: "login",
@@ -74,14 +60,14 @@ export default {
           this.$router.push({ name: "orders" });
         })
         .catch(error => {
-          this.error = error;
+          this.error = error.message.split(":")[1];
         });
     }
+  },
+  components: {
+    Alert
   }
 };
 </script>
 
-<style lang="sass" scoped>
-form
-  font-weight: bold
-</style>
+<style lang="sass" scoped></style>

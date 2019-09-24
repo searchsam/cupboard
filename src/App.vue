@@ -1,20 +1,10 @@
 <template>
   <body id="app" class="h-screen">
-    <div class="flex h-full">
-      <div class="w-1/6"><NavBar /></div>
-      <div class="w-5/6 w-full m-5"><RouterView /></div>
-    </div>
+    <RouterView />
   </body>
 </template>
 
-<script type="text/javascript">
-import NavBar from "@/components/NavBar.vue";
-export default {
-  components: {
-    NavBar
-  }
-};
-</script>
+<script type="text/javascript"></script>
 
 <style lang="sass">
 @tailwind base

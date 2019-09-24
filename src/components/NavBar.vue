@@ -6,22 +6,15 @@
       </span>
     </div>
     <div>
-        <router-link
-          to="/orders"
-          class="block hover:bg-yellow-400 p-5"
-        >
-          Ordenes
-        </router-link>
-      </div>
-      <div class=" inset-x-0 bottom-0 absolute hover:bg-gray-400">
-        <a
-          href="#"
-          @click.prevent="logout"
-          class="block p-5"
-        >
-          Salir
-        </a>
-      </div>
+      <router-link to="/orders" class="block hover:bg-yellow-400 p-5">
+        Ordenes
+      </router-link>
+    </div>
+    <div class=" inset-x-0 bottom-0 absolute hover:bg-gray-400">
+      <a href="#" @click.prevent="logout" class="block p-5">
+        Salir
+      </a>
+    </div>
   </aside>
 </template>
 

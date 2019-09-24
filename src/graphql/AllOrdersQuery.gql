@@ -1,6 +1,11 @@
 
 query Orders {
-  orders {
+  orders(
+    orderBy: [
+      { field: "status", order: DESC },
+      { field: "deadline", order: DESC }
+    ]
+  ) {
     id
     status
     deadline

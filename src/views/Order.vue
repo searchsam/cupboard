@@ -1,37 +1,31 @@
 <template>
-  <div id="order w-full">
-      <h1 class="font-thin text-6xl">
-        Ordenes
-      </h1>
+  <div id="order">
+    <h1 class="font-thin text-6xl">
+      Ordenes
+    </h1>
 
     <!-- Create New Order -->
-    <div id="createOderForm" class="shadow w-full bg-white m-2" v-if="showForm">
+    <div id="createOderForm" class="w-full bg-white m-2" v-if="showForm">
       <h1 class="p-4 text-xl">Crear Nueva Orden</h1>
-      <form class="p-4" action="" method="POST">
+      <form class="p-4" action="" method="POST" @submit.prevent="createOrder">
         <label for="deadline" class="mb-5">
           Ingrese la fecha limete para la orden.
         </label>
         <br />
         <DatePick
           v-model="deadline"
+          max="2019-12-30"
+          min="2019-01-01"
           :format="'YYYY-MM-DD'"
           :startWeekOnSunday="true"
         />
         <button
-          class="bg-yellow-500 text-white text-xl h-10 w-40 hover:bg-yellow-400"
-          max="2019-12-30"
-          min="2019-01-01"
+          class="bg-yellow-500 text-white text-xl h-12 w-40 hover:bg-yellow-400"
           type="submit"
         >
           Crear Orden
         </button>
-        <div
-          v-show="error"
-          class="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3"
-          role="alert"
-        >
-          <p>{{ error }}</p>
-        </div>
+        <Alert :msg="error" />
       </form>
     </div>
 
@@ -39,7 +33,7 @@
     <div class="inline-flex content-center">
       <!-- Show Create Order Form -->
       <div
-        class="show-form shadow flex-1 content-center px-8 py-4 m-2 w-56 bg-white"
+        class="show-form flex-1 content-center px-8 py-4 m-2 w-56 bg-white"
         @click="showCreateOrderForm"
         v-if="!showForm"
       >
@@ -48,7 +42,7 @@
         </div>
       </div>
       <div
-        class="show-form shadow flex-1 content-center px-8 py-4 m-2 w-56 bg-white"
+        class="show-form flex-1 content-center px-8 py-4 m-2 w-56 bg-white"
         @click="showCreateOrderForm"
         v-else
       >
@@ -59,10 +53,10 @@
 
       <!-- Orders Cards -->
       <div
-        class="card-order shadow content-center flex-1 px-8 py-4 m-2 w-56 bg-white"
+        class="card-order content-center flex-1 px-8 py-4 m-2 w-56 bg-white"
         v-for="order in orders"
         :key="order.id"
-        @click="goTo(order.id)"
+        @click="goTo(order.id, order.status)"
       >
         <div class="content-center">
           <svg
@@ -89,6 +83,7 @@
 <script type="text/javascript">
 import DatePick from "vue-date-pick";
 import "vue-date-pick/dist/vueDatePick.css";
+import Alert from "@/components/error/Alert.vue";
 
 export default {
   name: "order",
@@ -102,18 +97,40 @@ export default {
     };
   },
   methods: {
-    goTo(orderId) {
-      this.$router.push("/request" + orderId);
-    },
-    captureNewOrder(orderObjectForm) {
-      this.newOrder = orderObjectForm;
+    goTo(orderId, orderStatus) {
+      this.$router.push({
+        name: "requests",
+        params: { orderId: orderId, orderStatus: orderStatus }
+      });
     },
     showCreateOrderForm() {
       this.showForm = !this.showForm;
+    },
+    createOrder() {
+      this.$apollo
+        .mutate({
+          mutation: require("@/graphql/CreateOrderMutation.gql"),
+          variables: { deadline: this.deadline },
+          update: (store, { data: { createOrder } }) => {
+            if (createOrder) {
+              this.orders.push(createOrder);
+            } else {
+              this.error = "Error al crear la orden.";
+            }
+          }
+        })
+        .then(() => {
+          this.error = null;
+          this.showCreateOrderForm();
+        })
+        .catch(error => {
+          this.error = error.message.split(":")[1];
+        });
     }
   },
   components: {
-    DatePick
+    DatePick,
+    Alert
   },
   apollo: {
     orders: { query: require("@/graphql/AllOrdersQuery.gql") }
@@ -124,7 +141,7 @@ export default {
 <style lang="sass" scoped>
 .card-order:hover
     border-style: solid
-    border-color: #fbd38d
+    border-color: #f6e05e
     border-width: 2px
 
 .show-form:hover

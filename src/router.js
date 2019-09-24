@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import { AUTH_TOKEN } from "./vue-apollo";
 
+import Home from "@/views/Home.vue";
 import Login from "@/views/Login.vue";
 import Order from "@/views/Order.vue";
 import Request from "@/views/Request.vue";
@@ -17,15 +18,12 @@ let router = new Router({
       meta: { auth: false }
     },
     {
-      path: "/orders",
-      name: "orders",
-      component: Order,
-      meta: { auth: true }
-    },
-    {
-      path: "/request:id",
-      name: "request",
-      component: Request,
+      path: "/cupboard",
+      component: Home,
+      children: [
+        { path: "/orders", name: "orders", component: Order, },
+        { path: "/requests", name: "requests", component: Request, props: true, },
+      ],
       meta: { auth: true }
     }
   ]
