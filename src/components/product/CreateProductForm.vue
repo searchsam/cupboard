@@ -1,19 +1,13 @@
 <template lang="html">
-  <div class="createorderfrom">
-    <h1 class="text-bold text-2xl mr-6">
-      Crear Nueva Orden
-    </h1>
+  <div class="createproductfrom">
+    <h1 class="text-bold text-2xl mr-6">Crear Nuevo Producto</h1>
     <form class="p-4" action="" method="POST" @submit.prevent="createOrder()">
       <div class="mb-4">
         <label for="deadline" class="mb-5">
           Ingrese la fecha limete para la orden.
         </label>
         <br />
-        <date-pick
-          v-model="deadline"
-          :format="'YYYY-MM-DD'"
-          :startWeekOnSunday="true"
-        ></date-pick>
+        <input type="text" name="" value="" />
         <button
           class="bg-yellow-500 text-white font-bold text-base h-10 w-40 hover:bg-yellow-400"
           max="2019-12-30"
@@ -44,14 +38,9 @@
 
 <script type="text/javascript">
 import Vue from "vue";
-import DatePick from "vue-date-pick";
-import "vue-date-pick/dist/vueDatePick.css";
 
 export default {
-  name: "CreateOrderForm",
-  components: {
-    DatePick
-  },
+  name: "CreateProductForm",
   props: {
     msg: {
       type: Boolean

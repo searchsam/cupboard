@@ -4,13 +4,14 @@
     <div class="mb-4">
       <div v-if="whishes">
         <ul>
-          <li v-for="wish in whishes" :key="wish.id"></li>
+          <li v-for="wish in whishes" :key="wish.id">{{ wish }}</li>
         </ul>
       </div>
       <div v-if="showForm" class="productos">
-        <label for="deadline" class="mb-5"
-          >Agregue productos a las solicitud.</label
-        ><br />
+        <label for="deadline" class="mb-5">
+          Agregue productos a las solicitud.
+        </label>
+        <br />
         <select
           v-model="wish"
           name="select"
@@ -46,10 +47,7 @@
         </div>
       </div>
       <div v-else class="">
-        <input type="text" name="" value="" />
-        <input type="text" name="" value="" />
-        <button type="button" name="button"></button>
-        <button type="button" name="button"></button>
+        <CreateProductForm />
       </div>
     </div>
 
@@ -76,6 +74,7 @@
 
 <script type="text/javascript">
 import Vue from "vue";
+import CreateProductForm from "@/components/product/CreateProductForm.vue";
 
 export default {
   name: "CreateWishForm",
@@ -84,22 +83,24 @@ export default {
       type: Boolean
     }
   },
-  data: () => ({
-    status: 0,
-    quantity: 0,
-    request: Vue.prototype.$request,
-    products: [],
-    whishes: [],
-    error: null,
-    wish: null,
-    showForm: true
-  }),
+  data() {
+    return {
+      status: 0,
+      quantity: 0,
+      request: Vue.prototype.$request,
+      products: [],
+      whishes: [],
+      error: null,
+      wish: null,
+      showForm: true
+    };
+  },
   methods: {
     showCreateRequestButton() {
+      this.$emit("requestObjectForm", this.request);
       this.$emit("showHeader", this.msg);
     },
     createRequest() {
-      this.$emit("requestObjectForm", this.request);
       this.showCreateRequestButton();
     },
     showProductForm() {
@@ -128,6 +129,9 @@ export default {
           this.error = error.message;
         });
     }
+  },
+  components: {
+    CreateProductForm
   },
   apollo: {
     products: {

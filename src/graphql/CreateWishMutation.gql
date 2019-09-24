@@ -1,8 +1,0 @@
-
-mutation CreateWish($data: CreateWishInput!) {
-  createWish(input: $data) {
-    id
-    status
-    quantity
-  }
-}

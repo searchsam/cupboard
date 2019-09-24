@@ -25,15 +25,14 @@
         <router-link
           to="/order"
           class="block mt-4 lg:inline-block lg:mt-0 hover:text-yellow-500 mr-4"
-          v-show="user_type <= 1"
         >
-          Orden
+          Ordenes
         </router-link>
         <router-link
-          to="/request"
+          to="/requests"
           class="block mt-4 lg:inline-block lg:mt-0 hover:text-yellow-500 mr-4"
         >
-          Solicitud
+          Solicitudes
         </router-link>
       </div>
       <div>
@@ -50,21 +49,13 @@
 </template>
 
 <script type="text/javascript">
-import Vue from "vue";
 import { onLogout } from "@/vue-apollo.js";
 
 export default {
   name: "NavBar",
-  data() {
-    return {
-      user_type: Vue.prototype.$authUserType
-    };
-  },
   methods: {
     logout() {
       onLogout(this.$apollo.provider.defaultClient);
-      Vue.prototype.$authUser = null;
-      Vue.prototype.$authUserType = null;
       this.$router.push({ name: "login" });
     }
   }

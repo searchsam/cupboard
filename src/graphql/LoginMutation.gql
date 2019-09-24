@@ -1,7 +1,7 @@
 
 mutation Login($data: LoginInput!) {
   login(input: $data) {
-    access_token
+    accessToken
     user {
         id
         type

@@ -37,7 +37,7 @@ export default {
     };
   },
   watch: {
-    msg: function() {
+    msg() {
       this.requests.push(this.msg);
     }
   },
