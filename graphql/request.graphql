@@ -1,27 +1,21 @@
 
 type Request @model {
     id: ID!
-    created_at: DateTime!
-    updated_at: DateTime!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
     user: User! @belongsTo
-    wishes: [Wish!]! @hasMany
-    call: Call! @hasOne
+    order: Call! @belongsTo
+    description: String!
+    quantity: Int!
 }
 
 input CreateRequestInput {
-    user: CreateUserRelation
-}
-
-input CreateUserRelation {
-    connect: ID! @globalId(decode: "ID")
-}
-
-input CreateWishRelation {
-    create: [CreateWishInput!]!
+    description: String!
+    quantity: Int!
 }
 
 extend type Query {
-    requests(user_id: ID! @globalId(decode: "ID") @eq): [Request!]! @all
+    requests(orderId: ID! @globalId(decode: "ID") @eq): [Request!]! @all
 }
 
 extend type Mutation {

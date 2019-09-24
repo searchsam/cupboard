@@ -21,9 +21,9 @@ class Request extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function call(): HasOne
+    public function order(): HasOne
     {
-        return $this->hasOne(Call::class);
+        return $this->belongsTo(Order::class);
     }
 
     public function wishes(): HasMany

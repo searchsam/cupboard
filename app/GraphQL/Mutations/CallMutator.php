@@ -39,7 +39,7 @@ class CallMutator
         }
 
         $order = Order::where('status', 1)->first();
-        
+
         $request = new Request;
         $request->user_id = (int) $params['request']["create"]["user"]["connect"];
         $request->save();
