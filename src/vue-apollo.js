@@ -9,9 +9,7 @@ import {
 Vue.use(VueApollo);
 
 // Name of the localStorage item
-export const AUTH_TOKEN = "apollo-token";
-export const USER_TYPE = "api-user-type";
-export const AUTH_USER = "auth-api-user";
+export const AUTH_TOKEN = "apolloToken";
 
 // Http endpoint
 const httpEndpoint =
@@ -38,7 +36,7 @@ const defaultOptions = {
   // You need to pass a `wsEndpoint` for this to work
   websocketsOnly: false,
   // Is being rendered on the server?
-  ssr: false
+  ssr: false,
 
   // Override default apollo link
   // note: don't override httpLink here, specify httpLink options in the
@@ -50,6 +48,10 @@ const defaultOptions = {
 
   // Override the way the Authorization header is set
   // getAuth: (tokenName) => ...
+  getAuth: tokenName => {
+    const token = localStorage.getItem(tokenName);
+    return `Bearer ${token}` || "";
+  }
 
   // Additional ApolloClient options
   // apollo: { ... }

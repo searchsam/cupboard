@@ -1,23 +1,18 @@
 <template>
-  <div class="home">
-    <NavBar />
-    <div class="container mx-auto px-4">
-      <img alt="Vue logo" src="../assets/logo.png" />
-      <Hello msg="Welcome to Your Vue.js App" />
+    <div class="flex h-full">
+      <div class="w-1/7"><NavBar /></div>
+      <div class="w-6/7 w-full m-5"><RouterView /></div>
     </div>
-  </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import Hello from "@/components/Hello.vue";
+<script type="text/javascript">
 import NavBar from "@/components/NavBar.vue";
-
 export default {
   name: "home",
   components: {
-    NavBar,
-    Hello
+    NavBar
   }
 };
 </script>
+
+<style lang="sass" scoped></style>

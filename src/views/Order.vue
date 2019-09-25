@@ -1,60 +1,151 @@
 <template>
-  <div class="order">
-    <NavBar />
-    <div class="container mx-auto px-4">
-      <div v-if="showHeader" class="p-5 mt-20" id="header">
-        <h1 class="block text-bold inline-block text-4xl mr-6">Ordenes</h1>
-        <button
-          type="button"
-          name="button"
-          class="bg-yellow-500 font-bold text-white inline-block text-base h-10 w-40 hover:bg-yellow-400"
-          @click="showCreateOrderForm"
-        >
-          Crear Nueva Orden
-        </button>
-      </div>
-      <div v-else class="p-5 mt-20" id="header">
-        <CreateOrderForm
-          :msg="showHeader"
-          @showHeader="showCreateOrderForm"
-          @orderObjectForm="captureNewOrder"
+  <div id="order">
+    <h1 class="font-thin text-6xl">
+      Ordenes
+    </h1>
+
+    <!-- Create New Order -->
+    <div id="createOderForm" class="w-full bg-white m-2" v-if="showForm">
+      <h1 class="p-4 text-xl">Crear Nueva Orden</h1>
+      <form class="p-4" action="" method="POST" @submit.prevent="createOrder">
+        <label for="deadline" class="mb-5">
+          Ingrese la fecha limete para la orden.
+        </label>
+        <br />
+        <DatePick
+          v-model="deadline"
+          max="2019-12-30"
+          min="2019-01-01"
+          :format="'YYYY-MM-DD'"
+          :startWeekOnSunday="true"
         />
+        <button
+          class="bg-yellow-500 text-white text-xl h-12 w-40 hover:bg-yellow-400"
+          type="submit"
+        >
+          Crear Orden
+        </button>
+        <Alert :msg="error" />
+      </form>
+    </div>
+
+    <!-- Orders List -->
+    <div class="inline-flex content-center">
+      <!-- Show Create Order Form -->
+      <div
+        class="show-form flex-1 content-center px-8 py-4 m-2 w-56 bg-white"
+        @click="showCreateOrderForm"
+        v-if="!showForm"
+      >
+        <div class="content-center text-center">
+          <h1 class="inline-block">Nueva Orden</h1>
+        </div>
       </div>
-      <OrderList :msg="newOrder" />
+      <div
+        class="show-form flex-1 content-center px-8 py-4 m-2 w-56 bg-white"
+        @click="showCreateOrderForm"
+        v-else
+      >
+        <div class="content-center text-center">
+          <h1 class="inline-block text-bold">Cancelar</h1>
+        </div>
+      </div>
+
+      <!-- Orders Cards -->
+      <div
+        class="card-order content-center flex-1 px-8 py-4 m-2 w-56 bg-white"
+        v-for="order in orders"
+        :key="order.id"
+        @click="goTo(order.id, order.status)"
+      >
+        <div class="content-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 10 20"
+            class="inline-block fill-current h-5 w-5"
+            :class="order.status ? 'text-green-400' : 'text-red-400'"
+            focusable="false"
+          >
+            <circle cx="3" cy="10" r="8"></circle>
+          </svg>
+          <h1
+            class="inline-block"
+            :class="order.status ? 'text-black' : 'text-gray-400'"
+          >
+            Orden {{ order.deadline.split(" ")[0] }}
+          </h1>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
-import NavBar from "@/components/NavBar.vue";
-import OrderList from "@/components/order/OrderList.vue";
-import CreateOrderForm from "@/components/order/CreateOrderForm.vue";
+import DatePick from "vue-date-pick";
+import "vue-date-pick/dist/vueDatePick.css";
+import Alert from "@/components/error/Alert.vue";
 
 export default {
   name: "order",
   data() {
     return {
-      showHeader: true,
-      newOrder: null
+      deadline: "",
+      showForm: false,
+      newOrder: null,
+      orders: [],
+      error: null
     };
   },
-  components: {
-    NavBar,
-    OrderList,
-    CreateOrderForm
-  },
   methods: {
-    showCreateOrderForm() {
-      this.showHeader = !this.showHeader;
+    goTo(orderId, orderStatus) {
+      this.$router.push({
+        name: "requests",
+        params: { orderId: orderId, orderStatus: orderStatus }
+      });
     },
-    captureNewOrder(orderObjectForm) {
-      this.newOrder = orderObjectForm;
+    showCreateOrderForm() {
+      this.showForm = !this.showForm;
+    },
+    createOrder() {
+      this.$apollo
+        .mutate({
+          mutation: require("@/graphql/CreateOrderMutation.gql"),
+          variables: { deadline: this.deadline },
+          update: (store, { data: { createOrder } }) => {
+            if (createOrder) {
+              this.orders.push(createOrder);
+            } else {
+              this.error = "Error al crear la orden.";
+            }
+          }
+        })
+        .then(() => {
+          this.error = null;
+          this.showCreateOrderForm();
+        })
+        .catch(error => {
+          this.error = error.message.split(":")[1];
+        });
     }
+  },
+  components: {
+    DatePick,
+    Alert
+  },
+  apollo: {
+    orders: { query: require("@/graphql/AllOrdersQuery.gql") }
   }
 };
 </script>
 
 <style lang="sass" scoped>
-#header
-  border-bottom: 2px solid #e2e8f0
+.card-order:hover
+    border-style: solid
+    border-color: #f6e05e
+    border-width: 2px
+
+.show-form:hover
+    border-style: solid
+    border-color: #cbd5e0
+    border-width: 2px
 </style>
