@@ -24,5 +24,10 @@ extend type Query {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-    createOrder(deadline: Date!): Order @field(resolver: "OrderMutator@create")
+    createOrder(
+        deadline: Date! @rules(
+            apply: ["required", "date"],
+            messages: { required: "El campo es requerido.", date: "No es una fecha valida."}
+        )
+    ): Order @can(ability: "create", model: "App\\Order") @field(resolver: "OrderMutator@create")
 }
