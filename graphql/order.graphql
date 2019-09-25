@@ -3,11 +3,11 @@ type Order @model {
     id: ID!
     status: Int!
     deadline: DateTime!
-    created_at: DateTime!
-    updated_at: DateTime!
-    user: User! @belongsTo
-    requests: [Request!]! @hasMany
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
     pantry: Pantry! @hasOne
+    requests: [Request!]! @hasMany
+    user: User! @belongsTo
 }
 
 enum OrderStatus {
@@ -15,10 +15,14 @@ enum OrderStatus {
     ACTIVE @enum(value: 1)
 }
 
-extend type Query {
-    orders: [Order!]! @all
+input CreateOrderInput {
+    deadline: Date!
 }
 
-extend type Mutation {
-    createOrder(deadline: Date!): Order! @field(resolver: "OrderMutator@create")
+extend type Query {
+    orders(orderBy: [OrderByClause!] @orderBy): [Order!]! @all
+}
+
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    createOrder(deadline: Date!): Order @field(resolver: "OrderMutator@create")
 }

@@ -16,11 +16,12 @@ class CreateRequestsTable extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedInteger('quantity');
-            $table->string('description');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('description');
+            $table->string('quantity');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

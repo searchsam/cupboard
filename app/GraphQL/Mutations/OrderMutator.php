@@ -10,28 +10,16 @@ use App\Order;
 
 class OrderMutator
 {
-
     public function create($rootValue, array $args)
     {
-
+        // TODO implement the resolver
         $deadline = $args['deadline'];
 
-        if (Order::where('status', 1)->exists()) {
-            throw new CustomException(
-                'Ya existe una orden activa.',
-                'Solo puede existir una order activa a la vez.'
-            );
-        }
+        // TODO Validar existe orden activa
 
-        if (Order::where('deadline', '>=', $deadline)->exists()) {
-            throw new CustomException(
-                'Ya existe una orden para una fecha posterior.',
-                'La fecha seleccionada esta en el rango de fecha de una orden existente.'
-            );
+        // TODO Validar fecha no se sobrepongan
 
-            return null;
-        }
-
+        // TODO Validar usuario es administrador
 
         $order = new Order;
         $order->status = 1;

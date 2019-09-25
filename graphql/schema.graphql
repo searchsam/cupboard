@@ -8,8 +8,9 @@ type Query
 
 type Mutation
 
-#import user.graphql
-#import request.graphql
-#import order.graphql
-#import pantry.graphql
 #import auth.graphql
+#import order.graphql
+#import orderBy.graphql
+#import pantry.graphql
+#import request.graphql
+#import user.graphql
