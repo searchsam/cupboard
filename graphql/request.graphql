@@ -35,5 +35,7 @@ extend type Query @middleware(checks: ["auth:api"]) {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-    createRequest(input: CreateRequestInput! @spread): Request @field(resolver: "RequestMutator@create")
+    createRequest(input: CreateRequestInput! @spread): Request @field(
+        resolver: "RequestMutator@create"
+    )
 }

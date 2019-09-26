@@ -1,26 +1,36 @@
-
+""" Order Model """
 type Order @model {
     id: ID!
+    " Order name "
     name: String!
+    " Order status "
     status: Int!
+    " Order deadline date "
     deadline: DateTime!
     createdAt: DateTime! @rename(attribute: "created_at")
     updatedAt: DateTime! @rename(attribute: "updated_at")
+    " Pantry relation "
     pantry: Pantry! @hasOne
+    " Request relation "
     requests: [Request!]! @hasMany
+    " User relation "
     user: User! @belongsTo
 }
 
+""" Enun Order Status Type """
 enum OrderStatus {
     INACTIVE @enum(value: 0)
     ACTIVE @enum(value: 1)
 }
 
+""" Input Order Type """
 input CreateOrderInput {
+    " Order name "
     name: String! @rules(
         apply: ["required"],
         messages: { required: "El campo es requerido."}
     )
+    " Order deadline date "
     deadline: Date! @rules(
         apply: ["required", "date"],
         messages: {
@@ -30,8 +40,11 @@ input CreateOrderInput {
     )
 }
 
+
 extend type Query {
+    " All orders (Order by clause) "
     orders(orderBy: [OrderByClause!] @orderBy): [Order!]! @all
+    " Find order dy ID "
     order(id: ID! @globalId(decode: "ID") @eq @rules(
         apply: ["required"],
         messages: { required: "El campo es requerido"}
@@ -39,6 +52,12 @@ extend type Query {
     ): Order! @find
 }
 
+
 extend type Mutation @middleware(checks: ["auth:api"]) {
-    createOrder(input: CreateOrderInput! @spread): Order @can(ability: "create", model: "Order") @field(resolver: "OrderMutator@create")
+    " Create order "
+    createOrder(input: CreateOrderInput! @spread): Order @can(
+        ability: "create", model: "Order"
+    ) @field(
+        resolver: "OrderMutator@create"
+    )
 }

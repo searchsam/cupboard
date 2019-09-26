@@ -41,7 +41,7 @@ class OrderPolicy
      */
     public function create(User $user)
     {
-        return $user->id <= 1;
+        return $user->id === User::ADMIN || $user->id === User::SUPERADMIN;
     }
 
     /**
@@ -53,7 +53,7 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-        return $user->id <= 1;
+        return $user->id === User::ADMIN || $user->id === User::SUPERADMIN;
     }
 
     /**
