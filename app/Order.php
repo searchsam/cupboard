@@ -11,7 +11,7 @@ class Order extends Model
      * {@inheritdoc}
      */
     protected $fillable = [
-        'status', 'deadline', 'user_id'
+        'name', 'status', 'deadline', 'user_id'
     ];
 
     /**

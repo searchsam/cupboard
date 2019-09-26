@@ -21,13 +21,12 @@ class RequestMutator
         // TODO implement the resolver
         $description = $args['description'];
         $quantity = $args['quantity'];
-
-        $order = Order::where('status', 1)->first();
+        $order_id = $args['order'];
 
         $request = auth()->user()->requests()->create([
             'description' => $description,
             'quantity' => $quantity,
-            'order_id' => $order->id,
+            'order_id' => $order_id
         ]);;
 
         return $request;
