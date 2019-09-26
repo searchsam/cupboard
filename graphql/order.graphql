@@ -23,7 +23,7 @@ enum OrderStatus {
     ACTIVE @enum(value: 1)
 }
 
-""" Input Order Type """
+""" Order Input Type """
 input CreateOrderInput {
     " Order name "
     name: String! @rules(
@@ -40,6 +40,31 @@ input CreateOrderInput {
     )
 }
 
+""" Update Order Input Type """
+input UpdateOrderInput {
+    id: ID! @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido."}
+    )
+    " Order name "
+    name: String! @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido."}
+    )
+    " Order deadline date "
+    deadline: Date! @rules(
+        apply: ["required", "date"],
+        messages: {
+            required: "El campo es requerido.",
+            date: "No es una fecha valida."
+        }
+    )
+    " Order status "
+    status: Int! @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido."}
+    )
+}
 
 extend type Query {
     " All orders (Order by clause) "
@@ -60,4 +85,6 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     ) @field(
         resolver: "OrderMutator@create"
     )
+    " Update Order "
+    updateOrder(input: UpdateOrderInput! @spread): Order @update
 }

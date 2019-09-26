@@ -1,4 +1,4 @@
-""" Input Login Type """
+""" Login Input Type """
 input LoginInput {
     " Identificador del Usuario Eamil "
     username: String! @rules(
