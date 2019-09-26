@@ -19,7 +19,7 @@ type Order @model {
 
 """ Enun Order Status Type """
 enum OrderStatus {
-    INACTIVE @enum(value: 0)
+    COMPLETED @enum(value: 0)
     ACTIVE @enum(value: 1)
 }
 
