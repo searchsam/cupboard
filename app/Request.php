@@ -3,31 +3,30 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany, HasOne};
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Request extends Model
 {
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $fillable = [
-        'user_id'
+        'user_id', 'order_id', 'description', 'quantity', 'status'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function order(): HasOne
+    /**
+     * @return BelongsTo
+     */
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
-    }
-
-    public function wishes(): HasMany
-    {
-        return $this->hasMany(Wish::class);
     }
 }

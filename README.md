@@ -1,3 +1,3 @@
-# cupboard
+# API.CupBoard
 
-Simple dashboard for simple database cupboard storage.
+Simple api for simple database cupboard storage.

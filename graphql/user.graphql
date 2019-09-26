@@ -1,12 +1,12 @@
 
 type User @model {
     id: ID! @globalId
-    name: String!
     email: String!
+    name: String!
     password: String!
     type: Int!
-    created_at: DateTime!
-    updated_at: DateTime!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
     requests: [Request!]! @hasMany
 }
 
@@ -20,5 +20,9 @@ input CreateUserInput {
     name: String!
     email: String!
     password: String! @bcrypt
-    type: Int!
+}
+
+extend type Query @middleware(checks: ["auth:api"]) {
+    users: [User!]! @all
+    me: User! @auth
 }

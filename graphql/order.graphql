@@ -1,24 +1,90 @@
-
+""" Order Model """
 type Order @model {
     id: ID!
+    " Order name "
+    name: String!
+    " Order status "
     status: Int!
+    " Order deadline date "
     deadline: DateTime!
-    created_at: DateTime!
-    updated_at: DateTime!
-    user: User! @belongsTo
-    requests: [Request!]! @hasMany
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+    " Pantry relation "
     pantry: Pantry! @hasOne
+    " Request relation "
+    requests: [Request!]! @hasMany
+    " User relation "
+    user: User! @belongsTo
 }
 
+""" Enun Order Status Type """
 enum OrderStatus {
     COMPLETED @enum(value: 0)
     ACTIVE @enum(value: 1)
 }
 
-extend type Query {
-    orders: [Order!]! @all
+""" Order Input Type """
+input CreateOrderInput {
+    " Order name "
+    name: String! @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido."}
+    )
+    " Order deadline date "
+    deadline: Date! @rules(
+        apply: ["required", "date"],
+        messages: {
+            required: "El campo es requerido.",
+            date: "No es una fecha valida."
+        }
+    )
 }
 
-extend type Mutation {
-    createOrder(deadline: Date!): Order! @field(resolver: "OrderMutator@create")
+""" Update Order Input Type """
+input UpdateOrderInput {
+    id: ID! @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido."}
+    )
+    " Order name "
+    name: String! @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido."}
+    )
+    " Order deadline date "
+    deadline: Date! @rules(
+        apply: ["required", "date"],
+        messages: {
+            required: "El campo es requerido.",
+            date: "No es una fecha valida."
+        }
+    )
+    " Order status "
+    status: Int! @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido."}
+    )
+}
+
+extend type Query {
+    " All orders (Order by clause) "
+    orders(orderBy: [OrderByClause!] @orderBy): [Order!]! @all
+    " Find order dy ID "
+    order(id: ID! @globalId(decode: "ID") @eq @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido"}
+      )
+    ): Order! @find
+}
+
+
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    " Create order "
+    createOrder(input: CreateOrderInput! @spread): Order @can(
+        ability: "create", model: "Order"
+    ) @field(
+        resolver: "OrderMutator@create"
+    )
+    " Update Order "
+    updateOrder(input: UpdateOrderInput! @spread): Order @update
 }

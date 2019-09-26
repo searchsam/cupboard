@@ -8,16 +8,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Pantry extends Model
 {
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $fillable = [
-        'quantity', 'order_id'
+        'status', 'order_id'
     ];
 
-    public function product(): BelongsTo
+    /**
+     * @return BelongsTo
+     */
+    public function order(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Order::class);
     }
 }

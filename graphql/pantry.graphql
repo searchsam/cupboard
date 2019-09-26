@@ -2,21 +2,12 @@
 type Pantry @model {
     id: ID!
     status: Int!
-    created_at: DateTime!
-    updated_at: DateTime!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
     order: Order! @belongsTo
 }
 
 enum PantryStatus {
     SOLDOUT @enum(value: 0)
     STOCK @enum(value: 1)
-}
-
-input CreatePantryInput {
-    status: PantryStatus
-    orders: CreateOrderRelation
-}
-
-input CreateOrderRelation {
-    connect: ID!
 }
