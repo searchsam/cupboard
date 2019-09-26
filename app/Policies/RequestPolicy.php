@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class RequestPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view any requests.
      *
@@ -53,7 +53,7 @@ class RequestPolicy
      */
     public function update(User $user, Request $request)
     {
-        //
+        return $user->id === $request->id;
     }
 
     /**

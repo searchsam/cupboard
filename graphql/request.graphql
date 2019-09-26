@@ -11,12 +11,27 @@ type Request @model {
 }
 
 input CreateRequestInput {
-    description: String!
-    quantity: String!
+    description: String! @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido"}
+    )
+    quantity: String! @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido"}
+    )
+    order: ID! @globalId(decode: "ID") @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido"}
+    )
 }
 
 extend type Query @middleware(checks: ["auth:api"]) {
-    requests(order_id: ID! @globalId(decode: "ID") @eq): [Request!]! @all
+    requests(
+        order_id: ID! @globalId(decode: "ID") @eq @rules(
+            apply: ["required"],
+            messages: { required: "El campo es requerido"}
+        )
+    ): [Request!]! @all
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {

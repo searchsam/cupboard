@@ -1,6 +1,7 @@
 
 type Order @model {
     id: ID!
+    name: String!
     status: Int!
     deadline: DateTime!
     createdAt: DateTime! @rename(attribute: "created_at")
@@ -16,18 +17,28 @@ enum OrderStatus {
 }
 
 input CreateOrderInput {
-    deadline: Date!
+    name: String! @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido."}
+    )
+    deadline: Date! @rules(
+        apply: ["required", "date"],
+        messages: {
+            required: "El campo es requerido.",
+            date: "No es una fecha valida."
+        }
+    )
 }
 
 extend type Query {
     orders(orderBy: [OrderByClause!] @orderBy): [Order!]! @all
+    order(id: ID! @globalId(decode: "ID") @eq @rules(
+        apply: ["required"],
+        messages: { required: "El campo es requerido"}
+      )
+    ): Order! @find
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-    createOrder(
-        deadline: Date! @rules(
-            apply: ["required", "date"],
-            messages: { required: "El campo es requerido.", date: "No es una fecha valida."}
-        )
-    ): Order @can(ability: "create", model: "App\\Order") @field(resolver: "OrderMutator@create")
+    createOrder(input: CreateOrderInput! @spread): Order @can(ability: "create", model: "Order") @field(resolver: "OrderMutator@create")
 }

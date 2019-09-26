@@ -24,4 +24,5 @@ input CreateUserInput {
 
 extend type Query @middleware(checks: ["auth:api"]) {
     users: [User!]! @all
+    me: User! @auth
 }

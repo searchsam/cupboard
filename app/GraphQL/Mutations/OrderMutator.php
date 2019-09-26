@@ -11,13 +11,13 @@ class OrderMutator
      */
     public function create($root, array $args)
     {
-        // TODO implement the resolver
         $deadline = $args['deadline'];
+        $name = $args['name'];
 
         $order = auth()->user()->orders()->create([
-            'status' => 1, // deberia de ser default 1 en la migracion
-            'deadline' => $deadline,
-        ]);
+            'name' => $name,
+            'deadline' => $deadline
+        ])->fresh();
 
         return $order;
     }

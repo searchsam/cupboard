@@ -17,7 +17,11 @@ class CreatePantriesTable extends Migration
             $table->bigIncrements('id');
             $table->tinyInteger('status');
             $table->unsignedBigInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('order_id')
+                ->references('id')
+                ->on('orders')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }
