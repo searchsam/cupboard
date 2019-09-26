@@ -1,8 +1,0 @@
-
-mutation CreateCall($data: CreateCallInput!) {
-    createCall(input: $data) {
-      request {
-        id
-      }
-    }
-}
