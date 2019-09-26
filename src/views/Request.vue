@@ -7,15 +7,16 @@
       <h1 class="p-4 text-xl">Crear Nueva Solicitud</h1>
       <form class="p-4" action="" method="POST" @submit.prevent="createRequest">
         <input
-          class="mr-2 h-12 w-64 border-2 border-gray-400 placeholder-gray-400"
+          class="mr-2 h-12 border-2 border-gray-400 placeholder-gray-400"
           v-model="description"
           type="text"
           placeholder="Peticion"
+          style="width: 24rem;"
         />
         <input
-          class="mr-2 h-12 border-2 border-gray-400 placeholder-gray-400"
+          class="mr-2 w-24 h-12 border-2 border-gray-400 placeholder-gray-400"
           v-model="quantity"
-          type="text"
+          type="number"
           placeholder="Cantidad"
         />
         <button
@@ -36,7 +37,13 @@
             <p class="p-5">
               <span class="item-list-index p-5">{{ index + 1 }}</span>
               <span class="p-5">
-                {{ request.description }} {{ request.quantity }}
+                {{ request.description }} {{ request.quantity }} ({{
+                  request.user.name
+                }})
+              </span>
+              <span class="float-right">
+                <a href="#">denegar</a>
+                <a href="#">editar</a>
               </span>
             </p>
           </div>
@@ -57,7 +64,8 @@ export default {
       description: "",
       quantity: "",
       requests: [],
-      order: null
+      order: null,
+      me: null
     };
   },
   props: ["orderId", "orderStatus"],
@@ -75,6 +83,7 @@ export default {
           },
           update: (store, { data: { createRequest } }) => {
             if (createRequest) {
+              createRequest.user = this.me;
               this.requests.push(createRequest);
             } else {
               this.error = "Error al crear la orden.";
@@ -100,7 +109,8 @@ export default {
           order_id: this.orderId
         };
       }
-    }
+    },
+    me: { query: require("@/graphql/CurrentUser.gql") }
   }
 };
 </script>

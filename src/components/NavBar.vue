@@ -2,17 +2,17 @@
   <aside class="text-center relative sidebar bg-white h-full">
     <div class="block p-5">
       <span class="object-center font-semibold text-xl text-yellow-400">
-        CB
+        CupBoard
       </span>
     </div>
     <div>
       <router-link to="/orders" class="block hover:bg-yellow-400 p-5">
-        Ordenes
+        ORDENES
       </router-link>
     </div>
     <div class=" inset-x-0 bottom-0 absolute hover:bg-gray-400">
       <a href="#" @click.prevent="logout" class="block p-5">
-        Salir
+        SALIR
       </a>
     </div>
   </aside>

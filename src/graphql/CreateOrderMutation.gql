@@ -1,6 +1,6 @@
 
-mutation CreateOrder($input: CreateOrderInput!) {
-  createOrder(input: $input) {
+mutation UpdateOrder($input: UpdateOrderInput!) {
+  UpdateOrder(input: $input) {
     id
     name
     status
