@@ -11,21 +11,22 @@ use App\Request;
 
 class RequestMutator
 {
+    /**
+     * @param $rootValue
+     * @param array $args
+     * @return mixed
+     */
     public function create($rootValue, array $args)
     {
         $description = $args['description'];
         $quantity = $args['quantity'];
+        $order_id = $args['order'];
 
-        // TODO Validar existe una orden activa
-
-        $order = Order::where('status', 1)->first();
-
-        $request = new Request;
-        $request->description = $description;
-        $request->quantity = $quantity;
-        $request->user_id = auth()->user()->id;
-        $request->order_id = $order->id;
-        $request->save();
+        $request = auth()->user()->requests()->create([
+            'description' => $description,
+            'quantity' => $quantity,
+            'order_id' => $order_id
+        ]);
 
         return $request;
     }

@@ -2,30 +2,22 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Exceptions\CustomException;
-use GraphQL\Type\Definition\ResolveInfo;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-
-use App\Order;
-
 class OrderMutator
 {
-    public function create($rootValue, array $args)
+    /**
+     * @param $root
+     * @param array $args
+     * @return mixed
+     */
+    public function create($root, array $args)
     {
-        // TODO implement the resolver
         $deadline = $args['deadline'];
+        $name = $args['name'];
 
-        // TODO Validar existe orden activa
-
-        // TODO Validar fecha no se sobrepongan
-
-        // TODO Validar usuario es administrador
-
-        $order = new Order;
-        $order->status = 1;
-        $order->deadline = $deadline;
-        $order->user_id = auth()->user()->id;
-        $order->save();
+        $order = auth()->user()->orders()->create([
+            'name' => $name,
+            'deadline' => $deadline
+        ])->fresh();
 
         return $order;
     }

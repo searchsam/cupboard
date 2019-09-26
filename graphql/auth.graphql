@@ -1,6 +1,8 @@
-
+""" Input Login """
 input LoginInput {
+    " Identificador del Usuario Eamil "
     username: String! @rules(apply: ["required", "email"], messages: { required: "El campo es requerido.", email: "No es una direccion de correo valida."})
+    " Contraseña de Usuario "
     password: String! @rules(apply: ["required", "min:6"], messages: { required: "El campo es requerido.", min: "Require al menos 6 caracteres."})
 }
 

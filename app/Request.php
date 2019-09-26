@@ -8,19 +8,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Request extends Model
 {
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $fillable = [
         'user_id', 'order_id', 'description', 'quantity', 'status'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);

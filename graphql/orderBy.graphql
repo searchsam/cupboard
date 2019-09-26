@@ -1,9 +1,12 @@
-
+""" Clausula de Ordenamiento """
 input OrderByClause{
+    " Campo por el que se ordenara "
     field: String!
+    " Tipo de orden "
     order: SortOrder!
 }
 
+""" Enumeracion de tipo de ordenamiento """
 enum SortOrder {
     ASC
     DESC

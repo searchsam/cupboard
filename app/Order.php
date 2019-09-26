@@ -8,24 +8,31 @@ use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasOne, HasMany};
 class Order extends Model
 {
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $fillable = [
-        'status', 'deadline', 'user_id'
+        'name', 'status', 'deadline', 'user_id'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function requests(): HasMany
     {
         return $this->hasMany(Request::class);
     }
 
+    /**
+     * @return HasOne
+     */
     public function pantry(): HasOne
     {
         return $this->hasOne(Pantry::class);
