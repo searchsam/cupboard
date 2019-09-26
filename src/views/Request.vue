@@ -1,90 +1,129 @@
 <template>
-  <div class="request">
-    <NavBar />
-    <div class="container mx-auto px-4">
-      <div v-if="showHeader" class="p-5 mt-20" id="header">
-        <h1 class="block text-bold inline-block text-4xl mr-6">Solicitud</h1>
-        <button
-          type="button"
-          name="button"
-          class="bg-yellow-500 font-bold text-white text-base h-10 w-40 hover:bg-yellow-400 inline-block"
-          @click="createRequest"
-        >
-          Crear Nueva Solicitud
-        </button>
-        <div
-          v-if="error"
-          class="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3"
-          role="alert"
-        >
-          <p>{{ error }}</p>
-        </div>
-      </div>
-      <div v-else class="p-5 mt-20" id="header">
-        <CreateWishForm
-          :msg="showHeader"
-          @showHeader="showCreateWishForm"
-          @requestObjectForm="captureNewRequest"
+  <div id="order">
+    <h1 class="font-thin text-6xl">Solicitudes</h1>
+
+    <!-- Create Request Form -->
+    <div id="createRequestForm" class="w-full bg-white m-2" v-if="orderStatus">
+      <h1 class="p-4 text-xl">Crear Nueva Solicitud</h1>
+      <form class="p-4" action="" method="POST" @submit.prevent="createRequest">
+        <input
+          class="mr-2 h-12 border-2 border-gray-400 placeholder-gray-400"
+          v-model="description"
+          type="text"
+          placeholder="Peticion"
+          style="width: 24rem;"
         />
-      </div>
-      <RequestList :msg="newRequest" />
+        <input
+          class="mr-2 w-24 h-12 border-2 border-gray-400 placeholder-gray-400"
+          v-model="quantity"
+          type="number"
+          placeholder="Cantidad"
+        />
+        <button
+          class="bg-yellow-500 text-white text-xl h-12 w-40 hover:bg-yellow-400"
+          type="submit"
+        >
+          Crear Solicitud
+        </button>
+        <Alert :msg="error" />
+      </form>
+    </div>
+
+    <!-- Request List -->
+    <div v-if="requests" class="bg-white m-2">
+      <ul>
+        <li v-for="(request, index) in requests" :key="request.id">
+          <div class="item-list">
+            <p class="p-5">
+              <span class="item-list-index p-5">{{ index + 1 }}</span>
+              <span class="p-5">
+                {{ request.description }} {{ request.quantity }} ({{
+                  request.user.name
+                }})
+              </span>
+              <span class="float-right">
+                <a href="#">denegar</a>
+                <a href="#">editar</a>
+              </span>
+            </p>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
-import Vue from "vue";
-import NavBar from "@/components/NavBar.vue";
-import RequestList from "@/components/request/RequestList.vue";
-import CreateWishForm from "@/components/request/CreateWishForm.vue";
+import Alert from "@/components/error/Alert.vue";
 
 export default {
-  name: "request",
+  name: "requests",
   data() {
     return {
-      showHeader: true,
-      newRequest: null,
-      user: Vue.prototype.$authUser,
-      error: null
+      error: null,
+      description: "",
+      quantity: "",
+      requests: [],
+      order: null,
+      me: null
     };
   },
-  components: {
-    NavBar,
-    RequestList,
-    CreateWishForm
-  },
+  props: ["orderId", "orderStatus"],
   methods: {
     createRequest() {
       this.$apollo
         .mutate({
-          mutation: require("@/graphql/CreateCallMutation.gql"),
+          mutation: require("@/graphql/CreateRequestMutation.gql"),
           variables: {
-            data: {
-              request: { create: { user: { connect: this.user } } }
+            input: {
+              description: this.description,
+              quantity: this.quantity,
+              order: this.orderId
             }
           },
-          update: (store, { data: { createCall } }) => {
-            Vue.prototype.$request = createCall.request;
+          update: (store, { data: { createRequest } }) => {
+            if (createRequest) {
+              createRequest.user = this.me;
+              this.requests.push(createRequest);
+            } else {
+              this.error = "Error al crear la orden.";
+            }
           }
         })
         .then(() => {
-          this.showHeader = !this.showHeader;
+          this.error = null;
         })
         .catch(error => {
-          this.error = error;
+          this.error = error.message;
         });
-    },
-    showCreateWishForm() {
-      this.showHeader = !this.showHeader;
-    },
-    captureNewRequest(requestObjectForm) {
-      this.newRequest = requestObjectForm;
     }
+  },
+  components: {
+    Alert
+  },
+  apollo: {
+    requests: {
+      query: require("@/graphql/AllRequestsByOrderQuery.gql"),
+      variables() {
+        return {
+          order_id: this.orderId
+        };
+      }
+    },
+    me: { query: require("@/graphql/CurrentUser.gql") }
   }
 };
 </script>
 
 <style lang="sass" scoped>
-#header
-  border-bottom: 2px solid #e2e8f0
+.item-list
+    border-bottom: 2px solid #cbd5e0
+
+.item-list:hover
+    border-style: solid
+    border-color: #f6e05e
+    border-width: 2px
+
+.item-list-index
+    border-right: 2px solid #cbd5e0
 </style>
