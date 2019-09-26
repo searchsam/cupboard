@@ -20,12 +20,12 @@ class RequestMutator
     {
         $description = $args['description'];
         $quantity = $args['quantity'];
-        $order_id = $args['order'];
+        $orderId = $args['order'];
 
         $request = auth()->user()->requests()->create([
             'description' => $description,
             'quantity' => $quantity,
-            'order_id' => $order_id
+            'order_id' => $orderId
         ]);
 
         return $request;

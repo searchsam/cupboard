@@ -28,7 +28,7 @@ class CreateRequestsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->string('description');
-            $table->string('quantity');
+            $table->integer('quantity');
             $table->tinyInteger('status')->nullable();
             $table->timestamps();
         });

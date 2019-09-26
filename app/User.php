@@ -11,6 +11,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
+    const ADMIN = 1;
+    const SUPERADMIN = 0;
+
     /**
      * {@inheritdoc}
      */
