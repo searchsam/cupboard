@@ -3,7 +3,7 @@ query Orders {
   orders(
     orderBy: [
       { field: "status", order: DESC },
-      { field: "deadline", order: DESC }
+      { field: "deadline", order: ASC }
     ]
   ) {
     id

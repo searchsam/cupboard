@@ -5,5 +5,8 @@ query Requests($order_id: ID!) {
     status
     quantity
     description
+    user {
+        name
+    }
   }
 }
