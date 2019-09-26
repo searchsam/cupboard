@@ -18,7 +18,6 @@ class RequestMutator
      */
     public function create($rootValue, array $args)
     {
-        // TODO implement the resolver
         $description = $args['description'];
         $quantity = $args['quantity'];
         $order_id = $args['order'];
@@ -27,7 +26,7 @@ class RequestMutator
             'description' => $description,
             'quantity' => $quantity,
             'order_id' => $order_id
-        ]);;
+        ]);
 
         return $request;
     }
