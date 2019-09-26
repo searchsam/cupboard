@@ -1,7 +1,8 @@
 
-mutation CreateOrder($deadline: Date!) {
-  createOrder(deadline: $deadline) {
+mutation CreateOrder($input: CreateOrderInput!) {
+  createOrder(input: $input) {
     id
+    name
     status
     deadline
   }
