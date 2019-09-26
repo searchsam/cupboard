@@ -1,6 +1,9 @@
 
-mutation CreateRequest($data: CreateRequestInput!) {
-  createRequest(input: $data) {
+mutation CreateRequest($input: CreateRequestInput!) {
+  createRequest(input: $input) {
     id
+    description
+    status
+    quantity
   }
 }

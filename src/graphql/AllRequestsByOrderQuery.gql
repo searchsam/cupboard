@@ -1,0 +1,12 @@
+
+query Requests($order_id: ID!) {
+  requests(order_id: $order_id) {
+    id
+    status
+    quantity
+    description
+    user {
+        name
+    }
+  }
+}
