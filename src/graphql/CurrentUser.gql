@@ -1,0 +1,6 @@
+
+query CurrentOrder {
+  me {
+    type
+  }
+}

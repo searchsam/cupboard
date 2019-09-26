@@ -21,8 +21,8 @@ let router = new Router({
       path: "/cupboard",
       component: Home,
       children: [
-        { path: "/orders", name: "orders", component: Order, },
-        { path: "/requests", name: "requests", component: Request, props: true, },
+        { path: "/orders", name: "orders", component: Order },
+        { path: "/requests", name: "requests", component: Request, props: true }
       ],
       meta: { auth: true }
     }

@@ -1,0 +1,8 @@
+
+query CurrentOrder($id: ID!) {
+  order(id: $id) {
+    id
+    name
+    deadline
+  }
+}
