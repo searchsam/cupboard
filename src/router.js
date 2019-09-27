@@ -6,6 +6,7 @@ import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Orders from '@/views/Orders.vue';
 import Requests from '@/views/Requests.vue';
+import Order from "@/views/Order";
 
 Vue.use(Router);
 
@@ -31,6 +32,11 @@ const router = new Router({
           name: 'requests',
           component: Requests,
           props: true,
+        },
+        {
+          path: '/orders/:id',
+          name: 'updateOrder',
+          component: Order,
         },
       ],
       meta: {

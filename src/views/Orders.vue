@@ -11,9 +11,12 @@
     </div>
 
     <!-- Orders List -->
-    <div class="flex flex-wrap content-center">
+    <div v-if="!$apollo.queries.orders.loading" class="flex flex-wrap content-center">
       <!-- Orders Cards -->
-      <OrderCard v-for="order in orders" :key="order.id" :msg="order" />
+      <OrderCard v-for="order in orders" :key="order.id" :order="order" />
+    </div>
+    <div v-else>
+      <span>Loading...</span>
     </div>
   </div>
 </template>
@@ -39,14 +42,14 @@ export default {
       newOrder: null,
       orders: [],
       error: null,
-      me: null,
       showEditForm: true,
     };
   },
 
   apollo: {
-    orders: { query: require('@/graphql/queries/AllOrders').default },
-    me: { query: require('@/graphql/queries/CurrentUser').default },
+    orders: {
+      query: require('@/graphql/queries/AllOrders').default,
+    },
   },
 
   methods: {
