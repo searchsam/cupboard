@@ -35,6 +35,9 @@ import Alert from '@/components/error/Alert.vue';
 
 export default {
   name: 'Login',
+  components: {
+    Alert,
+  },
   data() {
     return {
       error: null,
@@ -43,28 +46,24 @@ export default {
     };
   },
   methods: {
-    login() {
-      this.$apollo
-        .mutate({
-          mutation: require('@/graphql/LoginMutation.gql'),
+    async login() {
+      try {
+        const response = await this.$apollo.mutate({
+          mutation: require('@/graphql/mutations/Login').default,
           variables: {
             input: { username: this.username, password: this.password },
           },
-          update: (store, { data: { login } }) => {
-            onLogin(this.$apollo.provider.defaultClient, login.accessToken);
-            localStorage.setItem('auType', login.user.type);
-          },
-        })
-        .then(() => {
-          this.$router.push({ name: 'orders' });
-        })
-        .catch(error => {
-          this.error = error.message.split(':')[1];
         });
+
+        onLogin(
+          this.$apollo.provider.defaultClient,
+          response.data.login.accessToken
+        );
+        this.$router.push({ name: 'orders' });
+      } catch (e) {
+        this.error = e.message.split(':')[1];
+      }
     },
-  },
-  components: {
-    Alert,
   },
 };
 </script>

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export default gql`
   fragment orderInfo on Order {
@@ -9,4 +9,4 @@ export default gql`
     createdAt
     updatedAt
   }
-`
+`;

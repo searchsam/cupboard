@@ -58,6 +58,10 @@ import Alert from '@/components/error/Alert.vue';
 
 export default {
   name: 'Request',
+  components: {
+    Alert,
+  },
+  props: ['orderId', 'orderStatus'],
   data() {
     return {
       error: null,
@@ -68,12 +72,22 @@ export default {
       me: null,
     };
   },
-  props: ['orderId', 'orderStatus'],
+  apollo: {
+    requests: {
+      query: require('@/graphql/queries/AllRequestsByOrder').default,
+      variables() {
+        return {
+          order_id: this.orderId,
+        };
+      },
+    },
+    me: { query: require('@/graphql/queries/CurrentUser').default },
+  },
   methods: {
-    createRequest() {
-      this.$apollo
-        .mutate({
-          mutation: require('@/graphql/CreateRequestMutation.gql'),
+    async createRequest() {
+      try {
+        const response = await this.$apollo.mutate({
+          mutation: require('@/graphql/mutations/CreateRequest').default,
           variables: {
             input: {
               description: this.description,
@@ -81,36 +95,17 @@ export default {
               order: this.orderId,
             },
           },
-          update: (store, { data: { createRequest } }) => {
-            if (createRequest) {
-              createRequest.user = this.me;
-              this.requests.push(createRequest);
-            } else {
-              this.error = 'Error al crear la orden.';
-            }
-          },
-        })
-        .then(() => {
-          this.error = null;
-        })
-        .catch(error => {
-          this.error = error.message;
         });
+        if (response.data.createRequest) {
+          response.data.createRequest.user = this.me;
+          this.requests.push(response.data.createRequest);
+        } else {
+          this.error = 'Error al crear la orden.';
+        }
+      } catch (e) {
+        this.error = e.message;
+      }
     },
-  },
-  components: {
-    Alert,
-  },
-  apollo: {
-    requests: {
-      query: require('@/graphql/AllRequestsByOrderQuery.gql'),
-      variables() {
-        return {
-          order_id: this.orderId,
-        };
-      },
-    },
-    me: { query: require('@/graphql/CurrentUser.gql') },
   },
 };
 </script>

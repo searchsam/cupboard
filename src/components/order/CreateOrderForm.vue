@@ -24,15 +24,13 @@
 </template>
 
 <script type="text/javascript">
-    import 'vue-date-pick/dist/vueDatePick.css';
-
-    import DatePick from 'vue-date-pick';
-
+import DatePick from 'vue-date-pick';
+import 'vue-date-pick/dist/vueDatePick.css';
 
 import Alert from '@/components/error/Alert.vue';
 
 export default {
-  name: 'CreateOrder',
+  name: 'CreateOrderForm',
 
   components: {
     Alert,
@@ -40,35 +38,35 @@ export default {
   },
 
   data() {
-      return {
-          error: null,
-          name: null,
-          deadline: null,
-      }
+    return {
+      error: null,
+      name: null,
+      deadline: null,
+    };
   },
 
   methods: {
     async createOrder() {
       try {
-        const response = await this.$apollo
-          .mutate({
-            mutation: require('@/graphql/CreateOrderMutation').default,
-            variables: {
-              input: { name: this.name, deadline: this.deadline },
-            },
-          });
+        const response = await this.$apollo.mutate({
+          mutation: require('@/graphql/mutations/CreateOrder').default,
+          variables: {
+            input: { name: this.name, deadline: this.deadline },
+          },
+        });
 
-          this.clearVarsFields();
+        this.clearVarsFields();
         console.log(response);
       } catch (e) {
         this.error = e.message.split(':')[1];
       }
     },
-  },
 
     clearVarsFields() {
       this.name = '';
       this.deadline = '';
-    }
+      this.error = '';
+    },
+  },
 };
 </script>

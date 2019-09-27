@@ -7,19 +7,29 @@
     <!-- Create New Order -->
     <div id="createOderForm" class="w-full bg-white m-2">
       <h1 class="p-4 text-xl">Crear Nueva Orden</h1>
-      <CreateOrder />
+      <CreateOrderForm />
+    </div>
+
+    <!-- Orders List -->
+    <div class="flex flex-wrap content-center">
+      <!-- Show Create Order Form -->
+
+      <!-- Orders Cards -->
+      <OrderCard v-for="order in orders" :key="order.id" :msg="order" />
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
-import CreateOrder from '@/components/CreateOrder';
+import CreateOrderForm from '@/components/order/CreateOrderForm';
+import OrderCard from '@/components/order/OrderCard';
 
 export default {
   name: 'Orders',
 
   components: {
-    CreateOrder,
+    CreateOrderForm,
+    OrderCard,
   },
 
   data() {
@@ -37,8 +47,8 @@ export default {
   },
 
   apollo: {
-    orders: { query: require('@/graphql/AllOrdersQuery.gql') },
-    me: { query: require('@/graphql/CurrentUser.gql') },
+    orders: { query: require('@/graphql/queries/AllOrders').default },
+    me: { query: require('@/graphql/queries/CurrentUser').default },
   },
 
   methods: {
@@ -65,7 +75,7 @@ export default {
     async updateOrder() {
       try {
         const response = await this.$apollo.mutate({
-          mutation: require('@/graphql/UpdateOrderMutation.gql'),
+          mutation: require('@/graphql/mutations/UpdateOrder').default,
           variables: {
             input: { name: this.name, deadline: this.deadline },
           },
@@ -85,12 +95,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.card-content
-    &:hover
-      border-style: solid
-      border-color: #f6e05e
-      border-width: 2px
-
 .show-form:hover
     border-style: solid
     border-color: #cbd5e0

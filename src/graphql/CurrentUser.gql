@@ -1,7 +1,0 @@
-
-query CurrentOrder {
-  me {
-    name
-    type
-  }
-}

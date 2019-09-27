@@ -19,4 +19,3 @@ body
     font-family: 'Open Sans', sans-serif
     background-color: #F5F5F5
 </style>
-
