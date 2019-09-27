@@ -48,15 +48,29 @@ export default {
   methods: {
     async createOrder() {
       try {
-        const response = await this.$apollo.mutate({
+        await this.$apollo.mutate({
           mutation: require('@/graphql/mutations/CreateOrder').default,
           variables: {
-            input: { name: this.name, deadline: this.deadline },
+            input: {
+              name: this.name,
+              deadline: this.deadline
+            },
+          },
+          update(store, { data: { createOrder } }) {
+              const query = {
+                  query: require('@/graphql/queries/AllOrders').default,
+              };
+
+              const data = store.readQuery(query);
+              data.orders.push(createOrder);
+              store.writeQuery({
+                  ...query,
+                  data
+              });
           },
         });
 
         this.clearVarsFields();
-        console.log(response);
       } catch (e) {
         this.error = e.message.split(':')[1];
       }
