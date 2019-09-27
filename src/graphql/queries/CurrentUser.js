@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
-import userInfoFragment from '../fragments/users/user';
+import userInfoFragment from '@/graphql/fragments/users/user';
 
 export default gql`
-  query CurrentOrder {
+  query CurrentUser {
     me {
       ...userInfo
     }

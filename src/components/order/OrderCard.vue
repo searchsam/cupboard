@@ -44,9 +44,19 @@ export default {
       name: null,
       deadline: null,
       status: null,
+      me: null,
     };
   },
+  apollo: {
+    me: { query: require('@/graphql/queries/CurrentUser').default },
+  },
   methods: {
+    goTo(orderId, orderStatus) {
+      this.$router.push({
+        name: 'requests',
+        params: { orderId: orderId, orderStatus: orderStatus },
+      });
+    },
     showEditOrderForm(order) {
       this.name = order.name;
       this.deadline = order.deadline.split(' ')[0];

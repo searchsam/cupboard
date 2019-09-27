@@ -57,7 +57,7 @@
 import Alert from '@/components/error/Alert.vue';
 
 export default {
-  name: 'Request',
+  name: 'Requests',
   components: {
     Alert,
   },

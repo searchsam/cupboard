@@ -5,7 +5,7 @@ import { AUTH_TOKEN } from './vue-apollo';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Orders from '@/views/Orders.vue';
-import Request from '@/views/Request.vue';
+import Requests from '@/views/Requests.vue';
 
 Vue.use(Router);
 
@@ -29,7 +29,7 @@ const router = new Router({
         {
           path: '/requests',
           name: 'requests',
-          component: Request,
+          component: Requests,
           props: true,
         },
       ],

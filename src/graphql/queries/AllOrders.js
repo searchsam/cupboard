@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-import orderInfoFragment from '../fragments/orders/order';
+import orderInfoFragment from '@/graphql/fragments/orders/order';
 
 export default gql`
   query Orders {

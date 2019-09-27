@@ -12,8 +12,6 @@
 
     <!-- Orders List -->
     <div class="flex flex-wrap content-center">
-      <!-- Show Create Order Form -->
-
       <!-- Orders Cards -->
       <OrderCard v-for="order in orders" :key="order.id" :msg="order" />
     </div>
@@ -52,12 +50,6 @@ export default {
   },
 
   methods: {
-    goTo(orderId, orderStatus) {
-      this.$router.push({
-        name: 'requests',
-        params: { orderId: orderId, orderStatus: orderStatus },
-      });
-    },
     monoChrome(varName) {
       this[varName] = !this[varName];
     },
