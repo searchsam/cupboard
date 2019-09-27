@@ -53,20 +53,20 @@ export default {
           variables: {
             input: {
               name: this.name,
-              deadline: this.deadline
+              deadline: this.deadline,
             },
           },
-          update(store, { data: { createOrder } }) {
-              const query = {
-                  query: require('@/graphql/queries/AllOrders').default,
-              };
+          update: (store, { data: { createOrder }, }) => {
+            const query = {
+              query: require('@/graphql/queries/AllOrders').default,
+            };
 
-              const data = store.readQuery(query);
-              data.orders.push(createOrder);
-              store.writeQuery({
-                  ...query,
-                  data
-              });
+            const data = store.readQuery(query);
+            data.orders.push(createOrder);
+            store.writeQuery({
+              ...query,
+              data,
+            });
           },
         });
 

@@ -24,18 +24,18 @@ export default {
     },
   },
 
-   provide() {
-      const data = {};
+  provide() {
+    const data = {};
 
-      Object.defineProperty(data, 'me', {
-          enumerable: true,
-          get: () => {
-              return this.me
-          }
-      });
+    Object.defineProperty(data, 'me', {
+      enumerable: true,
+      get: () => {
+        return this.me;
+      },
+    });
 
-      return data;
-   }
+    return data;
+  },
 };
 </script>
 

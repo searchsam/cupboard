@@ -56,15 +56,9 @@ export default {
       this.$router.push({
         name: 'updateOrder',
         params: {
-            id: this.order.id
+          id: this.order.id,
         },
       });
-    },
-
-    showEditOrderForm(order) {
-      this.name = order.name;
-      this.deadline = order.deadline.split(' ')[0];
-      this.status = order.status;
     },
   },
 };

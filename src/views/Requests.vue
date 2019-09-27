@@ -37,9 +37,9 @@
             <p class="p-5">
               <span class="item-list-index p-5">{{ index + 1 }}</span>
               <span class="p-5">
-                {{ request.description }} {{ request.quantity }} ({{
-                  request.user.name
-                }})
+                {{ request.description }}
+                {{ request.quantity }}
+                ({{ request.user.name }})
               </span>
               <span class="float-right">
                 <a href="#">denegar</a>

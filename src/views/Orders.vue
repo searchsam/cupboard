@@ -5,13 +5,16 @@
     </h1>
 
     <!-- Create New Order -->
-    <div id="createOderForm" class="w-full bg-white m-2">
+    <div id="createOderForm" class="w-full bg-white m-2" v-show="me.type <= 1">
       <h1 class="p-4 text-xl">Crear Nueva Orden</h1>
       <CreateOrderForm />
     </div>
 
     <!-- Orders List -->
-    <div v-if="!$apollo.queries.orders.loading" class="flex flex-wrap content-center">
+    <div
+      v-if="!$apollo.queries.orders.loading"
+      class="flex flex-wrap content-center"
+    >
       <!-- Orders Cards -->
       <OrderCard v-for="order in orders" :key="order.id" :order="order" />
     </div>
@@ -37,14 +40,11 @@ export default {
     return {
       name: '',
       deadline: '',
-      status: null,
-      showCreateForm: true,
-      newOrder: null,
-      orders: [],
       error: null,
-      showEditForm: true,
     };
   },
+
+  inject: ['me'],
 
   apollo: {
     orders: {
@@ -53,45 +53,15 @@ export default {
   },
 
   methods: {
-    monoChrome(varName) {
+    varToggle(varName) {
       this[varName] = !this[varName];
     },
-    showEditOrderForm(order) {
-      this.name = order.name;
-      this.deadline = order.deadline.split(' ')[0];
-      this.status = order.status;
-      this.monoChrome('showEditForm');
-    },
+
     clearVarsFields() {
       this.name = '';
       this.deadline = '';
       this.status = null;
     },
-    async updateOrder() {
-      try {
-        const response = await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/UpdateOrder').default,
-          variables: {
-            input: { name: this.name, deadline: this.deadline },
-          },
-        });
-
-        this.orders.push(response.data.createOrder);
-
-        this.error = null;
-        this.monoChrome('showCreateForm');
-      } catch (e) {
-        this.error = e.message.split(':')[1];
-      }
-      this.clearVarsFields();
-    },
   },
 };
 </script>
-
-<style lang="sass" scoped>
-.show-form:hover
-    border-style: solid
-    border-color: #cbd5e0
-    border-width: 2px
-</style>
