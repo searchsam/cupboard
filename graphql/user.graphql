@@ -3,7 +3,6 @@ type User @model {
     id: ID! @globalId
     email: String!
     name: String!
-    password: String!
     type: Int!
     createdAt: DateTime!
         @rename(attribute: "created_at")
