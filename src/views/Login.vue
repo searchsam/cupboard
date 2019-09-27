@@ -30,42 +30,42 @@
 </template>
 
 <script type="text/javascript">
-import { onLogin } from "@/vue-apollo.js";
-import Alert from "@/components/error/Alert.vue";
+import { onLogin } from '@/vue-apollo.js';
+import Alert from '@/components/error/Alert.vue';
 
 export default {
-  name: "login",
+  name: 'Login',
   data() {
     return {
       error: null,
-      password: "",
-      username: ""
+      password: '',
+      username: '',
     };
   },
   methods: {
     login() {
       this.$apollo
         .mutate({
-          mutation: require("@/graphql/LoginMutation.gql"),
+          mutation: require('@/graphql/LoginMutation.gql'),
           variables: {
-            input: { username: this.username, password: this.password }
+            input: { username: this.username, password: this.password },
           },
           update: (store, { data: { login } }) => {
             onLogin(this.$apollo.provider.defaultClient, login.accessToken);
-            localStorage.setItem("auType", login.user.type);
-          }
+            localStorage.setItem('auType', login.user.type);
+          },
         })
         .then(() => {
-          this.$router.push({ name: "orders" });
+          this.$router.push({ name: 'orders' });
         })
         .catch(error => {
-          this.error = error.message.split(":")[1];
+          this.error = error.message.split(':')[1];
         });
-    }
+    },
   },
   components: {
-    Alert
-  }
+    Alert,
+  },
 };
 </script>
 

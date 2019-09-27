@@ -19,17 +19,17 @@
 </template>
 
 <script type="text/javascript">
-import { onLogout } from "@/vue-apollo.js";
+import { onLogout } from '@/vue-apollo.js';
 
 export default {
-  name: "NavBar",
+  name: 'NavBar',
   methods: {
     logout() {
       onLogout(this.$apollo.provider.defaultClient);
-      localStorage.removeItem("auType");
-      this.$router.push({ name: "login" });
-    }
-  }
+      localStorage.removeItem('auType');
+      this.$router.push({ name: 'login' });
+    },
+  },
 };
 </script>
 

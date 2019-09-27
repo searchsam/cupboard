@@ -54,41 +54,41 @@
 </template>
 
 <script type="text/javascript">
-import Alert from "@/components/error/Alert.vue";
+import Alert from '@/components/error/Alert.vue';
 
 export default {
-  name: "requests",
+  name: 'Request',
   data() {
     return {
       error: null,
-      description: "",
-      quantity: "",
+      description: '',
+      quantity: '',
       requests: [],
       order: null,
-      me: null
+      me: null,
     };
   },
-  props: ["orderId", "orderStatus"],
+  props: ['orderId', 'orderStatus'],
   methods: {
     createRequest() {
       this.$apollo
         .mutate({
-          mutation: require("@/graphql/CreateRequestMutation.gql"),
+          mutation: require('@/graphql/CreateRequestMutation.gql'),
           variables: {
             input: {
               description: this.description,
               quantity: this.quantity,
-              order: this.orderId
-            }
+              order: this.orderId,
+            },
           },
           update: (store, { data: { createRequest } }) => {
             if (createRequest) {
               createRequest.user = this.me;
               this.requests.push(createRequest);
             } else {
-              this.error = "Error al crear la orden.";
+              this.error = 'Error al crear la orden.';
             }
-          }
+          },
         })
         .then(() => {
           this.error = null;
@@ -96,22 +96,22 @@ export default {
         .catch(error => {
           this.error = error.message;
         });
-    }
+    },
   },
   components: {
-    Alert
+    Alert,
   },
   apollo: {
     requests: {
-      query: require("@/graphql/AllRequestsByOrderQuery.gql"),
+      query: require('@/graphql/AllRequestsByOrderQuery.gql'),
       variables() {
         return {
-          order_id: this.orderId
+          order_id: this.orderId,
         };
-      }
+      },
     },
-    me: { query: require("@/graphql/CurrentUser.gql") }
-  }
+    me: { query: require('@/graphql/CurrentUser.gql') },
+  },
 };
 </script>
 

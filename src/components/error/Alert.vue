@@ -11,12 +11,12 @@
 
 <script>
 export default {
-  name: "Alert",
+  name: 'Alert',
   props: {
     msg: {
-      type: String
-    }
-  }
+      type: String,
+    },
+  },
 };
 </script>
 
