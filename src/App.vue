@@ -4,7 +4,9 @@
   </body>
 </template>
 
-<script type="text/javascript"></script>
+<script type="text/javascript">
+//import 'vue-date-pick/dist/vueDatePick.css';
+</script>
 
 <style lang="sass">
 @tailwind base

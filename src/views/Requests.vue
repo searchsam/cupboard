@@ -54,64 +54,59 @@
 </template>
 
 <script type="text/javascript">
-import Alert from "@/components/error/Alert.vue";
+import Alert from '@/components/error/Alert.vue';
 
 export default {
-  name: "requests",
+  name: 'Requests',
+  components: {
+    Alert,
+  },
+  props: ['orderId', 'orderStatus'],
   data() {
     return {
       error: null,
-      description: "",
-      quantity: "",
+      description: '',
+      quantity: '',
       requests: [],
       order: null,
-      me: null
+      me: null,
     };
   },
-  props: ["orderId", "orderStatus"],
+  apollo: {
+    requests: {
+      query: require('@/graphql/queries/AllRequestsByOrder').default,
+      variables() {
+        return {
+          order_id: this.orderId,
+        };
+      },
+    },
+    me: { query: require('@/graphql/queries/CurrentUser').default },
+  },
   methods: {
-    createRequest() {
-      this.$apollo
-        .mutate({
-          mutation: require("@/graphql/CreateRequestMutation.gql"),
+    async createRequest() {
+      try {
+        const response = await this.$apollo.mutate({
+          mutation: require('@/graphql/mutations/CreateRequest').default,
           variables: {
             input: {
               description: this.description,
               quantity: this.quantity,
-              order: this.orderId
-            }
+              order: this.orderId,
+            },
           },
-          update: (store, { data: { createRequest } }) => {
-            if (createRequest) {
-              createRequest.user = this.me;
-              this.requests.push(createRequest);
-            } else {
-              this.error = "Error al crear la orden.";
-            }
-          }
-        })
-        .then(() => {
-          this.error = null;
-        })
-        .catch(error => {
-          this.error = error.message;
         });
-    }
-  },
-  components: {
-    Alert
-  },
-  apollo: {
-    requests: {
-      query: require("@/graphql/AllRequestsByOrderQuery.gql"),
-      variables() {
-        return {
-          order_id: this.orderId
-        };
+        if (response.data.createRequest) {
+          response.data.createRequest.user = this.me;
+          this.requests.push(response.data.createRequest);
+        } else {
+          this.error = 'Error al crear la orden.';
+        }
+      } catch (e) {
+        this.error = e.message;
       }
     },
-    me: { query: require("@/graphql/CurrentUser.gql") }
-  }
+  },
 };
 </script>
 

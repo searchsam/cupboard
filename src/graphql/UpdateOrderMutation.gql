@@ -1,9 +1,0 @@
-
-mutation CreateOrder($input: CreateOrderInput!) {
-  createOrder(input: $input) {
-    id
-    name
-    status
-    deadline
-  }
-}
