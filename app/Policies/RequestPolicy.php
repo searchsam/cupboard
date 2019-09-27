@@ -53,7 +53,7 @@ class RequestPolicy
      */
     public function update(User $user, Request $request)
     {
-        return $user->id === $request->id;
+        return $user->id === $request->user->id;
     }
 
     /**

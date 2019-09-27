@@ -1,12 +1,12 @@
-""" Clausula de Ordenamiento """
+""" Ordering Clause """
 input OrderByClause{
-    " Campo por el que se ordenara "
+    " Field to be ordered "
     field: String!
-    " Tipo de orden "
+    " Order type "
     order: SortOrder!
 }
 
-""" Enumeracion de tipo de ordenamiento """
+""" Order Enum Type """
 enum SortOrder {
     ASC
     DESC
