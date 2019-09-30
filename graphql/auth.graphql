@@ -12,11 +12,8 @@ input LoginInput {
     " Contraseña de Usuario "
     password: String!
         @rules(
-            apply: ["required", "min:6"],
-            messages: {
-                required: "El campo es requerido.",
-                min: "Require al menos 6 caracteres."
-            }
+            apply: ["required"],
+            messages: {required: "El campo es requerido."}
         )
 }
 
@@ -65,24 +62,61 @@ input ForgotPasswordInput {
 
 input NewPasswordWithCodeInput {
     email: String!
-        @rules(apply: ["required", "email"])
+        @rules(
+            apply: ["required", "email"],
+            messages: {
+                required: "El campo es requerido.",
+                email: "No es una direccion de correo valida."
+            }
+        )
     token: String!
-        @rules(apply: ["required", "string"])
+        @rules(
+            apply: ["required", "string"],
+            messages: { required: "El campo es requerido."}
+        )
     password: String!
-        @rules(apply: ["required", "confirmed", "min:8"])
+        @rules(
+            apply: ["required", "confirmed", "min:6"],
+            messages: {
+                required: "El campo es requerido.",
+                confirmed: "Los campos no coinciden.",
+                min: "El minimo es de 6 caracteres."
+            }
+        )
     passwordConfirmation: String!
         @rename(attribute: "password_confirmation")
 }
 
 input RegisterInput {
     name: String!
-        @rules(apply: ["required", "string"])
+        @rules(
+            apply: ["required", "string"],
+            messages: {required: "El campo es requerido."}
+        )
     email: String!
-        @rules(apply: ["required", "email"])
+        @rules(
+            apply: ["required", "email", "unique:users,email"],
+            messages: {
+                required: "El campo es requerido.",
+                email: "No es una direccion de correo valida.",
+                unique: "El correo electronico ya existe."
+            }
+        )
     password: String!
-        @rules(apply: ["required", "confirmed", "min:8"])
-    passwordConfirmation: String!
-        @rename(attribute: "password_confirmation")
+        @rules(
+            apply: ["required", "confirmed", "min:6"],
+            messages: {
+                required: "El campo es requerido.",
+                confirmed: "Los campos no coinciden.",
+                min: "El minimo es de 6 caracteres."
+            }
+        )
+    password_confirmation: String!
+        @rules(
+            apply: ["required"],
+            messages: {required: "El campo es requerido."}
+        )
+    type: Int!
 }
 
 extend type Mutation {

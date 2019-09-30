@@ -44,5 +44,9 @@ extend type Query @middleware(checks: ["auth:api"]) {
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
     createRequest(input: CreateRequestInput! @spread): Request
+        @can(ability: "create", model: "Request")
         @field(resolver: "RequestMutator@create")
+    denyRequest(id: ID!): Request
+        @can(ability: "update", model: "Request")
+        @field(resolver: "RequestMutator@deny")
 }
