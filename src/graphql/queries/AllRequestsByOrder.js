@@ -10,6 +10,9 @@ export default gql`
       user {
         ...userInfo
       }
+      order {
+        status
+      }
     }
   }
 

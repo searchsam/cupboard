@@ -54,7 +54,7 @@ export default {
   methods: {
     goToOrder() {
       this.$router.push({
-        name: 'updateOrder',
+        name: 'requests',
         params: {
           id: this.order.id,
         },

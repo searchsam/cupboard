@@ -4,9 +4,9 @@ import { AUTH_TOKEN } from './vue-apollo';
 
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
-import Orders from '@/views/Orders.vue';
-import Requests from '@/views/Requests.vue';
 import Order from '@/views/Order';
+import Orders from '@/views/Orders.vue';
+import Register from '@/views/Register.vue';
 
 Vue.use(Router);
 
@@ -14,9 +14,38 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
+      path: '*',
+      name: '404',
+    },
+    {
       path: '/',
+      redirect: {
+        name: 'login',
+      },
+    },
+    {
+      path: '/login',
       name: 'login',
       component: Login,
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem(AUTH_TOKEN)) {
+          return next({ name: 'orders' });
+        }
+
+        next();
+      },
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem(AUTH_TOKEN)) {
+          return next({ name: 'orders' });
+        }
+
+        next();
+      },
     },
     {
       path: '/cupboard',
@@ -26,22 +55,19 @@ const router = new Router({
           path: '/orders',
           name: 'orders',
           component: Orders,
-        },
-        {
-          path: '/requests',
-          name: 'requests',
-          component: Requests,
-          props: true,
+          meta: {
+            auth: true,
+          },
         },
         {
           path: '/orders/:id',
-          name: 'updateOrder',
+          name: 'requests',
           component: Order,
+          meta: {
+            auth: true,
+          },
         },
       ],
-      meta: {
-        auth: true,
-      },
     },
   ],
 });
@@ -49,7 +75,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.meta.auth) {
     if (!localStorage.getItem(AUTH_TOKEN)) {
-      return next('/');
+      return next({ name: 'login' });
     }
 
     next();
