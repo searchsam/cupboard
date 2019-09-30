@@ -11,6 +11,7 @@
 
 <script type="text/javascript">
 import NavBar from '@/components/nav/NavBar.vue';
+
 export default {
   name: 'Home',
 
@@ -24,18 +25,17 @@ export default {
     },
   },
 
-   provide() {
-      const data = {};
+  provide() {
+    const data = {};
+    Object.defineProperty(data, 'me', {
+      enumerable: true,
+      get: () => {
+        return this.me;
+      },
+    });
 
-      Object.defineProperty(data, 'me', {
-          enumerable: true,
-          get: () => {
-              return this.me
-          }
-      });
-
-      return data;
-   }
+    return data;
+  },
 };
 </script>
 

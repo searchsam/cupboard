@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  mutation Login($input: LoginInput!) {
-    login(input: $input) {
+  mutation Register($input: RegisterInput!) {
+    register(input: $input) {
       accessToken
     }
   }

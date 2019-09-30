@@ -10,6 +10,7 @@
       v-model="deadline"
       format="YYYY-MM-DD"
       start-week-on-sunday
+      :isDateDisabled="isPastDate"
       placeholder="Fecha"
       class="mr-2"
     />
@@ -53,23 +54,21 @@ export default {
           variables: {
             input: {
               name: this.name,
-              deadline: this.deadline
+              deadline: this.deadline,
             },
           },
-          update(store, { data: { createOrder } }) {
-              const query = {
-                  query: require('@/graphql/queries/AllOrders').default,
-              };
-
-              const data = store.readQuery(query);
-              data.orders.push(createOrder);
-              store.writeQuery({
-                  ...query,
-                  data
-              });
+          update: (store, { data: { createOrder } }) => {
+            const query = {
+              query: require('@/graphql/queries/AllOrders').default,
+            };
+            const data = store.readQuery(query);
+            data.orders.push(createOrder);
+            store.writeQuery({
+              ...query,
+              data,
+            });
           },
         });
-
         this.clearVarsFields();
       } catch (e) {
         this.error = e.message.split(':')[1];
@@ -80,6 +79,11 @@ export default {
       this.name = '';
       this.deadline = '';
       this.error = '';
+    },
+
+    isPastDate(date) {
+      const currentDate = new Date();
+      return date < currentDate;
     },
   },
 };
