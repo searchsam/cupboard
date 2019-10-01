@@ -3,7 +3,7 @@
     <h1 class="font-thin text-6xl">Solicitudes</h1>
 
     <!-- Create Request Form -->
-    <div id="createRequestForm" class="w-full bg-white m-2" v-show="status">
+    <div id="createRequestForm" class="w-full bg-white m-2" v-if="status">
       <h1 class="p-4 text-xl">Crear Nueva Solicitud</h1>
       <CreateRequestForm />
     </div>
@@ -36,8 +36,8 @@ export default {
 
   data() {
     return {
-      status: null
-    }
+      status: true,
+    };
   },
 
   apollo: {
@@ -48,10 +48,10 @@ export default {
           order_id: this.$route.params.id,
         };
       },
-      result ({ data, loading, networkStatus }) {
+      result({ data }) {
         let hasRequest = data.requests.length;
         if (hasRequest >= 1) {
-          return this.status = data.requests[hasRequest - 1].order.status;
+          return (this.status = data.requests[hasRequest - 1].order.status);
         }
       },
     },
