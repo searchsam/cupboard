@@ -41,7 +41,7 @@ class RequestPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**

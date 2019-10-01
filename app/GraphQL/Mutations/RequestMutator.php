@@ -25,7 +25,7 @@ class RequestMutator
             'description' => $description,
             'quantity' => $quantity,
             'order_id' => $orderId
-        ]);
+        ])->fresh();
 
         return $request;
     }
@@ -39,8 +39,8 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        $request = Request::find(1);
-        $request->status = 0;
+        $request = Request::find($requestId);
+        $request->status = Request::REJECT;
         $request->save();
 
         return $request;

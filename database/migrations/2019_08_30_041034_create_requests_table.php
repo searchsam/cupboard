@@ -29,7 +29,8 @@ class CreateRequestsTable extends Migration
                 ->onUpdate('cascade');
             $table->string('description');
             $table->integer('quantity');
-            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('status')
+                ->default('1');
             $table->timestamps();
         });
     }
