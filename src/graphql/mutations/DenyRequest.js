@@ -4,8 +4,8 @@ import requestInfoFragment from '@/graphql/fragments/requests/request';
 import userInfoFragment from '@/graphql/fragments/users/user';
 
 export default gql`
-  mutation ApproveRequest($id: ID!) {
-    approveRequest(id: $id) {
+  mutation DenyRequest($id: ID!) {
+    denyRequest(id: $id) {
       ...requestInfo
       user {
         ...userInfo

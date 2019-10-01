@@ -63,14 +63,13 @@ export default {
 
   methods: {
     async deny(requestId, index) {
-        console.log(requestId);
+      console.log(requestId);
       try {
         await this.$apollo.mutate({
           mutation: require('@/graphql/mutations/DenyRequest').default,
           variables: { id: requestId },
           update: (store, { data: { denyRequest } }) => {
-            console.log(denyRequest);
-            this.request[index - 1] = denyRequest;
+            this.request[index - 1].status = denyRequest.status;
           },
         });
       } catch (e) {
