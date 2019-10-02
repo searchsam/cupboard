@@ -8,7 +8,7 @@
           : 'border-left: 5px solid #fc8181'
       "
     >
-      <p class="p-5">
+      <p class="pt-5 pb-5">
         <span class="item-list-index p-5"></span>
         <span class="p-5">
           {{ request.description }}
@@ -17,22 +17,27 @@
           {{ request.status ? 'Aprobada' : 'Rechazada' }}
         </span>
         <span class="float-right">
-          <a href="#" class="hover:text-yellow-400">editar</a> |
           <a
             href="#"
+            class="action change p-5"
+          >
+            <div class="edit-solid icon"></div>
+          </a>
+          <a
+            href="#"
+            class="action deny p-5"
             v-if="request.status"
-            class="hover:text-red-400"
             @click.prevent="deny(request.id)"
           >
-            rechazar
+            <div class="close icon"></div>
           </a>
           <a
             href="#"
             v-else
-            class="hover:text-green-400"
+            class="action approve p-5"
             @click.prevent="approve(request.id)"
           >
-            aprobar
+            <div class="check icon"></div>
           </a>
         </span>
         <Alert :msg="error" />
@@ -105,4 +110,23 @@ export default {
 
 .item-list-index
     border-right: 2px solid #cbd5e0
+
+.action
+    &.approve
+        &:hover
+            background-color: #68d391
+    &.deny
+        &:hover
+            background-color: #fc8181
+    &.change
+        &:hover
+            background-color: #f6e05e
+    &.icon
+        &:hover
+            color: white
+
+.icon
+    position: relative
+    display: inline-block
+    vertical-align: middle
 </style>
