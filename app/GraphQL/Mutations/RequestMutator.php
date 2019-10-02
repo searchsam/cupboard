@@ -45,4 +45,20 @@ class RequestMutator
 
         return $request;
     }
+
+    /**
+     * @param $rootValue
+     * @param array $args
+     * @return mixed
+     */
+    public function approve($rootValue, array $args)
+    {
+        $requestId = $args['id'];
+
+        $request = Request::find($requestId);
+        $request->status = Request::APPROVE;
+        $request->save();
+
+        return $request;
+    }
 }
