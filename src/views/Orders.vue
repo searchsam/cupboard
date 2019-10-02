@@ -16,7 +16,7 @@
       class="flex flex-wrap content-center"
     >
       <!-- Orders Cards -->
-      <OrderCard v-for="order in orders" :key="order.id" :order="order" />
+      <OrderCard v-for="order in ordersList" :key="order.id" :order="order" />
     </div>
     <div v-else>
       <span>Loading...</span>
@@ -56,11 +56,18 @@ export default {
     varToggle(varName) {
       this[varName] = !this[varName];
     },
-
     clearVarsFields() {
       this.name = '';
       this.deadline = '';
       this.status = null;
+    },
+  },
+
+  computed: {
+    ordersList: function () {
+      if (this.orders) {
+        return this.orders.sort((a, b) => (a.status < b.status ? 1 : -1));
+      }
     },
   },
 };

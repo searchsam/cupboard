@@ -12,10 +12,10 @@
     <div class="bg-white m-2">
       <ul>
         <RequestItem
-          v-for="(request, index) in requests"
+          v-for="request in requestsList"
           :key="request.id"
           :request="request"
-          :index="index + 1"
+          @mutatedRequest="updateRequest"
         />
       </ul>
     </div>
@@ -54,6 +54,25 @@ export default {
           return (this.status = data.requests[hasRequest - 1].order.status);
         }
       },
+    },
+  },
+
+  computed: {
+    requestsList: function () {
+      if (this.requests) {
+        return this.requests.sort((a, b) => (a.status < b.status ? 1 : -1));
+      }
+    },
+  },
+
+  methods: {
+    getObjectIndex(arr, obj) {
+      return arr.indexOf(arr.find(item => item.id === obj.id));
+    },
+    updateRequest(mutatedRequest) {
+      this.requests[
+        this.getObjectIndex(this.requests, mutatedRequest)
+      ].status = mutatedRequest.status;
     },
   },
 };

@@ -1,13 +1,20 @@
 <template>
   <li>
-    <div class="item-list">
+    <div
+      class="item-list"
+      :style="
+        request.status
+          ? 'border-left: 5px solid #68d391'
+          : 'border-left: 5px solid #fc8181'
+      "
+    >
       <p class="p-5">
-        <span class="item-list-index p-5">{{ index }}</span>
+        <span class="item-list-index p-5"></span>
         <span class="p-5">
           {{ request.description }}
           {{ request.quantity }}
           ({{ request.user.name }}) -
-          {{ request.status ? 'Aprodaba' : 'Rechazada' }}
+          {{ request.status ? 'Aprobada' : 'Rechazada' }}
         </span>
         <span class="float-right">
           <a href="#" class="hover:text-yellow-400">editar</a> |
@@ -15,7 +22,7 @@
             href="#"
             v-if="request.status"
             class="hover:text-red-400"
-            @click.prevent="deny(request.id, index)"
+            @click.prevent="deny(request.id)"
           >
             rechazar
           </a>
@@ -23,7 +30,7 @@
             href="#"
             v-else
             class="hover:text-green-400"
-            @click.prevent="approve(request.id, index)"
+            @click.prevent="approve(request.id)"
           >
             aprobar
           </a>
@@ -55,34 +62,29 @@ export default {
       type: Object,
       required: true,
     },
-    index: {
-      type: Number,
-      required: true,
-    },
   },
 
   methods: {
-    async deny(requestId, index) {
-      console.log(requestId);
+    async deny(requestId) {
       try {
         await this.$apollo.mutate({
           mutation: require('@/graphql/mutations/DenyRequest').default,
           variables: { id: requestId },
           update: (store, { data: { denyRequest } }) => {
-            this.request[index - 1].status = denyRequest.status;
+            this.$emit('mutatedRequest', denyRequest);
           },
         });
       } catch (e) {
         this.error = e.message;
       }
     },
-    async approve(requestId, index) {
+    async approve(requestId) {
       try {
         await this.$apollo.mutate({
           mutation: require('@/graphql/mutations/ApproveRequest').default,
           variables: { id: requestId },
           update: (store, { data: { approveRequest } }) => {
-            this.request[index - 1] = approveRequest;
+            this.$emit('mutatedRequest', approveRequest);
           },
         });
       } catch (e) {
