@@ -15,7 +15,6 @@
           v-for="request in requestsList"
           :key="request.id"
           :request="request"
-          @mutatedRequest="updateRequest"
         />
       </ul>
     </div>
@@ -49,30 +48,16 @@ export default {
         };
       },
       result({ data }) {
-        let hasRequest = data.requests.length;
-        if (hasRequest >= 1) {
-          return (this.status = data.requests[hasRequest - 1].order.status);
-        }
+        this.status = data.requests.length ? data.requests[-1].order.status : this.status;
       },
     },
   },
 
   computed: {
     requestsList: function() {
-      if (this.requests) {
-        return this.requests.sort((a, b) => (a.status < b.status ? 1 : -1));
-      }
+      return (this.requests || []).sort((a, b) => (a.status < b.status ? 1 : -1));
     },
   },
 
-  methods: {
-    getObjectIndex(arr, obj) {
-      return arr.indexOf(arr.find(item => item.id === obj.id));
-    },
-    updateRequest(mutatedRequest) {
-      this.requests[this.getObjectIndex(this.requests, mutatedRequest)].status =
-        mutatedRequest.status;
-    },
-  },
 };
 </script>

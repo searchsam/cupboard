@@ -24,7 +24,7 @@
             href="#"
             class="action deny p-5"
             v-if="request.status"
-            @click.prevent="deny(request.id)"
+            @click.prevent="deny"
           >
             <i class="pe-7s-close-circle pe-lg pe-va"></i>
           </a>
@@ -32,7 +32,7 @@
             href="#"
             v-else
             class="action approve p-5"
-            @click.prevent="approve(request.id)"
+            @click.prevent="approve"
           >
             <i class="pe-7s-check pe-lg pe-va"></i>
           </a>
@@ -67,26 +67,38 @@ export default {
   },
 
   methods: {
-    async deny(requestId) {
+    async deny() {
       try {
         await this.$apollo.mutate({
           mutation: require('@/graphql/mutations/DenyRequest').default,
-          variables: { id: requestId },
+          variables: { id: this.request.id },
           update: (store, { data: { denyRequest } }) => {
-            this.$emit('mutatedRequest', denyRequest);
+            const query = {
+              query: require('@/graphql/queries/AllRequestsByOrder').default,
+              variables: { order_id: denyRequest.order.id },
+            };
+            store.writeQuery({
+              ...query
+            });
           },
         });
       } catch (e) {
         this.error = e.message;
       }
     },
-    async approve(requestId) {
+    async approve() {
       try {
         await this.$apollo.mutate({
           mutation: require('@/graphql/mutations/ApproveRequest').default,
-          variables: { id: requestId },
+          variables: { id: this.request.id },
           update: (store, { data: { approveRequest } }) => {
-            this.$emit('mutatedRequest', approveRequest);
+            const query = {
+              query: require('@/graphql/queries/AllRequestsByOrder').default,
+              variables: { order_id: approveRequest.order.id },
+            };
+            store.writeQuery({
+              ...query
+            });
           },
         });
       } catch (e) {

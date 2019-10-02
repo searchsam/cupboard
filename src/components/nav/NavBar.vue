@@ -26,7 +26,6 @@ export default {
   methods: {
     logout() {
       onLogout(this.$apollo.provider.defaultClient);
-      localStorage.removeItem('auType');
       this.$router.push({ name: 'login' });
     },
   },

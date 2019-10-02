@@ -6,6 +6,9 @@ export default gql`
   mutation ApproveRequest($id: ID!) {
     approveRequest(id: $id) {
       ...requestInfo
+      order {
+        id
+      }
     }
   }
 
