@@ -39,10 +39,32 @@ extend type Query @middleware(checks: ["auth:api"]) {
                 apply: ["required"],
                 messages: { required: "El campo es requerido"}
             )
+        orderBy: [OrderByClause!] @orderBy
     ): [Request!]! @all
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
     createRequest(input: CreateRequestInput! @spread): Request
+        @can(ability: "create", model: "Request")
         @field(resolver: "RequestMutator@create")
+    denyRequest(
+        id: ID!
+            @globalId(decode: "ID")
+            @eq
+            @rules(
+                apply: ["required"],
+                messages: { required: "El campo es requerido"}
+            )
+    ): Request
+        @field(resolver: "RequestMutator@deny")
+    approveRequest(
+        id: ID!
+            @globalId(decode: "ID")
+            @eq
+            @rules(
+                apply: ["required"],
+                messages: { required: "El campo es requerido"}
+            )
+    ): Request
+        @field(resolver: "RequestMutator@approve")
 }

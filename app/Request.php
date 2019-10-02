@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Request extends Model
 {
+    const REJECT = 0;
+    const APPROVE = 1;
+
     /**
      * {@inheritdoc}
      */
