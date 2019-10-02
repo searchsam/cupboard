@@ -39,9 +39,8 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        $request = Request::find($requestId);
-        $request->status = Request::REJECT;
-        $request->save();
+        Request::where('id', $requestId)
+            ->update(['status' => Request::REJECT]);
 
         return $request;
     }
@@ -55,9 +54,8 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        $request = Request::find($requestId);
-        $request->status = Request::APPROVE;
-        $request->save();
+        Request::where('id', $requestId)
+            ->update(['status' => Request::APPROVE]);
 
         return $request;
     }
