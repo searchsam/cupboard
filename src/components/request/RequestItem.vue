@@ -17,11 +17,8 @@
           {{ request.status ? 'Aprobada' : 'Rechazada' }}
         </span>
         <span class="float-right">
-          <a
-            href="#"
-            class="action change p-5"
-          >
-            <div class="edit-solid icon"></div>
+          <a href="#" class="action change p-5">
+            <i class="pe-7s-edit pe-lg pe-va"></i>
           </a>
           <a
             href="#"
@@ -29,7 +26,7 @@
             v-if="request.status"
             @click.prevent="deny(request.id)"
           >
-            <div class="close icon"></div>
+            <i class="pe-7s-close-circle pe-lg pe-va"></i>
           </a>
           <a
             href="#"
@@ -37,7 +34,7 @@
             class="action approve p-5"
             @click.prevent="approve(request.id)"
           >
-            <div class="check icon"></div>
+            <i class="pe-7s-check pe-lg pe-va"></i>
           </a>
         </span>
         <Alert :msg="error" />
@@ -121,12 +118,4 @@ export default {
     &.change
         &:hover
             background-color: #f6e05e
-    &.icon
-        &:hover
-            color: white
-
-.icon
-    position: relative
-    display: inline-block
-    vertical-align: middle
 </style>

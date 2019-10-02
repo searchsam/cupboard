@@ -64,7 +64,7 @@ export default {
   },
 
   computed: {
-    ordersList: function () {
+    ordersList: function() {
       if (this.orders) {
         return this.orders.sort((a, b) => (a.status < b.status ? 1 : -1));
       }

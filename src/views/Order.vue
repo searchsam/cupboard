@@ -58,7 +58,7 @@ export default {
   },
 
   computed: {
-    requestsList: function () {
+    requestsList: function() {
       if (this.requests) {
         return this.requests.sort((a, b) => (a.status < b.status ? 1 : -1));
       }
@@ -70,9 +70,8 @@ export default {
       return arr.indexOf(arr.find(item => item.id === obj.id));
     },
     updateRequest(mutatedRequest) {
-      this.requests[
-        this.getObjectIndex(this.requests, mutatedRequest)
-      ].status = mutatedRequest.status;
+      this.requests[this.getObjectIndex(this.requests, mutatedRequest)].status =
+        mutatedRequest.status;
     },
   },
 };

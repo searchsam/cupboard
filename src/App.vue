@@ -19,5 +19,6 @@ body
 </style>
 
 <style lang="css">
-@import "https://cssicon.space/css/icons.css";
+@import "assets/css/pe-icon-7-stroke.css";
+@import "assets/css/helper.css";
 </style>
