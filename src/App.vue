@@ -4,9 +4,7 @@
   </body>
 </template>
 
-<script type="text/javascript">
-//import 'vue-date-pick/dist/vueDatePick.css';
-</script>
+<script type="text/javascript"></script>
 
 <style lang="sass">
 @tailwind base
@@ -18,4 +16,9 @@
 body
     font-family: 'Open Sans', sans-serif
     background-color: #F5F5F5
+</style>
+
+<style lang="css">
+@import "assets/css/pe-icon-7-stroke.css";
+@import "assets/css/helper.css";
 </style>

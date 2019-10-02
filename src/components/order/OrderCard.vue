@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="card-order content-center w-1/5 m-2 bg-white">
+  <div class="card-order content-center w-1/5 m-2 bg-white relative">
     <div
       class="content-center card-content py-4"
       :style="
@@ -14,21 +14,21 @@
         Fecha: {{ this.order.deadline.split(' ')[0] }}
       </h1>
     </div>
-    <div class="card-footer content-center flex flex-wrap" v-if="me.type <= 1">
-      <button
-        type="button"
-        class="bg-yellow-500 text-white text-xl h-8 w-1/2 hover:bg-yellow-400"
+
+    <div
+      class="card-footer absolute top-0 right-0 table-row"
+      v-if="me.type <= 1"
+    >
+      <a
+        href="#"
+        class="p-2 hover:bg-yellow-400"
         @click.prevent="showEditOrderForm(this.order)"
       >
-        Editar
-      </button>
-      <button
-        type="button"
-        class="bg-gray-500 text-white text-xl h-8 w-1/2 hover:bg-gray-400"
-        @click.prevent=""
-      >
-        Comprar
-      </button>
+        <i class="pe-7s-edit pe-lg pe-va"></i>
+      </a>
+      <a href="#" class="p-2 hover:bg-gray-400">
+        <i class="pe-7s-cart pe-lg pe-va"></i>
+      </a>
     </div>
   </div>
 </template>
@@ -70,4 +70,7 @@ export default {
       border-style: solid
       border-color: #f6e05e
       border-width: 2px
+
+.card-footer
+    display: inline-grid
 </style>

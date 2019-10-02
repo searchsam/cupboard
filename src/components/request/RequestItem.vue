@@ -1,83 +1,117 @@
 <template>
   <li>
-    <div class="item-list">
-      <p class="p-5">
-        <span class="item-list-index p-5">{{ index }}</span>
+    <div
+      class="item-list"
+      :style="
+        request.status
+          ? 'border-left: 5px solid #68d391'
+          : 'border-left: 5px solid #fc8181'
+      "
+    >
+      <p class="pt-5 pb-5">
+        <span class="item-list-index p-5"></span>
         <span class="p-5">
           {{ request.description }}
           {{ request.quantity }}
-          ({{ request.user.name }})
+          ({{ request.user.name }}) -
+          {{ request.status ? 'Aprobada' : 'Rechazada' }}
         </span>
         <span class="float-right">
-          <a href="#">denegar</a> |
-          <a href="#">editar</a>
+          <a href="#" class="action change p-5">
+            <i class="pe-7s-edit pe-lg pe-va"></i>
+          </a>
+          <a
+            href="#"
+            class="action deny p-5"
+            v-if="request.status"
+            @click.prevent="deny"
+          >
+            <i class="pe-7s-close-circle pe-lg pe-va"></i>
+          </a>
+          <a
+            href="#"
+            v-else
+            class="action approve p-5"
+            @click.prevent="approve"
+          >
+            <i class="pe-7s-check pe-lg pe-va"></i>
+          </a>
         </span>
+        <Alert :msg="error" />
       </p>
     </div>
   </li>
 </template>
 
 <script>
+import Alert from '../error/Alert';
+
 export default {
   name: 'RequestItem',
+
+  components: {
+    Alert,
+  },
+
+  data() {
+    return {
+      error: null,
+    };
+  },
 
   props: {
     request: {
       type: Object,
       required: true,
     },
-    index: {
-      type: Number,
-      required: true,
-    },
   },
 
   methods: {
-      async unGrand() {
-        try {
-          await this.$apollo.mutate({
-            mutation: require('@/graphql/mutations/CreateRequest').default,
-            variables: {
-              input: {
-                description: this.description,
-                quantity: this.quantity,
-                order: this.$route.params.id,
-              },
-            },
-            update: (store, { data: { createRequest } }) => {
-              const query = {
-                query: require('@/graphql/queries/AllRequestsByOrder').default,
-                variables: { order_id: this.$route.params.id },
-              };
-
-              const data = store.readQuery(query);
-              data.requests.push({
-                ...createRequest,
-                user: {
-                  ...this.me,
-                },
-              });
-              store.writeQuery({
-                ...query,
-                data,
-              });
-            },
-          });
-
-          this.cleanVars();
-        } catch (e) {
-          this.error = e.message;
-        }
-      },
-  }
+    async deny() {
+      try {
+        await this.$apollo.mutate({
+          mutation: require('@/graphql/mutations/DenyRequest').default,
+          variables: { id: this.request.id },
+          update: (store, { data: { denyRequest } }) => {
+            const query = {
+              query: require('@/graphql/queries/AllRequestsByOrder').default,
+              variables: { order_id: denyRequest.order.id },
+            };
+            store.writeQuery({
+              ...query
+            });
+          },
+        });
+      } catch (e) {
+        this.error = e.message;
+      }
+    },
+    async approve() {
+      try {
+        await this.$apollo.mutate({
+          mutation: require('@/graphql/mutations/ApproveRequest').default,
+          variables: { id: this.request.id },
+          update: (store, { data: { approveRequest } }) => {
+            const query = {
+              query: require('@/graphql/queries/AllRequestsByOrder').default,
+              variables: { order_id: approveRequest.order.id },
+            };
+            store.writeQuery({
+              ...query
+            });
+          },
+        });
+      } catch (e) {
+        this.error = e.message;
+      }
+    },
+  },
 };
 </script>
 
 <style lang="sass" scoped>
 .item-list
     border-bottom: 2px solid #cbd5e0
-
-.item-list
     &:hover
         border-style: solid
         border-color: #f6e05e
@@ -85,4 +119,15 @@ export default {
 
 .item-list-index
     border-right: 2px solid #cbd5e0
+
+.action
+    &.approve
+        &:hover
+            background-color: #68d391
+    &.deny
+        &:hover
+            background-color: #fc8181
+    &.change
+        &:hover
+            background-color: #f6e05e
 </style>
