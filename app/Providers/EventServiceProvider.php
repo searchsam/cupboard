@@ -7,6 +7,12 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
+use App\Events\ShopOrder;
+use App\Events\StocklessProduct;
+
+use App\Listeners\FillPantry;
+use App\Listeners\SoldoutProduct;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -18,8 +24,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\ShopOrder' => [
-            'App\Listeners\FillPantry',
+        ShopOrder::class => [
+            FillPantry::class,
+        ],
+        StocklessProduct::class => [
+            SoldoutProduct::class,
         ],
     ];
 

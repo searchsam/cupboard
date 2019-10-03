@@ -33,6 +33,7 @@ class OrderMutator
     public function shop($root, array $args)
     {
         $orderId = $args['id'];
+        
         return tap(Order::find($orderId), function ($order) {
             $order->update(['status' => Order::COMPLETED]);
             event(new ShopOrder($order));

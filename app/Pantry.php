@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pantry extends Model
 {
+    const SOLDOUT = 0;
+    const STOCK = 1;
+
     /**
      * {@inheritdoc}
      */
@@ -17,7 +20,7 @@ class Pantry extends Model
     /**
      * @return BelongsTo
      */
-    public function requests(): BelongsTo
+    public function request(): BelongsTo
     {
         return $this->belongsTo(Request::class);
     }

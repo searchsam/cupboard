@@ -11,8 +11,6 @@ type Order @model {
         @rename(attribute: "created_at")
     updatedAt: DateTime!
         @rename(attribute: "updated_at")
-    " Pantry relation "
-    pantry: Pantry! @hasOne
     " Request relation "
     requests: [Request!]! @hasMany
     " User relation "

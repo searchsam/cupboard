@@ -3,8 +3,11 @@
 namespace App\Policies;
 
 use App\User;
+use App\Order;
 use App\Request;
 use Illuminate\Auth\Access\HandlesAuthorization;
+
+use Carbon\Carbon;
 
 class RequestPolicy
 {
@@ -39,9 +42,9 @@ class RequestPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Order $order)
     {
-        return true;
+        return $order->status || Carbon::now() < $order->deadline;
     }
 
     /**
