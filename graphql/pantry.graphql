@@ -7,7 +7,7 @@ type Pantry @model {
         @rename(attribute: "created_at")
     updatedAt: DateTime!
         @rename(attribute: "updated_at")
-    requests: [Request!]! @belongsTo
+    request: Request! @belongsTo
 }
 
 enum PantryStatus {
@@ -16,10 +16,16 @@ enum PantryStatus {
 }
 
 extend type Query @middleware(checks: ["auth:api"]) {
-    stock(status: Int! @eq
+    products(orderBy: [OrderByClause!] @orderBy): [Pantry!]! @all
+}
+
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    stocklessProduct(id: ID! @globalId(decode: "ID") @eq
         @rules(
             apply: ["required"],
-            messages: { required: "El campo es requerido" }
+            messages: { required: "El campo es requerido"}
         )
-    ): [Pantry!]! @all
+    ): Pantry
+        @can(ability: "update", find: "id")
+        @field(resolver: "PantryMutator@stockless")
 }
