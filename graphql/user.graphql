@@ -18,12 +18,6 @@ enum UserType {
     CLIENT @enum(value: 2)
 }
 
-input CreateUserInput {
-    name: String!
-    email: String!
-    password: String! @bcrypt
-}
-
 extend type Query @middleware(checks: ["auth:api"]) {
     users: [User!]! @all
     me: User! @auth

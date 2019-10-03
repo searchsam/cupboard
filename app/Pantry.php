@@ -11,14 +11,14 @@ class Pantry extends Model
      * {@inheritdoc}
      */
     protected $fillable = [
-        'status', 'order_id'
+        'status', 'request_id', 'existence'
     ];
 
     /**
      * @return BelongsTo
      */
-    public function order(): BelongsTo
+    public function requests(): BelongsTo
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Request::class);
     }
 }
