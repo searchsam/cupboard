@@ -2,11 +2,12 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import { AUTH_TOKEN } from './vue-apollo';
 
-import Home from '@/views/Home.vue';
-import Login from '@/views/Login.vue';
+import Home from '@/views/Home';
+import Login from '@/views/Login';
 import Order from '@/views/Order';
-import Orders from '@/views/Orders.vue';
-import Register from '@/views/Register.vue';
+import Orders from '@/views/Orders';
+import Pantry from '@/views/Pantry';
+import Register from '@/views/Register';
 
 Vue.use(Router);
 
@@ -63,6 +64,14 @@ const router = new Router({
           path: '/orders/:id',
           name: 'requests',
           component: Order,
+          meta: {
+            auth: true,
+          },
+        },
+        {
+          path: '/pantry',
+          name: 'pantry',
+          component: Pantry,
           meta: {
             auth: true,
           },

@@ -5,6 +5,7 @@
     class="flex items-center bg-red-500 text-white px-4 py-3"
     role="alert"
   >
+    <i class="pe-7s-attention pe-2x pe-va"></i>
     <p>{{ this.msg }}</p>
   </div>
 </template>

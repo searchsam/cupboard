@@ -3,9 +3,18 @@
     <h1 class="font-thin text-6xl">Solicitudes</h1>
 
     <!-- Create Request Form -->
-    <div id="createRequestForm" class="w-full bg-white m-2" v-if="status">
-      <h1 class="p-4 text-xl">Crear Nueva Solicitud</h1>
-      <CreateRequestForm />
+    <div v-if="!$apollo.queries.order.loading">
+      <div
+        id="createRequestForm"
+        class="w-full bg-white m-2"
+        v-if="order.status || new Date() < order.deadline"
+      >
+        <h1 class="p-4 text-xl">Crear Nueva Solicitud</h1>
+        <CreateRequestForm />
+      </div>
+    </div>
+    <div v-else>
+      <span>Loading...</span>
     </div>
 
     <!-- Request List -->
@@ -15,6 +24,7 @@
           v-for="request in requestsList"
           :key="request.id"
           :request="request"
+          :orderStatus="order.status"
         />
       </ul>
     </div>
@@ -33,31 +43,23 @@ export default {
     RequestItem,
   },
 
-  data() {
-    return {
-      status: true,
-    };
-  },
-
   apollo: {
-    requests: {
-      query: require('@/graphql/queries/AllRequestsByOrder').default,
+    order: {
+      query: require('@/graphql/queries/CurrentOrder').default,
       variables() {
         return {
-          order_id: this.$route.params.id,
+          id: this.$route.params.id,
         };
-      },
-      result({ data }) {
-        this.status = data.requests.length ? data.requests[-1].order.status : this.status;
       },
     },
   },
 
   computed: {
     requestsList: function() {
-      return (this.requests || []).sort((a, b) => (a.status < b.status ? 1 : -1));
+      return (this.order.requests || []).sort((a, b) => {
+        b.status - a.status;
+      });
     },
   },
-
 };
 </script>

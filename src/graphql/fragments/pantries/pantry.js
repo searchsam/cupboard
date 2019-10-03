@@ -1,10 +1,9 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  fragment requestInfo on Request {
+  fragment pantryInfo on Pantry {
     id
-    description
-    quantity
+    existence
     status
     createdAt
     updatedAt

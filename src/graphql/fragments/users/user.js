@@ -6,5 +6,7 @@ export default gql`
     email
     name
     type
+    createdAt
+    updatedAt
   }
 `;
