@@ -16,7 +16,7 @@
           ({{ request.user.name }}) -
           {{ request.status ? 'Aprobada' : 'Rechazada' }}
         </span>
-        <span class="float-right">
+        <span class="float-right" v-if="orderStatus">
           <a href="#" class="action change p-5" v-if="request.user.id == me.id">
             <i class="pe-7s-edit pe-lg pe-va"></i>
           </a>
@@ -66,6 +66,10 @@ export default {
       type: Object,
       required: true,
     },
+    orderStatus: {
+        type: Number,
+        required: true,
+    }
   },
 
   inject: ['me'],

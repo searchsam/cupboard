@@ -24,6 +24,7 @@
           v-for="request in requestsList"
           :key="request.id"
           :request="request"
+          :orderStatus="order.status"
         />
       </ul>
     </div>
@@ -56,7 +57,7 @@ export default {
   computed: {
     requestsList: function() {
       return (this.order.requests || []).sort((a, b) => {
-        a.status < b.status ? 1 : -1;
+        b.status - a.status;
       });
     },
   },

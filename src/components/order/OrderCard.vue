@@ -17,7 +17,7 @@
 
     <div
       class="card-footer absolute top-0 right-0 table-row"
-      v-if="me.type <= 1"
+      v-if="me.type <= 1 && order.status"
     >
       <a
         href="#"
@@ -30,7 +30,6 @@
         href="#"
         class="p-2 hover:bg-gray-400"
         @click.prevent="shopOrder"
-        v-if="order.status"
       >
         <i class="pe-7s-cart pe-lg pe-va"></i>
       </a>
