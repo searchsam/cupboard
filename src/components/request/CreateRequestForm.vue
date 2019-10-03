@@ -41,13 +41,6 @@ export default {
     };
   },
 
-  apollo: {
-    order: {
-      query: require('@/graphql/queries/CurrentOrder').default,
-      variables() { return { id: this.$route.params.id }; }
-    },
-  },
-
   inject: ['me'],
 
   methods: {
@@ -64,18 +57,14 @@ export default {
           },
           update: (store, { data: { createRequest } }) => {
             const query = {
-              query: require('@/graphql/queries/AllRequestsByOrder').default,
+              query: require('@/graphql/queries/CurrentOrder').default,
               variables: { order_id: this.$route.params.id },
             };
-
             const data = store.readQuery(query);
-            data.requests.push({
+            data.order.requests.push({
               ...createRequest,
               user: {
-                ...this.me,
-              },
-              order: {
-                ...this.order
+                ...this.me
               }
             });
             store.writeQuery({

@@ -81,7 +81,7 @@ export default {
         await this.$apollo.mutate({
           mutation: require('@/graphql/mutations/ShopOrder').default,
           variables: { id: this.order.id },
-          update: (store) => {
+          update: store => {
             const query = {
               query: require('@/graphql/queries/AllOrders').default,
             };

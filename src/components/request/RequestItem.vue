@@ -78,7 +78,7 @@ export default {
           variables: { id: this.request.id },
           update: (store, { data: { denyRequest } }) => {
             const query = {
-              query: require('@/graphql/queries/AllRequestsByOrder').default,
+              query: require('@/graphql/queries/CurrentOrder').default,
               variables: { order_id: denyRequest.order.id },
             };
             store.writeQuery({
@@ -97,7 +97,7 @@ export default {
           variables: { id: this.request.id },
           update: (store, { data: { approveRequest } }) => {
             const query = {
-              query: require('@/graphql/queries/AllRequestsByOrder').default,
+              query: require('@/graphql/queries/CurrentOrder').default,
               variables: { order_id: approveRequest.order.id },
             };
             store.writeQuery({
