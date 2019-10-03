@@ -10,8 +10,8 @@
       @click="goToOrder"
     >
       <h1 class="inline-block px-8">
-        Orden: {{ this.order.name }} <br />
-        Fecha: {{ this.order.deadline.split(' ')[0] }}
+        Orden: {{ order.name }} <br />
+        Fecha: {{ order.deadline.split(' ')[0] }}
       </h1>
     </div>
 
@@ -26,19 +26,29 @@
       >
         <i class="pe-7s-edit pe-lg pe-va"></i>
       </a>
-      <a href="#" class="p-2 hover:bg-gray-400">
+      <a href="#" class="p-2 hover:bg-gray-400" @click.prevent="shopOrder">
         <i class="pe-7s-cart pe-lg pe-va"></i>
       </a>
     </div>
+    <Alert :msg="error" />
   </div>
 </template>
 
 <script>
+import Alert from '@/components/error/Alert.vue';
+
 export default {
   name: 'OrderCard',
 
+  components: {
+    Alert,
+  },
+
   props: {
-    order: Object,
+    order: {
+      type: Object,
+      required: true,
+    },
   },
 
   data() {
@@ -46,6 +56,7 @@ export default {
       name: null,
       deadline: null,
       status: null,
+      error: null,
     };
   },
 
@@ -59,6 +70,24 @@ export default {
           id: this.order.id,
         },
       });
+    },
+    async shopOrder() {
+      try {
+        await this.$apollo.mutate({
+          mutation: require('@/graphql/mutations/ShopOrder').default,
+          variables: { id: this.order.id },
+          update: (store) => {
+            const query = {
+              query: require('@/graphql/queries/AllOrders').default,
+            };
+            store.writeQuery({
+              ...query,
+            });
+          },
+        });
+      } catch (e) {
+        this.error = e.message.split(':')[1];
+      }
     },
   },
 };

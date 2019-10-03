@@ -6,6 +6,7 @@ import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Order from '@/views/Order';
 import Orders from '@/views/Orders.vue';
+import Pantry from '@/views/Pantry';
 import Register from '@/views/Register.vue';
 
 Vue.use(Router);
@@ -63,6 +64,14 @@ const router = new Router({
           path: '/orders/:id',
           name: 'requests',
           component: Order,
+          meta: {
+            auth: true,
+          },
+        },
+        {
+          path: '/pantry',
+          name: 'pantry',
+          component: Pantry,
           meta: {
             auth: true,
           },
