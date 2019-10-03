@@ -15,11 +15,14 @@ class CreatePantriesTable extends Migration
     {
         Schema::create('pantries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('status');
-            $table->unsignedBigInteger('order_id');
-            $table->foreign('order_id')
+            $table->tinyInteger('status')
+                ->default('1');
+            $table->integer('existence')
+                ->default('0');
+            $table->unsignedBigInteger('request_id');
+            $table->foreign('request_id')
                 ->references('id')
-                ->on('orders')
+                ->on('requests')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->timestamps();

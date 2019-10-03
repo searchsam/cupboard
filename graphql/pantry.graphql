@@ -1,15 +1,25 @@
 
 type Pantry @model {
     id: ID!
+    existence: Int!
     status: Int!
     createdAt: DateTime!
         @rename(attribute: "created_at")
     updatedAt: DateTime!
         @rename(attribute: "updated_at")
-    order: Order! @belongsTo
+    requests: [Request!]! @belongsTo
 }
 
 enum PantryStatus {
     SOLDOUT @enum(value: 0)
     STOCK @enum(value: 1)
+}
+
+extend type Query @middleware(checks: ["auth:api"]) {
+    stock(status: Int! @eq
+        @rules(
+            apply: ["required"],
+            messages: { required: "El campo es requerido" }
+        )
+    ): [Pantry!]! @all
 }
