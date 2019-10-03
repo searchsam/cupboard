@@ -53,7 +53,9 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-        return $user->id == User::ADMIN || $user->id == User::SUPERADMIN;
+        return $user->id === $order->user->id || (
+            $user->id == User::ADMIN || $user->id == User::SUPERADMIN
+        );
     }
 
     /**

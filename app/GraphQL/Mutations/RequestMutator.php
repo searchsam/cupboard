@@ -19,7 +19,7 @@ class RequestMutator
     {
         $description = $args['description'];
         $quantity = $args['quantity'];
-        $orderId = $args['order'];
+        $orderId = $args['order_id'];
 
         $request = auth()->user()->requests()->create([
             'description' => $description,
@@ -39,10 +39,9 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        Request::where('id', $requestId)
-            ->update(['status' => Request::REJECT]);
-
-        return $request;
+        return tap(Request::find($requestId), function ($request) {
+            $request->update(['status' => Request::REJECT]);
+        });
     }
 
     /**
@@ -54,9 +53,8 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        Request::where('id', $requestId)
-            ->update(['status' => Request::APPROVE]);
-
-        return $request;
+        return tap(Request::find($requestId), function ($request) {
+            $request->update(['status' => Request::APPROVE]);
+        });
     }
 }

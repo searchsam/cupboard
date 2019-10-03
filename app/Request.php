@@ -17,6 +17,11 @@ class Request extends Model
         'user_id', 'order_id', 'description', 'quantity', 'status'
     ];
 
+    public function scopeApproved($query)
+    {
+        return $query->where('status', Request::APPROVE);
+    }
+
     /**
      * @return BelongsTo
      */

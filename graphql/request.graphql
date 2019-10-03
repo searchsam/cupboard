@@ -10,6 +10,7 @@ type Request @model {
         @rename(attribute: "updated_at")
     order: Order! @hasOne
     user: User! @belongsTo
+    pantry: Pantry! @hasOne
 }
 
 input CreateRequestInput {
@@ -23,7 +24,7 @@ input CreateRequestInput {
             apply: ["required"],
             messages: { required: "El campo es requerido"}
         )
-    order: ID! @globalId(decode: "ID")
+    order_id: ID! @globalId(decode: "ID")
         @rules(
             apply: ["required"],
             messages: { required: "El campo es requerido"}
@@ -45,26 +46,24 @@ extend type Query @middleware(checks: ["auth:api"]) {
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
     createRequest(input: CreateRequestInput! @spread): Request
-        @can(ability: "create", model: "Request")
+        @can(ability: "create", model: "Order", find: "order_id")
         @field(resolver: "RequestMutator@create")
-    denyRequest(
-        id: ID!
-            @globalId(decode: "ID")
-            @eq
-            @rules(
-                apply: ["required"],
-                messages: { required: "El campo es requerido"}
-            )
+
+    denyRequest(id: ID! @globalId(decode: "ID") @eq
+        @rules(
+            apply: ["required"],
+            messages: { required: "El campo es requerido"}
+        )
     ): Request
+        @can(ability: "update", find: "id")
         @field(resolver: "RequestMutator@deny")
-    approveRequest(
-        id: ID!
-            @globalId(decode: "ID")
-            @eq
-            @rules(
-                apply: ["required"],
-                messages: { required: "El campo es requerido"}
-            )
+
+    approveRequest(id: ID! @globalId(decode: "ID") @eq
+        @rules(
+            apply: ["required"],
+            messages: { required: "El campo es requerido"}
+        )
     ): Request
+        @can(ability: "update", find: "id")
         @field(resolver: "RequestMutator@approve")
 }

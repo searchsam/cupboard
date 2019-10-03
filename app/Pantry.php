@@ -7,18 +7,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pantry extends Model
 {
+    const SOLDOUT = 0;
+    const STOCK = 1;
+
     /**
      * {@inheritdoc}
      */
     protected $fillable = [
-        'status', 'order_id'
+        'status', 'request_id', 'existence'
     ];
 
     /**
      * @return BelongsTo
      */
-    public function order(): BelongsTo
+    public function request(): BelongsTo
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Request::class);
     }
 }
