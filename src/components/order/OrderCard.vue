@@ -26,7 +26,12 @@
       >
         <i class="pe-7s-edit pe-lg pe-va"></i>
       </a>
-      <a href="#" class="p-2 hover:bg-gray-400" @click.prevent="shopOrder">
+      <a
+        href="#"
+        class="p-2 hover:bg-gray-400"
+        @click.prevent="shopOrder"
+        v-if="order.status"
+      >
         <i class="pe-7s-cart pe-lg pe-va"></i>
       </a>
     </div>

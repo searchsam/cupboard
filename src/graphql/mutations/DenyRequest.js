@@ -6,6 +6,9 @@ export default gql`
   mutation DenyRequest($id: ID!) {
     denyRequest(id: $id) {
       ...requestInfo
+      order {
+        id
+      }
     }
   }
 

@@ -41,6 +41,13 @@ export default {
     };
   },
 
+  apollo: {
+    order: {
+      query: require('@/graphql/queries/CurrentOrder').default,
+      variables() { return { id: this.$route.params.id }; }
+    },
+  },
+
   inject: ['me'],
 
   methods: {
@@ -52,7 +59,7 @@ export default {
             input: {
               description: this.description,
               quantity: this.quantity,
-              order: this.$route.params.id,
+              order_id: this.$route.params.id,
             },
           },
           update: (store, { data: { createRequest } }) => {
@@ -67,6 +74,9 @@ export default {
               user: {
                 ...this.me,
               },
+              order: {
+                ...this.order
+              }
             });
             store.writeQuery({
               ...query,
@@ -84,6 +94,7 @@ export default {
     cleanVars() {
       this.description = '';
       this.quantity = '';
+      this.error = null;
     },
   },
 };

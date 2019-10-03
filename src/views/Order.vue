@@ -3,7 +3,7 @@
     <h1 class="font-thin text-6xl">Solicitudes</h1>
 
     <!-- Create Request Form -->
-    <div id="createRequestForm" class="w-full bg-white m-2" v-if="status">
+    <div id="createRequestForm" class="w-full bg-white m-2" v-if="status || new Date() < deadline">
       <h1 class="p-4 text-xl">Crear Nueva Solicitud</h1>
       <CreateRequestForm />
     </div>
@@ -36,6 +36,7 @@ export default {
   data() {
     return {
       status: true,
+      deadline: null
     };
   },
 
@@ -51,14 +52,17 @@ export default {
         this.status = data.requests.length
           ? data.requests[0].order.status
           : this.status;
+        this.deadline = data.requests.length
+          ? data.requests[0].order.deadline
+          : new Date();
       },
     },
   },
 
   computed: {
     requestsList: function() {
-      return (this.requests || []).sort((a, b) =>
-        a.status < b.status ? 1 : -1
+      return (this.requests || []).sort(
+          (a, b) => a.status < b.status ? 1 : -1
       );
     },
   },
