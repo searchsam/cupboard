@@ -48,16 +48,19 @@ export default {
         };
       },
       result({ data }) {
-        this.status = data.requests.length ? data.requests[-1].order.status : this.status;
+        this.status = data.requests.length
+          ? data.requests[0].order.status
+          : this.status;
       },
     },
   },
 
   computed: {
     requestsList: function() {
-      return (this.requests || []).sort((a, b) => (a.status < b.status ? 1 : -1));
+      return (this.requests || []).sort((a, b) =>
+        a.status < b.status ? 1 : -1
+      );
     },
   },
-
 };
 </script>

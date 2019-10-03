@@ -11,31 +11,33 @@
       <p class="pt-5 pb-5">
         <span class="item-list-index p-5"></span>
         <span class="p-5">
+          {{ request.quantity }} -
           {{ request.description }}
-          {{ request.quantity }}
           ({{ request.user.name }}) -
           {{ request.status ? 'Aprobada' : 'Rechazada' }}
         </span>
         <span class="float-right">
-          <a href="#" class="action change p-5">
+          <a href="#" class="action change p-5" v-if="request.user.id == me.id">
             <i class="pe-7s-edit pe-lg pe-va"></i>
           </a>
-          <a
-            href="#"
-            class="action deny p-5"
-            v-if="request.status"
-            @click.prevent="deny"
-          >
-            <i class="pe-7s-close-circle pe-lg pe-va"></i>
-          </a>
-          <a
-            href="#"
-            v-else
-            class="action approve p-5"
-            @click.prevent="approve"
-          >
-            <i class="pe-7s-check pe-lg pe-va"></i>
-          </a>
+          <div class="inline" v-if="me.type <= 1">
+            <a
+              href="#"
+              class="action deny p-5"
+              v-if="request.status"
+              @click.prevent="deny"
+            >
+              <i class="pe-7s-close-circle pe-lg pe-va"></i>
+            </a>
+            <a
+              href="#"
+              v-else
+              class="action approve p-5"
+              @click.prevent="approve"
+            >
+              <i class="pe-7s-check pe-lg pe-va"></i>
+            </a>
+          </div>
         </span>
         <Alert :msg="error" />
       </p>
@@ -66,6 +68,8 @@ export default {
     },
   },
 
+  inject: ['me'],
+
   methods: {
     async deny() {
       try {
@@ -78,7 +82,7 @@ export default {
               variables: { order_id: denyRequest.order.id },
             };
             store.writeQuery({
-              ...query
+              ...query,
             });
           },
         });
@@ -97,7 +101,7 @@ export default {
               variables: { order_id: approveRequest.order.id },
             };
             store.writeQuery({
-              ...query
+              ...query,
             });
           },
         });

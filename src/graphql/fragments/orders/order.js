@@ -3,9 +3,9 @@ import gql from 'graphql-tag';
 export default gql`
   fragment orderInfo on Order {
     id
+    deadline
     name
     status
-    deadline
     createdAt
     updatedAt
   }
