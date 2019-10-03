@@ -52,17 +52,16 @@ export default {
             input: {
               description: this.description,
               quantity: this.quantity,
-              order: this.$route.params.id,
+              order_id: this.$route.params.id,
             },
           },
           update: (store, { data: { createRequest } }) => {
             const query = {
-              query: require('@/graphql/queries/AllRequestsByOrder').default,
+              query: require('@/graphql/queries/CurrentOrder').default,
               variables: { order_id: this.$route.params.id },
             };
-
             const data = store.readQuery(query);
-            data.requests.push({
+            data.order.requests.push({
               ...createRequest,
               user: {
                 ...this.me,
@@ -84,6 +83,7 @@ export default {
     cleanVars() {
       this.description = '';
       this.quantity = '';
+      this.error = null;
     },
   },
 };

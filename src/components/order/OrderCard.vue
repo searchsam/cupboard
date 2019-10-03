@@ -17,7 +17,7 @@
 
     <div
       class="card-footer absolute top-0 right-0 table-row"
-      v-if="me.type <= 1"
+      v-if="me.type <= 1 && order.status"
     >
       <a
         href="#"
@@ -26,7 +26,11 @@
       >
         <i class="pe-7s-edit pe-lg pe-va"></i>
       </a>
-      <a href="#" class="p-2 hover:bg-gray-400" @click.prevent="shopOrder">
+      <a
+        href="#"
+        class="p-2 hover:bg-gray-400"
+        @click.prevent="shopOrder"
+      >
         <i class="pe-7s-cart pe-lg pe-va"></i>
       </a>
     </div>
@@ -76,7 +80,7 @@ export default {
         await this.$apollo.mutate({
           mutation: require('@/graphql/mutations/ShopOrder').default,
           variables: { id: this.order.id },
-          update: (store) => {
+          update: store => {
             const query = {
               query: require('@/graphql/queries/AllOrders').default,
             };
