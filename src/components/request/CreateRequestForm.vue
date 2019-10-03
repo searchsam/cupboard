@@ -64,8 +64,8 @@ export default {
             data.order.requests.push({
               ...createRequest,
               user: {
-                ...this.me
-              }
+                ...this.me,
+              },
             });
             store.writeQuery({
               ...query,

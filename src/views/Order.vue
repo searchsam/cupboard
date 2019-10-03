@@ -3,9 +3,7 @@
     <h1 class="font-thin text-6xl">Solicitudes</h1>
 
     <!-- Create Request Form -->
-    <div
-      v-if="!$apollo.queries.order.loading"
-    >
+    <div v-if="!$apollo.queries.order.loading">
       <div
         id="createRequestForm"
         class="w-full bg-white m-2"
@@ -15,7 +13,7 @@
         <CreateRequestForm />
       </div>
     </div>
-    <div v-else >
+    <div v-else>
       <span>Loading...</span>
     </div>
 
@@ -57,9 +55,9 @@ export default {
 
   computed: {
     requestsList: function() {
-      return (this.order.requests || []).sort(
-        (a, b) => { a.status < b.status ? 1 : -1 }
-      );
+      return (this.order.requests || []).sort((a, b) => {
+        a.status < b.status ? 1 : -1;
+      });
     },
   },
 };
