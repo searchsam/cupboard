@@ -1,94 +1,90 @@
 <template>
   <li>
     <div v-if="updateForm">
-
-    <div
-      class="item-list"
-      :style="
-        request.status
-          ? 'border-left: 5px solid #68d391'
-          : 'border-left: 5px solid #fc8181'
-      "
-    >
-      <p class="pt-5 pb-5">
-        <span class="p-5">
-          {{ request.quantity }} -
-          {{ request.description }}
-          ({{ request.user.name }}) -
-          {{ request.status ? 'Aprobada' : 'Rechazada' }}
-        </span>
-        <span class="float-right" v-if="orderStatus">
-          <a
-            href="#"
-            class="action change p-5"
-            v-if="request.user.id == me.id"
-            @click.prevent="toggleVar('updateForm')"
-          >
-            <i class="pe-7s-edit pe-lg pe-va"></i>
-          </a>
-          <div class="inline" v-if="me.type <= 1">
+      <div
+        class="item-list"
+        :style="
+          request.status
+            ? 'border-left: 5px solid #68d391'
+            : 'border-left: 5px solid #fc8181'
+        "
+      >
+        <p class="pt-5 pb-5">
+          <span class="p-5">
+            {{ request.quantity }} -
+            {{ request.description }}
+            ({{ request.user.name }}) -
+            {{ request.status ? 'Aprobada' : 'Rechazada' }}
+          </span>
+          <span class="float-right" v-if="orderStatus">
             <a
               href="#"
-              class="action deny p-5"
-              v-if="request.status"
-              @click.prevent="deny"
+              class="action change p-5"
+              v-if="request.user.id == me.id"
+              @click.prevent="toggleVar('updateForm')"
             >
-              <i class="pe-7s-close-circle pe-lg pe-va"></i>
+              <i class="pe-7s-edit pe-lg pe-va"></i>
             </a>
-            <a
-              href="#"
-              v-else
-              class="action approve p-5"
-              @click.prevent="approve"
-            >
-              <i class="pe-7s-check pe-lg pe-va"></i>
-            </a>
-          </div>
-        </span>
-      </p>
-    </div>
-
+            <div class="inline" v-if="me.type <= 1">
+              <a
+                href="#"
+                class="action deny p-5"
+                v-if="request.status"
+                @click.prevent="deny"
+              >
+                <i class="pe-7s-close-circle pe-lg pe-va"></i>
+              </a>
+              <a
+                href="#"
+                v-else
+                class="action approve p-5"
+                @click.prevent="approve"
+              >
+                <i class="pe-7s-check pe-lg pe-va"></i>
+              </a>
+            </div>
+          </span>
+        </p>
+      </div>
     </div>
     <div v-else>
-
-        <form
-          class="p-4 item-list"
-          method="POST"
-          :style="
-            request.status
-              ? 'border-left: 5px solid #68d391'
-              : 'border-left: 5px solid #fc8181'
-          "
-          @submit.prevent="updateRequest"
+      <form
+        class="p-4 item-list"
+        method="POST"
+        :style="
+          request.status
+            ? 'border-left: 5px solid #68d391'
+            : 'border-left: 5px solid #fc8181'
+        "
+        @submit.prevent="updateRequest"
+      >
+        <input
+          class="mr-2 h-12 border-2 border-gray-400 placeholder-gray-400"
+          type="text"
+          placeholder="Peticion"
+          style="width: 24rem;"
+          v-model="description"
+        />
+        <input
+          class="mr-2 w-24 h-12 border-2 border-gray-400 placeholder-gray-400"
+          type="number"
+          placeholder="Cantidad"
+          v-model="quantity"
+        />
+        <button
+          class="bg-yellow-500 text-white text-xl h-12 w-48 hover:bg-yellow-400"
+          type="submit"
         >
-          <input
-            class="mr-2 h-12 border-2 border-gray-400 placeholder-gray-400"
-            type="text"
-            placeholder="Peticion"
-            style="width: 24rem;"
-            v-model="description"
-          />
-          <input
-            class="mr-2 w-24 h-12 border-2 border-gray-400 placeholder-gray-400"
-            type="number"
-            placeholder="Cantidad"
-            v-model="quantity"
-          />
-          <button
-            class="bg-yellow-500 text-white text-xl h-12 w-48 hover:bg-yellow-400"
-            type="submit"
-          >
-            Actualizar Solicitud
-          </button>
-          <button
-            class="h-12 w-40 border bg-gray-500 text-white text-xl hover:bg-gray-400"
-            type="button"
-            @click="toggleVar('updateForm')"
-          >
-            Cancelar
-          </button>
-        </form>
-
+          Actualizar Solicitud
+        </button>
+        <button
+          class="h-12 w-40 border bg-gray-500 text-white text-xl hover:bg-gray-400"
+          type="button"
+          @click="toggleVar('updateForm')"
+        >
+          Cancelar
+        </button>
+      </form>
     </div>
     <Alert :msg="error" />
   </li>
@@ -97,7 +93,6 @@
 <script>
 import Alert from '@/components/error/Alert';
 import { ToggleMixin } from '@/mixins/ToggleMixin';
-
 
 export default {
   name: 'RequestItem',
@@ -168,10 +163,10 @@ export default {
               id: this.request.id,
               description: this.description,
               quantity: this.quantity,
-            }
+            },
           },
         });
-        this.toggleVar('updateForm')
+        this.toggleVar('updateForm');
       } catch (e) {
         this.error = e.message.split(':')[1];
       }

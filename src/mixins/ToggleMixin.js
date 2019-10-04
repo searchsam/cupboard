@@ -1,13 +1,12 @@
-
 export const ToggleMixin = {
-    data() {
-      return {
-        updateForm: true,
-      }
+  data() {
+    return {
+      updateForm: true,
+    };
+  },
+  methods: {
+    toggleVar(varName) {
+      this[varName] = !this[varName];
     },
-    methods: {
-        toggleVar(varName) {
-          this[varName] = !this[varName];
-        },
-    }
-}
+  },
+};

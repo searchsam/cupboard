@@ -20,7 +20,11 @@
         class="card-footer absolute top-0 right-0 table-row"
         v-if="me.type <= 1 && order.status"
       >
-        <a href="#" class="p-2 hover:bg-yellow-400" @click.prevent="toggleVar('updateForm')">
+        <a
+          href="#"
+          class="p-2 hover:bg-yellow-400"
+          @click.prevent="toggleVar('updateForm')"
+        >
           <i class="pe-7s-edit pe-lg pe-va"></i>
         </a>
         <a href="#" class="p-2 hover:bg-gray-400" @click.prevent="shopOrder">
@@ -136,10 +140,10 @@ export default {
               id: this.order.id,
               name: this.name,
               deadline: this.deadline,
-            }
+            },
           },
         });
-        this.toggleVar('updateForm')
+        this.toggleVar('updateForm');
       } catch (e) {
         this.error = e.message.split(':')[1];
       }
