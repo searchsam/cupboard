@@ -63,9 +63,9 @@ export default {
         await this.$apollo.mutate({
           mutation: require('@/graphql/mutations/StoclessProduct').default,
           variables: { id: this.product.id },
-          update: (store) => {
+          update: store => {
             const query = {
-                query: require('@/graphql/queries/StockProducts').default,
+              query: require('@/graphql/queries/StockProducts').default,
             };
             store.writeQuery({
               ...query,
