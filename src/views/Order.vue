@@ -56,8 +56,8 @@ export default {
 
   computed: {
     requestsList() {
-      return (this.order.requests || []).sort(
-        (a, b) => a.status < b.status ? 1 : -1
+      return (this.order.requests || []).sort((a, b) =>
+        a.status < b.status ? 1 : -1
       );
     },
   },

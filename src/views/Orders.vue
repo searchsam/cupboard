@@ -65,9 +65,7 @@ export default {
 
   computed: {
     ordersList: function() {
-      return (this.orders || []).sort(
-        (a, b) => (a.status < b.status ? 1 : -1)
-      );
+      return (this.orders || []).sort((a, b) => (a.status < b.status ? 1 : -1));
     },
   },
 };

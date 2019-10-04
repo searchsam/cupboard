@@ -22,7 +22,7 @@
         <br />
         <!-- Submit Button -->
         <button
-          class="mb-4 h-12 w-64 border bg-yellow-500 text-white hover:bg-yellow-400"
+          class="mb-4 h-12 w-64 border bg-yellow-500 text-white text-xl hover:bg-yellow-400"
           type="submit"
         >
           Iniciar Sesion
@@ -30,7 +30,7 @@
         <br />
         <!-- Show Register Form Button -->
         <button
-          class="h-12 w-64 border bg-blue-500 text-white hover:bg-blue-400"
+          class="h-12 w-64 border bg-blue-500 text-white text-xl hover:bg-blue-400"
           type="button"
           @click="$router.push({ name: 'register' })"
         >

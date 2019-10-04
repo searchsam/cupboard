@@ -4,7 +4,7 @@ import orderInfoFragment from '@/graphql/fragments/orders/order';
 
 export default gql`
   mutation UpdateOrder($input: UpdateOrderInput!) {
-    UpdateOrder(input: $input) {
+    updateOrder(input: $input) {
       ...orderInfo
     }
   }
