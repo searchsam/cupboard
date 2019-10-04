@@ -15,13 +15,11 @@ class PantryMutator
      * @param array $args
      * @return mixed
      */
-    public function stockless($rootValue, array $args)
+    public function decrease($rootValue, array $args)
     {
         $pantryId = $args['id'];
 
-        return tap(Pantry::find($pantryId), function ($pantry) {
-            $pantry->update(['existence' => $pantry->existence - Pantry::STOCK]);
-            event(new StocklessProduct($pantry));
-        });
+        return tap(Pantry::find($pantryId))
+            ->update(['existence' => $pantry->existence - Pantry::STOCK]);
     }
 }

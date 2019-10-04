@@ -14,7 +14,7 @@ class Pantry extends Model
      * {@inheritdoc}
      */
     protected $fillable = [
-        'status', 'request_id', 'existence'
+        'existence', 'request_id'
     ];
 
     /**

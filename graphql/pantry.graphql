@@ -2,7 +2,6 @@
 type Pantry @model {
     id: ID!
     existence: Int!
-    status: Int!
     createdAt: DateTime!
         @rename(attribute: "created_at")
     updatedAt: DateTime!
@@ -20,12 +19,12 @@ extend type Query @middleware(checks: ["auth:api"]) {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-    stocklessProduct(id: ID! @globalId(decode: "ID") @eq
+    decrease(id: ID! @globalId(decode: "ID") @eq
         @rules(
             apply: ["required"],
             messages: { required: "El campo es requerido"}
         )
     ): Pantry
         @can(ability: "update", find: "id")
-        @field(resolver: "PantryMutator@stockless")
+        @field(resolver: "PantryMutator@decrease")
 }
