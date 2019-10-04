@@ -43,7 +43,10 @@ class PantryPolicy
      */
     public function create(User $user)
     {
-        return $user->id == User::ADMIN || $user->id == User::SUPERADMIN;
+        return (
+            $user->type == User::ADMIN ||
+            $user->type == User::SUPERADMIN
+        );
     }
 
     /**
@@ -55,7 +58,7 @@ class PantryPolicy
      */
     public function update(User $user, Pantry $pantry)
     {
-        return true;
+        return $pantry->status == Pantry::STOCK;
     }
 
     /**

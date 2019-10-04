@@ -41,7 +41,10 @@ class OrderPolicy
      */
     public function create(User $user)
     {
-        return $user->id == User::ADMIN || $user->id == User::SUPERADMIN;
+        return (
+            $user->type == User::ADMIN ||
+            $user->type == User::SUPERADMIN
+        );
     }
 
     /**
@@ -53,8 +56,14 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-        return $user->id === $order->user->id || (
-            $user->id == User::ADMIN || $user->id == User::SUPERADMIN
+        return (
+            (
+                $user->id === $order->user->id ||
+                $user->type == User::ADMIN ||
+                $user->type == User::SUPERADMIN
+            ) && (
+                $order->status == Order::ACTIVE
+            )
         );
     }
 
