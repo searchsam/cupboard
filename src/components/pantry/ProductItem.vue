@@ -32,7 +32,6 @@
 
 <script>
 import Alert from '../error/Alert';
-import Vue from 'vue';
 
 export default {
   name: 'ProductItem',
