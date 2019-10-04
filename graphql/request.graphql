@@ -31,6 +31,24 @@ input CreateRequestInput {
         )
 }
 
+input UpdateRequestInput {
+    id: ID! @globalId(decode: "ID")
+        @rules(
+            apply: ["required"],
+            messages: { required: "El campo es requerido"}
+        )
+    description: String!
+        @rules(
+            apply: ["required"],
+            messages: { required: "El campo es requerido"}
+        )
+    quantity: String!
+        @rules(
+            apply: ["required"],
+            messages: { required: "El campo es requerido"}
+        )
+}
+
 extend type Query @middleware(checks: ["auth:api"]) {
     requests(
         order_id: ID!
@@ -48,6 +66,10 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     createRequest(input: CreateRequestInput! @spread): Request
         @can(ability: "create", model: "Order", find: "order_id")
         @field(resolver: "RequestMutator@create")
+
+    updateRequest(input: UpdateRequestInput! @spread): Request
+        @can(ability: "update", find: "id")
+        @field(resolver: "RequestMutator@update")
 
     denyRequest(id: ID! @globalId(decode: "ID") @eq
         @rules(
