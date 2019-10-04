@@ -9,7 +9,6 @@
       "
     >
       <p class="pt-5 pb-5">
-        <span class="item-list-index p-5"></span>
         <span class="p-5">
           {{ request.quantity }} -
           {{ request.description }}
@@ -99,15 +98,6 @@ export default {
         await this.$apollo.mutate({
           mutation: require('@/graphql/mutations/ApproveRequest').default,
           variables: { id: this.request.id },
-          update: (store, { data: { approveRequest } }) => {
-            const query = {
-              query: require('@/graphql/queries/CurrentOrder').default,
-              variables: { id: approveRequest.order.id },
-            };
-            store.writeQuery({
-              ...query,
-            });
-          },
         });
       } catch (e) {
         this.error = e.message;
@@ -124,9 +114,6 @@ export default {
         border-style: solid
         border-color: #f6e05e
         border-width: 2px
-
-.item-list-index
-    border-right: 2px solid #cbd5e0
 
 .action
     &.approve

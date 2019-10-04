@@ -3,25 +3,24 @@
     <div
       class="item-list"
       :style="
-        product.status
+        status
           ? 'border-left: 5px solid #68d391'
           : 'border-left: 5px solid #fc8181'
       "
     >
       <p class="pt-5 pb-5">
-        <span class="item-list-index p-5"></span>
         <span class="p-5">
           {{ product.request.description }} -
-          {{ product.status ? 'En Existencia' : 'Agotado' }}
+          {{ status ? 'En Existencia' : 'Agotado' }}
         </span>
-        <span class="float-right" v-if="product.status">
+        <span class="float-right" v-if="status">
           <input
             type="number"
             disabled
-            v-model="existence"
+            :value="product.existence"
             class="existence mt-0 pt-0 clearfix h-16 w-16 border border-2 border-solid border-gray-400 text-center bg-white"
           />
-          <a href="#" class="action change p-5" @click="stockless">
+          <a href="#" class="action change p-5" @click.prevent="decrease">
             <i class="pe-7s-angle-down-circle pe-lg pe-va"></i>
           </a>
         </span>
@@ -33,6 +32,7 @@
 
 <script>
 import Alert from '../error/Alert';
+import Vue from 'vue';
 
 export default {
   name: 'ProductItem',
@@ -44,7 +44,6 @@ export default {
   data() {
     return {
       error: null,
-      existence: this.product.existence,
     };
   },
 
@@ -57,20 +56,18 @@ export default {
 
   inject: ['me'],
 
+  computed: {
+    status() {
+      return this.product.existence > 0;
+    },
+  },
+
   methods: {
-    async stockless() {
+    async decrease() {
       try {
         await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/StoclessProduct').default,
+          mutation: require('@/graphql/mutations/DecreaseProduct').default,
           variables: { id: this.product.id },
-          update: store => {
-            const query = {
-              query: require('@/graphql/queries/StockProducts').default,
-            };
-            store.writeQuery({
-              ...query,
-            });
-          },
         });
       } catch (e) {
         this.error = e.message;
@@ -87,9 +84,6 @@ export default {
         border-style: solid
         border-color: #f6e05e
         border-width: 2px
-
-.item-list-index
-    border-right: 2px solid #cbd5e0
 
 .action
     &.approve

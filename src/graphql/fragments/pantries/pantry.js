@@ -4,7 +4,6 @@ export default gql`
   fragment pantryInfo on Pantry {
     id
     existence
-    status
     createdAt
     updatedAt
   }
