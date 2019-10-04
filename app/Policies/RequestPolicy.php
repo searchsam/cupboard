@@ -44,7 +44,10 @@ class RequestPolicy
      */
     public function create(User $user, Order $order)
     {
-        return $order->status || Carbon::now() < $order->deadline;
+        return (
+            $order->status == Order::ACTIVE &&
+            Carbon::now() <= $order->deadline
+        );
     }
 
     /**
@@ -56,7 +59,10 @@ class RequestPolicy
      */
     public function update(User $user, Request $request)
     {
-        return $user->id === $request->user->id;
+        return (
+            $user->id === $request->user->id &&
+            $request->status == Request::APPROVE
+        );
     }
 
     /**

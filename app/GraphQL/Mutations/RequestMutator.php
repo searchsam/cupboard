@@ -39,9 +39,8 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        return tap(Request::find($requestId), function ($request) {
-            $request->update(['status' => Request::REJECT]);
-        });
+        return tap(Request::find($requestId))
+            ->update(['status' => Request::REJECT]);
     }
 
     /**
@@ -53,8 +52,7 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        return tap(Request::find($requestId), function ($request) {
-            $request->update(['status' => Request::APPROVE]);
-        });
+        return tap(Request::find($requestId))
+            ->update(['status' => Request::APPROVE]);
     }
 }
