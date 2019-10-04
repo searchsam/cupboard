@@ -67,9 +67,9 @@ export default {
       required: true,
     },
     orderStatus: {
-        type: Number,
-        required: true,
-    }
+      type: Number,
+      required: true,
+    },
   },
 
   inject: ['me'],
@@ -102,7 +102,7 @@ export default {
           update: (store, { data: { approveRequest } }) => {
             const query = {
               query: require('@/graphql/queries/CurrentOrder').default,
-              variables: { order_id: approveRequest.order.id },
+              variables: { id: approveRequest.order.id },
             };
             store.writeQuery({
               ...query,
