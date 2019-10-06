@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li class="shadow mb-1">
     <div v-if="updateForm">
       <div
         class="item-list"
@@ -91,33 +91,28 @@
 </template>
 
 <script>
-import Alert from '@/components/error/Alert';
+import { AlertMixin } from '@/mixins/AlertMixin';
 import { ToggleMixin } from '@/mixins/ToggleMixin';
 
 export default {
   name: 'RequestItem',
 
-  components: {
-    Alert,
-  },
-
-  mixins: [ToggleMixin],
+  mixins: [AlertMixin, ToggleMixin],
 
   data() {
     return {
       description: this.request.description,
       quantity: this.request.quantity,
-      error: null,
     };
   },
 
   props: {
-    request: {
-      type: Object,
-      required: true,
-    },
     orderStatus: {
       type: Number,
+      required: true,
+    },
+    request: {
+      type: Object,
       required: true,
     },
   },
@@ -125,6 +120,16 @@ export default {
   inject: ['me'],
 
   methods: {
+    async approve() {
+      try {
+        await this.$apollo.mutate({
+          mutation: require('@/graphql/mutations/ApproveRequest').default,
+          variables: { id: this.request.id },
+        });
+      } catch (e) {
+        this.error = e.message;
+      }
+    },
     async deny() {
       try {
         await this.$apollo.mutate({
@@ -139,16 +144,6 @@ export default {
               ...query,
             });
           },
-        });
-      } catch (e) {
-        this.error = e.message;
-      }
-    },
-    async approve() {
-      try {
-        await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/ApproveRequest').default,
-          variables: { id: this.request.id },
         });
       } catch (e) {
         this.error = e.message;

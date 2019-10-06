@@ -28,19 +28,19 @@
 import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
 
-import Alert from '@/components/error/Alert.vue';
+import { AlertMixin } from '@/mixins/AlertMixin';
 
 export default {
   name: 'CreateOrderForm',
 
+  mixins: [AlertMixin],
+
   components: {
-    Alert,
     DatePick,
   },
 
   data() {
     return {
-      error: null,
       name: null,
       deadline: null,
     };

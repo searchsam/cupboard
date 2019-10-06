@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="card-order content-center w-1/5 m-2 bg-white relative">
-    <div v-if="updateForm">
+    <div v-if="updateForm" class="shadow">
       <div
         class="content-center card-content py-4"
         :style="
@@ -82,14 +82,15 @@
 import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
 
-import Alert from '@/components/error/Alert.vue';
+import { AlertMixin } from '@/mixins/AlertMixin';
 import { ToggleMixin } from '@/mixins/ToggleMixin';
 
 export default {
   name: 'OrderCard',
 
+  mixins: [AlertMixin],
+
   components: {
-    Alert,
     DatePick,
   },
 
@@ -104,9 +105,8 @@ export default {
 
   data() {
     return {
-      name: this.order.name,
       deadline: this.order.deadline.split(' ')[0],
-      error: null,
+      name: this.order.name,
     };
   },
 
@@ -121,6 +121,11 @@ export default {
         },
       });
     },
+
+    isPastDate(date) {
+      return date < new Date();
+    },
+    
     async shopOrder() {
       try {
         await this.$apollo.mutate({
@@ -147,9 +152,6 @@ export default {
       } catch (e) {
         this.error = e.message.split(':')[1];
       }
-    },
-    isPastDate(date) {
-      return date < new Date();
     },
   },
 };

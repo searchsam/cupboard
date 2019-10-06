@@ -1,21 +1,27 @@
 <template lang="html">
   <div id="login" class="container mx-auto px-4 flex h-full">
     <div class="ml-auto mr-auto mt-20">
-      <form method="POST" @submit.prevent="login" class="block bg-white p-5">
+      <form
+        method="POST"
+        @submit.prevent="login"
+        class="block bg-white p-5 shadow"
+      >
         <!-- Email Input -->
         <input
-          class="mb-4 h-12 w-64 border-2 border-gray-400 placeholder-gray-400"
+          class="mb-4 h-12 w-64 border-2 border-gray-400 placeholder-white bg-gray-400 hover:bg-white hover:placeholder-gray-400"
           type="email"
           v-model="username"
           placeholder="Correo Electronico"
+          :style="username ? 'background-color: #fff;' : ''"
         />
         <br />
         <!-- Password Input -->
         <input
-          class="mb-4 h-12 w-64 border-2 border-gray-400 placeholder-gray-400"
+          class="mb-4 h-12 w-64 border-2 border-gray-400 placeholder-white bg-gray-400 hover:bg-white hover:placeholder-gray-400"
           type="password"
           v-model="password"
           placeholder="Contraseña"
+          :style="password ? 'background-color: #fff;' : ''"
         />
         <!-- Error Message -->
         <Alert :msg="error" />
@@ -42,22 +48,19 @@
 </template>
 
 <script type="text/javascript">
-import { onLogin } from '@/vue-apollo.js';
-import Alert from '@/components/error/Alert.vue';
+import { AlertMixin } from '@/mixins/AlertMixin';
+import { onLogin } from '@/vue-apollo';
 
 export default {
   name: 'Login',
 
-  components: {
-    Alert,
-  },
+  mixins: [AlertMixin],
 
   data() {
     return {
-      error: null,
-      username: '',
       email: '',
       password: '',
+      username: '',
     };
   },
 
@@ -73,12 +76,10 @@ export default {
             },
           },
         });
-
         onLogin(
           this.$apollo.provider.defaultClient,
           response.data.login.accessToken
         );
-
         this.$router.push({ name: 'orders' });
       } catch (e) {
         this.error = e.message.split(':')[1];
@@ -88,4 +89,21 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+input
+  &::-webkit-input-placeholder
+    font-size: 1.25rem
+    text-align: center
+
+  &:-moz-placeholder
+    font-size: 1.25rem
+    text-align: center
+
+  &::-moz-placeholder
+    font-size: 1.25rem
+    text-align: center
+
+  &:-ms-input-placeholder
+    font-size: 1.25rem
+    text-align: center
+</style>

@@ -6,7 +6,7 @@
     <div v-if="!$apollo.queries.order.loading">
       <div
         id="createRequestForm"
-        class="w-full bg-white m-2"
+        class="w-full bg-white m-2 shadow"
         v-if="order.status || new Date() < order.deadline"
       >
         <h1 class="p-4 text-xl">Crear Nueva Solicitud</h1>
@@ -56,8 +56,8 @@ export default {
 
   computed: {
     requestsList() {
-      return (this.order.requests || []).sort((a, b) =>
-        a.status < b.status ? 1 : -1
+      return (this.order.requests || []).sort(
+        (a, b) => (a.status < b.status ? 1 : -1)
       );
     },
   },

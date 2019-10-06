@@ -1,5 +1,5 @@
 <template lang="html">
-  <aside class="text-center relative sidebar bg-white h-full">
+  <aside class="text-center relative sidebar bg-white h-full shadow">
     <div class="block p-5">
       <span class="object-center font-semibold text-xl text-yellow-400">
         CupBoard
@@ -22,7 +22,7 @@
 </template>
 
 <script type="text/javascript">
-import { onLogout } from '@/vue-apollo.js';
+import { onLogout } from '@/vue-apollo';
 
 export default {
   name: 'NavBar',

@@ -37,8 +37,8 @@ export default {
 
   computed: {
     productList() {
-      return (this.products || []).sort((a, b) =>
-        a.existence < b.existence ? 1 : -1
+      return (this.products || []).sort(
+          (a, b) => (a.existence < b.existence ? 1 : -1)
       );
     },
   },

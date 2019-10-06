@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li class="shadow mb-1">
     <div
       class="item-list"
       :style="
@@ -31,20 +31,12 @@
 </template>
 
 <script>
-import Alert from '../error/Alert';
+import { AlertMixin } from '@/mixins/AlertMixin';
 
 export default {
   name: 'ProductItem',
 
-  components: {
-    Alert,
-  },
-
-  data() {
-    return {
-      error: null,
-    };
-  },
+  mixins: [AlertMixin],
 
   props: {
     product: {

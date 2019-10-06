@@ -5,7 +5,11 @@
     </h1>
 
     <!-- Create New Order -->
-    <div id="createOderForm" class="w-full bg-white m-2" v-show="me.type <= 1">
+    <div
+      id="createOderForm"
+      class="w-full bg-white m-2 shadow"
+      v-show="me.type <= 1"
+    >
       <h1 class="p-4 text-xl">Crear Nueva Orden</h1>
       <CreateOrderForm />
     </div>
@@ -38,9 +42,8 @@ export default {
 
   data() {
     return {
-      name: '',
       deadline: '',
-      error: null,
+      name: '',
     };
   },
 
@@ -53,19 +56,21 @@ export default {
   },
 
   methods: {
-    varToggle(varName) {
-      this[varName] = !this[varName];
-    },
     clearVarsFields() {
       this.name = '';
       this.deadline = '';
       this.status = null;
     },
+    varToggle(varName) {
+      this[varName] = !this[varName];
+    },
   },
 
   computed: {
     ordersList: function() {
-      return (this.orders || []).sort((a, b) => (a.status < b.status ? 1 : -1));
+      return (this.orders || []).sort(
+        (a, b) => (a.status < b.status ? 1 : -1)
+      );
     },
   },
 };

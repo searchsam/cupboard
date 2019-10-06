@@ -24,26 +24,29 @@
 </template>
 
 <script>
-import Alert from '../error/Alert';
+import { AlertMixin } from '@/mixins/AlertMixin';
 
 export default {
   name: 'CreateRequestForm',
 
-  components: {
-    Alert,
-  },
+  mixins: [AlertMixin],
 
   data() {
     return {
       description: '',
       quantity: '',
-      error: null,
     };
   },
 
   inject: ['me'],
 
   methods: {
+    cleanVars() {
+      this.description = '';
+      this.quantity = '';
+      this.error = null;
+    },
+
     async createRequest() {
       try {
         await this.$apollo.mutate({
@@ -78,12 +81,6 @@ export default {
       } catch (e) {
         this.error = e.message;
       }
-    },
-
-    cleanVars() {
-      this.description = '';
-      this.quantity = '';
-      this.error = null;
     },
   },
 };
