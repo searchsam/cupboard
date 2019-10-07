@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pantry extends Model
 {
-    const SOLDOUT = 0;
-    const STOCK = 1;
+    const SOLDOUT_STOCK = 0;
+    const STOCK_UNIT = 1;
 
     /**
      * {@inheritdoc}

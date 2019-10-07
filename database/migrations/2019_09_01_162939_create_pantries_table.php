@@ -15,8 +15,7 @@ class CreatePantriesTable extends Migration
     {
         Schema::create('pantries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('status')
-                ->default('1');
+            $table->tinyInteger('existence');
             $table->unsignedBigInteger('request_id');
             $table->foreign('request_id')
                 ->references('id')

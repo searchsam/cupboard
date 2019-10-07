@@ -58,7 +58,7 @@ class PantryPolicy
      */
     public function update(User $user, Pantry $pantry)
     {
-        return $pantry->existence >= Pantry::STOCK;
+        return $pantry->existence >= Pantry::SOLDOUT_STOCK;
     }
 
     /**

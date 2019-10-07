@@ -44,7 +44,7 @@ input CreateOrderInput {
 
 """ Update Order Input Type """
 input UpdateOrderInput {
-    id: ID!
+    id: ID! @globalId(decode: "ID")
         @rules(
             apply: ["required"],
             messages: { required: "El campo es requerido."}
@@ -64,12 +64,6 @@ input UpdateOrderInput {
                 date: "No es una fecha valida."
             }
         )
-    " Order status "
-    status: Int!
-        @rules(
-            apply: ["required"],
-            messages: { required: "El campo es requerido."}
-        )
 }
 
 extend type Query {
@@ -88,12 +82,12 @@ extend type Query {
 extend type Mutation @middleware(checks: ["auth:api"]) {
     " Create order "
     createOrder(input: CreateOrderInput! @spread): Order
-        @can(ability: "create", model: "Order")
+        @can(ability: "create")
         @field(resolver: "OrderMutator@create")
     " Update Order "
-    updateOrder(input: UpdateOrderInput! @spread): Order!
-        @can(ability: "update", model: "Order")
-        @update
+    updateOrder(input: UpdateOrderInput! @spread): Order
+        @can(ability: "update", find: "id")
+        @field(resolver: "OrderMutator@update")
     " Shop Order "
     shopOrder(id: ID! @globalId(decode: "ID") @eq): Order
         @can(ability: "update", find: "id")

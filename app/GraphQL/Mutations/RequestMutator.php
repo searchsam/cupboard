@@ -35,6 +35,24 @@ class RequestMutator
      * @param array $args
      * @return mixed
      */
+    public function update($rootValue, array $args)
+    {
+        $requestId = $args['id'];
+        $description = $args['description'];
+        $quantity = $args['quantity'];
+
+        return tap(Request::find($requestId))
+            ->update([
+                'description' => $description,
+                'quantity' => $quantity,
+            ]);
+    }
+
+    /**
+     * @param $rootValue
+     * @param array $args
+     * @return mixed
+     */
     public function deny($rootValue, array $args)
     {
         $requestId = $args['id'];
