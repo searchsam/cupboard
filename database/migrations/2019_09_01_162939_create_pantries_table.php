@@ -17,8 +17,6 @@ class CreatePantriesTable extends Migration
             $table->bigIncrements('id');
             $table->tinyInteger('status')
                 ->default('1');
-            $table->integer('existence')
-                ->default('0');
             $table->unsignedBigInteger('request_id');
             $table->foreign('request_id')
                 ->references('id')
