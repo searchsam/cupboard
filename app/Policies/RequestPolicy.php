@@ -61,7 +61,7 @@ class RequestPolicy
     {
         return (
             $user->id === $request->user->id && (
-                $request->order->status == Request::APPROVE ||
+                $request->order->status == Order::ACTIVE ||
                 $request->status == Request::APPROVE
             )
         );
