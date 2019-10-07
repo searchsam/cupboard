@@ -31,15 +31,15 @@ export default {
 
   apollo: {
     products: {
-      query: require('@/graphql/queries/StockProducts').default,
+      query: require('@/graphql/queries/AllProducts').default,
     },
   },
 
   computed: {
-    productList: function() {
-      return (this.products || []).sort((a, b) => {
-        a.status < b.status ? 1 : -1;
-      });
+    productList() {
+      return (this.products || []).sort(
+        (a, b) => a.existence < b.existence ? 1 : -1
+      );
     },
   },
 };

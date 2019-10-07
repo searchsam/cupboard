@@ -82,8 +82,7 @@ export default {
     },
 
     isPastDate(date) {
-      const currentDate = new Date();
-      return date < currentDate;
+      return date < new Date();
     },
   },
 };
