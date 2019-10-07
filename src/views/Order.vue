@@ -1,15 +1,15 @@
 <template>
-  <div id="order">
-    <h1 class="font-thin text-6xl">Solicitudes</h1>
+  <div id="order" class="bg-white rounded-lg shadow border-gray-400">
+    <h1 class="tittle font-thin text-5xl p-5">Solicitudes</h1>
 
     <!-- Create Request Form -->
     <div v-if="!$apollo.queries.order.loading">
       <div
         id="createRequestForm"
-        class="w-full bg-white m-2 shadow"
+        class="p-5"
         v-if="order.status || new Date() < order.deadline"
       >
-        <h1 class="p-4 text-xl">Crear Nueva Solicitud</h1>
+        <h1 class="text-xl mb-4">Crear Nueva Solicitud</h1>
         <CreateRequestForm />
       </div>
     </div>
@@ -18,7 +18,7 @@
     </div>
 
     <!-- Request List -->
-    <div class="bg-white m-2">
+    <div class="bg-white p-5">
       <ul>
         <RequestItem
           v-for="request in requestsList"
@@ -56,10 +56,18 @@ export default {
 
   computed: {
     requestsList() {
-      return (this.order.requests || []).sort(
-        (a, b) => (a.status < b.status ? 1 : -1)
+      return (this.order.requests || []).sort((a, b) =>
+        a.status < b.status ? 1 : -1
       );
     },
   },
 };
 </script>
+
+<style lang="sass" scoped>
+.tittle
+  border-bottom: 1px solid #f7fafc
+
+#createRequestForm
+  border-bottom: 1px solid #f7fafc
+</style>

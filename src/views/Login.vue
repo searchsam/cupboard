@@ -1,34 +1,30 @@
 <template lang="html">
   <div id="login" class="container mx-auto px-4 flex h-full">
     <div class="ml-auto mr-auto mt-20">
-      <form
-        method="POST"
-        @submit.prevent="login"
-        class="block bg-white p-5 shadow"
-      >
+      <form method="POST" @submit.prevent="login" class="block p-5">
         <!-- Email Input -->
         <input
-          class="mb-4 h-12 w-64 border-2 border-gray-400 placeholder-white bg-gray-400 hover:bg-white hover:placeholder-gray-400"
+          class="mb-4 h-16 w-64 rounded-lg placeholder-gray-400 shadow bg-white"
           type="email"
           v-model="username"
-          placeholder="Correo Electronico"
-          :style="username ? 'background-color: #fff;' : ''"
+          placeholder="Correo Electrónico"
+          :style="username ? 'background-color: #5e75f6;' : ''"
         />
         <br />
         <!-- Password Input -->
         <input
-          class="mb-4 h-12 w-64 border-2 border-gray-400 placeholder-white bg-gray-400 hover:bg-white hover:placeholder-gray-400"
+          class="mb-4 h-16 w-64 rounded-lg placeholder-gray-400 shadow bg-white"
           type="password"
           v-model="password"
           placeholder="Contraseña"
-          :style="password ? 'background-color: #fff;' : ''"
+          :style="password ? 'background-color: #5e75f6;' : ''"
         />
         <!-- Error Message -->
         <Alert :msg="error" />
         <br />
         <!-- Submit Button -->
         <button
-          class="mb-4 h-12 w-64 border bg-yellow-500 text-white text-xl hover:bg-yellow-400"
+          class="loginButton mb-4 h-16 w-64 rounded-lg bg-yellow-500 text-white text-xl"
           type="submit"
         >
           Iniciar Sesion
@@ -36,7 +32,7 @@
         <br />
         <!-- Show Register Form Button -->
         <button
-          class="h-12 w-64 border bg-blue-500 text-white text-xl hover:bg-blue-400"
+          class="registerButton h-16 w-64 rounded-lg border bg-gray-500 text-white text-xl hover:bg-gray-400"
           type="button"
           @click="$router.push({ name: 'register' })"
         >
@@ -91,19 +87,61 @@ export default {
 
 <style lang="sass" scoped>
 input
+  font-size: 1.25rem
+  height: 3rem
+  width: 24rem
+  color: #CBD5E0
+
+  &:focus
+    outline: none
+    background-color: #5e75f6
+    box-shadow: none
+    color: #fff
+    &::-webkit-input-placeholder
+      color: #5e75f6
+
+    &:-moz-placeholder
+      color: #5e75f6
+
+    &::-moz-placeholder
+      color: #5e75f6
+
+    &:-ms-input-placeholder
+      color: #5e75f6
+
   &::-webkit-input-placeholder
     font-size: 1.25rem
     text-align: center
+    &:focus
+      color: #5e75f6
 
   &:-moz-placeholder
     font-size: 1.25rem
     text-align: center
+    &:focus
+      color: #5e75f6
 
   &::-moz-placeholder
     font-size: 1.25rem
     text-align: center
+    &:focus
+      color: #5e75f6
 
   &:-ms-input-placeholder
     font-size: 1.25rem
     text-align: center
+    &:focus
+      color: #5e75f6
+
+button
+  height: 3rem
+  width: 24rem
+
+  &:focus
+    outline: none
+
+  &.loginButton
+    background-color: #f1c842
+    &:hover
+      background-color: #f6df5e
 </style>

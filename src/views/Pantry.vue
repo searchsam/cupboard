@@ -1,11 +1,11 @@
 <template>
-  <div id="order">
-    <h1 class="font-thin text-6xl">
+  <div id="pantry" class="bg-white rounded-lg shadow border-gray-400">
+    <h1 class="tittle font-thin text-5xl p-5">
       Despensa
     </h1>
 
     <!-- Product List -->
-    <div class="bg-white m-2">
+    <div class="bg-white p-5">
       <ul>
         <ProductItem
           v-for="product in productList"
@@ -37,10 +37,18 @@ export default {
 
   computed: {
     productList() {
-      return (this.products || []).sort(
-          (a, b) => (a.existence < b.existence ? 1 : -1)
+      return (this.products || []).sort((a, b) =>
+        a.existence < b.existence ? 1 : -1
       );
     },
   },
 };
 </script>
+
+<style lang="sass" scoped>
+.tittle
+  border-bottom: 1px solid #f7fafc
+
+#createOderForm
+  border-bottom: 1px solid #f7fafc
+</style>
