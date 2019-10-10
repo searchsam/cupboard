@@ -21,7 +21,7 @@ class PantryMutator
 
         return tap(Pantry::find($pantryId), function ($product) {
             $product->update([
-                'existence' => $product->existence - Pantry::STOCK_UNITY
+                'existence' => $product->existence - Pantry::STOCK_UNIT
             ]);
         });
     }
