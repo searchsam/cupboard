@@ -1,10 +1,11 @@
 <template>
-  <form method="POST" @submit.prevent="createOrder">
+  <form method="POST" @submit.prevent="createOrder" class="m-5">
     <input
       type="text"
       v-model="name"
-      class="mb-4 h-16 w-64 rounded-lg placeholder-gray-400 bg-gray-100 mr-2 hover:shadow"
+      class="mb-4 h-16 w-64 rounded-lg mr-2 shadow-md"
       placeholder="Nombre"
+      :style="name ? 'border: 1px solid #5e75f6;' : ''"
     />
     <DatePick
       v-model="deadline"
@@ -13,11 +14,11 @@
       :isDateDisabled="isPastDate"
       placeholder="Fecha"
       class="mr-2"
+      :style="
+        deadline ? 'border: 1px solid #5e75f6; border-radius: .5rem;' : ''
+      "
     />
-    <button
-      class="loginButton mb-4 h-16 w-64 rounded-lg bg-yellow-500 text-white text-xl"
-      type="submit"
-    >
+    <button class="mb-4 rounded-lg text-xl shadow-md" type="submit">
       Crear Orden
     </button>
     <Alert :msg="error" />
@@ -89,62 +90,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-input
-  font-size: 1.25rem
-  height: 3rem
-  width: 24rem
-  color: #CBD5E0
-
-  &:focus
-    outline: none
-    background-color: #5e75f6
-    box-shadow: none
-    color: #fff
-    &::-webkit-input-placeholder
-      color: #5e75f6
-
-    &:-moz-placeholder
-      color: #5e75f6
-
-    &::-moz-placeholder
-      color: #5e75f6
-
-    &:-ms-input-placeholder
-      color: #5e75f6
-
-  &::-webkit-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &:-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &::-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &:-ms-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-button
-  height: 3rem
-  width: 24rem
-
-  &:focus
-    outline: none
-
-  &.loginButton
-    background-color: #f1c842
-    &:hover
-      background-color: #f6df5e
+@import ../../assets/css/library.sass
 </style>

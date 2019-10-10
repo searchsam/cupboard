@@ -2,11 +2,11 @@
   <div
     id="alert"
     v-if="this.msg"
-    class="flex items-center bg-red-400 text-white px-4 py-3 rounded-lg shadow"
+    class="flex items-center text-white px-4 py-3 rounded-lg shadow"
     role="alert"
   >
-    <i class="pe-7s-attention pe-2x pe-va"></i>
-    <p>{{ this.msg }}</p>
+    <i class="ti-alert text-4xl rounded-full p-2"></i>
+    <p class="text-lg font-semibold">&nbsp;{{ this.msg }}</p>
   </div>
 </template>
 
@@ -22,4 +22,9 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+@import ../../assets/css/library.sass
+
+#alert
+  background-color: $red
+</style>

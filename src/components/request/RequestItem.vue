@@ -1,46 +1,59 @@
 <template>
-  <li class="mb-2">
+  <li class="mb-4 block relative">
     <div v-if="updateForm">
-      <div
-        class="item-list rounded-lg border border-gray-400"
-        :style="
-          request.status
-            ? 'border-left: 5px solid #c1f65e'
-            : 'border-left: 5px solid #f6935e'
-        "
-      >
-        <p class="pt-6 pb-6">
-          <span class="p-5">
-            {{ request.quantity }} -
-            {{ request.description }}
-            ({{ request.user.name }}) -
-            {{ request.status ? 'Aprobada' : 'Rechazada' }}
+      <div class="bg-white rounded-lg shadow-md">
+        <p class="text-lg static">
+          <span
+            class="bookmark rounded-l-lg inline-block static center"
+            :class="bookmarkStatus"
+          >
+            <i
+              class="icon-flipped rounded-full text-4xl p-1"
+              :class="iconStatus"
+            ></i>
           </span>
-          <span class="float-right" v-if="orderStatus">
+          <span class="inline-block center static text-2xl px-8">
+            {{ request.quantity }}
+          </span>
+          <span class="itemBody text-xl inline-block static center py-2">
+            <a class="font-semibold">{{ request.description }}</a> -
+            <a class="owner text-lg">
+              <i class="ti-user"></i> {{ request.user.name }}
+            </a>
+            <br />
+            <a class="status">{{ labelStatus }}</a>
+          </span>
+          <span
+            class="float-right inline-block static mt-6 mr-4"
+            v-if="orderStatus"
+          >
             <a
               href="#"
-              class="action change p-4 rounded-full"
+              type="button"
+              class="rounded-lg px-4 pt-4 pb-3 center"
               v-if="request.user.id == me.id"
               @click.prevent="toggleVar('updateForm')"
             >
-              <i class="pe-7s-edit pe-lg pe-va"></i>
+              <i class="ti-write text-2xl"></i>
             </a>
             <div class="inline" v-if="me.type <= 1">
               <a
                 href="#"
-                class="action deny p-4 rounded-full"
-                v-if="request.status"
+                type="button"
+                class="rounded-lg px-4 pt-4 pb-3 center"
+                v-if="request.status == 1 || request.status == 2"
                 @click.prevent="deny"
               >
-                <i class="pe-7s-close-circle pe-lg pe-va"></i>
+                <i class="ti-na text-2xl"></i>
               </a>
               <a
                 href="#"
-                v-else
-                class="action approve p-4 rounded-full"
+                type="button"
+                v-if="request.status == 0 || request.status == 2"
+                class="rounded-lg px-4 pt-4 pb-3 center"
                 @click.prevent="approve"
               >
-                <i class="pe-7s-check pe-lg pe-va"></i>
+                <i class="ti-check text-2xl"></i>
               </a>
             </div>
           </span>
@@ -49,38 +62,31 @@
     </div>
     <div v-else>
       <form
-        class="p-4 item-list rounded-lg border border-gray-400"
+        class="p-4 block rounded-lg shadow-md bg-white"
         method="POST"
-        :style="
-          request.status
-            ? 'border-left: 5px solid #c1f65e'
-            : 'border-left: 5px solid #f6935e'
-        "
         @submit.prevent="updateRequest"
       >
         <input
-          class="h-16 w-64 rounded-lg placeholder-gray-400 bg-gray-100 mr-2 hover:shadow"
+          class="descriptionButton rounded-lg mr-2"
           type="text"
           placeholder="Peticion"
-          style="width: 24rem;"
           v-model="description"
-          :style="description ? 'background-color: #5e75f6; color: white' : ''"
+          :style="
+            description ? 'border: 1px solid #5e75f6; color: #2F3A7B;' : ''
+          "
         />
         <input
-          class="h-16 w-32 rounded-lg placeholder-gray-400 bg-gray-100 mr-2 hover:shadow"
+          class="quantityButton rounded-lg mr-2"
           type="number"
           placeholder="Cantidad"
           v-model="quantity"
-          :style="quantity ? 'background-color: #5e75f6; color: white' : ''"
+          :style="quantity ? 'border: 1px solid #5e75f6; color: #2F3A7B;' : ''"
         />
-        <button
-          class="rounded-l-lg bg-yellow-500 text-white text-xl h-12 w-48 hover:bg-yellow-400"
-          type="submit"
-        >
+        <button class="pairButton rounded-lg text-xl mr-2" type="submit">
           Actualizar Solicitud
         </button>
         <button
-          class="h-12 w-40 rounded-r-lg bg-gray-500 text-white text-xl hover:bg-gray-400"
+          class="cancelButton pairButton rounded-lg text-xl"
           type="button"
           @click="toggleVar('updateForm')"
         >
@@ -120,6 +126,30 @@ export default {
   },
 
   inject: ['me'],
+
+  computed: {
+    bookmarkStatus() {
+      return {
+        0: 'reject',
+        1: 'approve',
+        2: '',
+      }[this.request.status];
+    },
+    iconStatus() {
+      return {
+        0: 'ti-thumb-down',
+        1: 'ti-thumb-up',
+        2: 'ti-help-alt',
+      }[this.request.status];
+    },
+    labelStatus() {
+      return {
+        0: 'RECHAZADA',
+        1: 'APROBADA',
+        2: 'EN ESPERA',
+      }[this.request.status];
+    },
+  },
 
   methods: {
     async approve() {
@@ -173,79 +203,64 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.item-list
-    &:hover
-        border-style: solid
-        border-color: #f6df5e
-        border-width: 1px
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)
+@import ../../assets/css/library.sass
 
-.action
-    &.approve
-        &:hover
-            background-color: #c1f65e
-    &.deny
-        &:hover
-            background-color: #f6935e
-    &.change
-        &:hover
-            background-color: #f6df5e
+.bookmark
+  padding: 1.4rem 1rem 0.7rem 1rem
+  background-color: $gray-shadow
+  color: $text-light
+  i
+    background-color: $gray-dark
 
-input
-  font-size: 1.25rem
-  height: 3rem
-  color: #CBD5E0
+.approve
+    background-color: $green-light
+    color: $text-light
+    i
+      background-color: $green
 
-  &:focus
-    outline: none
-    background-color: #5e75f6
-    box-shadow: none
-    color: #fff
-    &::-webkit-input-placeholder
-      color: #5e75f6
+.reject
+  background-color: $red-light
+  i
+    background-color: $red
 
-    &:-moz-placeholder
-      color: #5e75f6
+.owner, .status
+  color: $gray-dark
 
-    &::-moz-placeholder
-      color: #5e75f6
+.score
+  background-color: $gray-shadow
 
-    &:-ms-input-placeholder
-      color: #5e75f6
+a[type="button"]
+  appearance: none
+  &:hover
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+    background-color: $blue
+    color: $text-light
 
-  &::-webkit-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
+.descriptionButton
+  width: 32rem
 
-  &:-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
+.quantityButton
+  width: 8rem
 
-  &::-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
+.pairButton
+  width: 16rem
 
-  &:-ms-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
+.cancelButton
+  background-color: $red-dark
+  &:hover
+    background-color: $red
 
-button
-  height: 3rem
-  width: 24rem
+.icon-flipped
+  transform: scaleX(-1, 1)
+  -moz-transform: scaleX(-1, 1)
+  -webkit-transform: scaleX(-1, 1)
+  -ms-transform: scaleX(-1, 1)
+  -o-transform: scaleX(-1, 1)
 
-  &:focus
-    outline: none
-
-  &.loginButton
-    background-color: #f1c842
-    &:hover
-      background-color: #f6df5e
+.center
+  object-fit: contain
+  align-items: center
+  align-content: center
+  vertical-align: middle
+  object-position: center
 </style>

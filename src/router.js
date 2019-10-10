@@ -23,6 +23,9 @@ const router = new Router({
       redirect: {
         name: 'login',
       },
+      meta: {
+        auth: false,
+      },
     },
     {
       path: '/login',
@@ -35,6 +38,9 @@ const router = new Router({
 
         next();
       },
+      meta: {
+        auth: false,
+      },
     },
     {
       path: '/register',
@@ -46,6 +52,9 @@ const router = new Router({
         }
 
         next();
+      },
+      meta: {
+        auth: false,
       },
     },
     {

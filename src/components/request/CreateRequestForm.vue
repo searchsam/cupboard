@@ -1,22 +1,20 @@
 <template>
-  <form action="" method="POST" @submit.prevent="createRequest">
+  <form method="POST" @submit.prevent="createRequest" class="m-5">
     <input
-      class="mb-4 h-16 w-64 rounded-lg placeholder-gray-400 bg-gray-100 mr-2 hover:shadow"
+      class="descriptionButton rounded-lg mr-2 shadow-md"
       v-model="description"
       type="text"
       placeholder="Peticion"
-      style="width: 24rem;"
+      :style="description ? 'border: 1px solid #5e75f6;' : ''"
     />
     <input
-      class="mb-4 h-16 w-32 rounded-lg placeholder-gray-400 bg-gray-100 mr-2 hover:shadow"
+      class="quantityButton rounded-lg mr-2 shadow-md text-center"
       v-model="quantity"
       type="number"
       placeholder="Cantidad"
+      :style="quantity ? 'border: 1px solid #5e75f6;' : ''"
     />
-    <button
-      class="loginButton mb-4 h-16 w-64 rounded-lg bg-yellow-500 text-white text-xl"
-      type="submit"
-    >
+    <button class="rounded-lg text-xl shadow-md" type="submit">
       Crear Solicitud
     </button>
     <Alert :msg="error" />
@@ -61,8 +59,9 @@ export default {
           update: (store, { data: { createRequest } }) => {
             const query = {
               query: require('@/graphql/queries/CurrentOrder').default,
-              variables: { order_id: this.$route.params.id },
+              variables: { id: this.$route.params.id },
             };
+
             const data = store.readQuery(query);
             data.order.requests.push({
               ...createRequest,
@@ -70,6 +69,7 @@ export default {
                 ...this.me,
               },
             });
+
             store.writeQuery({
               ...query,
               data,
@@ -87,61 +87,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-input
-  font-size: 1.25rem
-  height: 3rem
-  color: #CBD5E0
+@import ../../assets/css/library.sass
 
-  &:focus
-    outline: none
-    background-color: #5e75f6
-    box-shadow: none
-    color: #fff
-    &::-webkit-input-placeholder
-      color: #5e75f6
+.descriptionButton
+  width: 32rem
 
-    &:-moz-placeholder
-      color: #5e75f6
-
-    &::-moz-placeholder
-      color: #5e75f6
-
-    &:-ms-input-placeholder
-      color: #5e75f6
-
-  &::-webkit-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &:-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &::-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &:-ms-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-button
-  height: 3rem
-  width: 24rem
-
-  &:focus
-    outline: none
-
-  &.loginButton
-    background-color: #f1c842
-    &:hover
-      background-color: #f6df5e
+.quantityButton
+  width: 8rem
 </style>

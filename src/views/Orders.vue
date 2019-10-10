@@ -1,19 +1,27 @@
 <template>
-  <div id="order" class="bg-white rounded-lg shadow border-gray-400">
-    <h1 class="tittle font-thin text-5xl p-5">
+  <div id="order">
+    <h1 class="font-thin text-5xl p-5 m-5">
       Ordenes
+      <button
+        type="button"
+        class="defaultButton rounded-full"
+        v-show="me.type <= 1"
+        @click="toggleVar('createForm')"
+      >
+        <i class="text-4xl" :class="createForm ? 'ti-close' : 'ti-plus'"></i>
+      </button>
     </h1>
 
     <!-- Create New Order -->
-    <div id="createOderForm" v-show="me.type <= 1" class="p-5">
-      <h1 class="text-xl mb-4">Crear Nueva Orden</h1>
+    <div id="createOderForm" class="p-5 shadow-md" v-if="createForm">
+      <h1 class="text-2xl m-5">Crear Nueva Orden</h1>
       <CreateOrderForm />
     </div>
 
     <!-- Orders List -->
     <div
       v-if="!$apollo.queries.orders.loading"
-      class="flex flex-wrap content-center p-5"
+      class="flex flex-wrap content-center p-5 m-5"
     >
       <!-- Orders Cards -->
       <OrderCard v-for="order in ordersList" :key="order.id" :order="order" />
@@ -38,6 +46,7 @@ export default {
 
   data() {
     return {
+      createForm: false,
       deadline: '',
       name: '',
     };
@@ -51,29 +60,38 @@ export default {
     },
   },
 
+  computed: {
+    ordersList: function() {
+      return (this.orders || []).sort((a, b) => (a.status < b.status ? 1 : -1));
+    },
+  },
+
   methods: {
     clearVarsFields() {
       this.name = '';
       this.deadline = '';
       this.status = null;
     },
-    varToggle(varName) {
+    toggleVar(varName) {
       this[varName] = !this[varName];
-    },
-  },
-
-  computed: {
-    ordersList: function() {
-      return (this.orders || []).sort((a, b) => (a.status < b.status ? 1 : -1));
     },
   },
 };
 </script>
 
 <style lang="sass" scoped>
-.tittle
-  border-bottom: 1px solid #f7fafc
+@import ../assets/css/library.sass
 
 #createOderForm
-  border-bottom: 1px solid #f7fafc
+  background-color: $gray-shadow
+
+.defaultButton
+  padding: 1rem 1rem 1rem 1rem
+  background-color: transparent
+  color: $text
+  width: 4.25rem
+  height: 4rem
+  &:hover
+    background-color: $blue
+    color: $text-light
 </style>

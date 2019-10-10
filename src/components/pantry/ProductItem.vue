@@ -1,28 +1,37 @@
 <template>
-  <li class="mb-2 w-full">
-    <div
-      class="item-list rounded-lg border border-gray-400"
-      :style="
-        status
-          ? 'border-left: 5px solid #c1f65e'
-          : 'border-left: 5px solid #f6935e'
-      "
-    >
-    <p class="pt-6 pb-6">
-      <span class="p-5">
-          {{ product.request.description }} -
-          {{ status ? 'En Existencia' : 'Agotado' }}
+  <li class="mb-4 block relative">
+    <div class="bg-white rounded-lg shadow-md">
+      <p class="text-lg static">
+        <span
+          class="bookmark rounded-l-lg inline-block static center"
+          :class="!status ? 'reject' : ''"
+        >
+          <i
+            class="icon-flipped rounded-full text-4xl p-1"
+            :class="status ? 'ti-face-smile' : 'ti-face-sad'"
+          ></i>
         </span>
-        <span class="float-right" v-if="status">
+        <span class="itemBody text-xl inline-block static center py-2 ml-6">
+          <a class="font-semibold">{{ product.request.description }}</a>
+          <br />
+          <a class="status">{{ status ? 'EN EXISTENCIA' : 'AGOTADO' }}</a>
+        </span>
+
+        <span class="float-right inline-block static mt-3 mr-4" v-if="status">
           <input
             type="number"
             disabled
             :value="product.existence"
-            class="existence mt-0 pt-0 clearfix h-16 w-16 rounded-lg placeholder-gray-400 bg-gray-100 mr-2 hover:shadow text-center bg-white"
-            :style="product.existence ? 'background-color: #5e75f6; color: white' : ''"
+            class="quantityButton rounded-lg mr-2 shadow-md w-6 text-center"
+            :style="product.existence ? 'border: 1px solid #5e75f6;' : ''"
           />
-          <a href="#" class="action change p-4 rounded-full" @click.prevent="decrease">
-            <i class="pe-7s-angle-down-circle pe-lg pe-va"></i>
+          <a
+            href="#"
+            type="button"
+            class="rounded-lg px-4 pt-4 pb-3 center"
+            @click.prevent="decrease"
+          >
+            <i class="ti-arrow-circle-down text-2xl"></i>
           </a>
         </span>
         <Alert :msg="error" />
@@ -70,70 +79,56 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.item-list
-    &:hover
-        border-style: solid
-        border-color: #f6df5e
-        border-width: 1px
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)
+@import ../../assets/css/library.sass
 
-.action
-    &.approve
-        &:hover
-            background-color: #c1f65e
-    &.deny
-        &:hover
-            background-color: #f6935e
-    &.change
-        &:hover
-            background-color: #f6df5e
+.bookmark
+  padding: 1.4rem 1rem 0.7rem 1rem
+  background-color: $green-light
+  color: $text-light
+  i
+    background-color: $green
 
-input
-  font-size: 1.25rem
-  height: 3rem
-  color: #CBD5E0
+.reject
+  background-color: $red-light
+  i
+    background-color: $red
 
-  &:focus
-    outline: none
-    background-color: #5e75f6
-    box-shadow: none
-    color: #fff
-    &::-webkit-input-placeholder
-      color: #5e75f6
+.owner, .status
+  color: $gray-dark
 
-    &:-moz-placeholder
-      color: #5e75f6
+.score
+  background-color: $gray-shadow
 
-    &::-moz-placeholder
-      color: #5e75f6
+a[type="button"]
+  appearance: none
+  &:hover
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+    background-color: $blue
+    color: $text-light
 
-    &:-ms-input-placeholder
-      color: #5e75f6
+.descriptionButton
+  width: 32rem
 
-  &::-webkit-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
+.quantityButton
+  width: 8rem
 
-  &:-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &::-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &:-ms-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
+.pairButton
+  width: 16rem
 
 .existence
-    margin-top: -20px
+  margin-top: -20px
+
+.icon-flipped
+  transform: scaleX(-1, 1)
+  -moz-transform: scaleX(-1, 1)
+  -webkit-transform: scaleX(-1, 1)
+  -ms-transform: scaleX(-1, 1)
+  -o-transform: scaleX(-1, 1)
+
+.center
+  object-fit: contain
+  align-items: center
+  align-content: center
+  vertical-align: middle
+  object-position: center
 </style>

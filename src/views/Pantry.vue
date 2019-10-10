@@ -1,11 +1,14 @@
 <template>
-  <div id="pantry" class="bg-white rounded-lg shadow border-gray-400">
-    <h1 class="tittle font-thin text-5xl p-5">
+  <div id="pantry">
+    <h1 class="font-thin text-5xl p-5 m-5">
       Despensa
     </h1>
 
     <!-- Product List -->
-    <div class="bg-white p-5">
+    <div
+      v-if="!$apollo.queries.products.loading"
+      class="content-center p-5 m-5"
+    >
       <ul>
         <ProductItem
           v-for="product in productList"

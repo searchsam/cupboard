@@ -1,0 +1,71 @@
+.vdpComponent.vdpWithInput
+    color: $text
+
+.vdpComponent.vdpWithInput > input
+  font-size: 1.25rem
+  background-color: $white
+  color: $text
+  border-radius: .5rem
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+
+  &:hover
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+
+  &::-webkit-input-placeholder
+    color: $text-neutral
+    font-size: 1.25rem
+    text-align: center
+    content: "Fecha"
+
+  &:-ms-input-placeholder
+    color: $text-neutral
+    content: "Fecha"
+    font-size: 1.25rem
+    text-align: center
+
+  &::placeholder
+    color: $text-neutral
+    font-size: 1.25rem
+    text-align: center
+    content: "Fecha"
+
+  &:-moz-placeholder
+    color: $text-neutral
+    font-size: 1.25rem
+    text-align: center
+    content: "Fecha"
+
+  &::-moz-placeholder
+    color: $text-neutral
+    font-size: 1.25rem
+    text-align: center
+    content: "Fecha"
+
+  &:focus
+    border: 1px solid $blue
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+
+    &::-webkit-input-placeholder
+      color: $blue
+      content: "Fcha"
+
+    &:-moz-placeholder
+      color: $blue
+      content: "Fcha"
+
+    &::-moz-placeholder
+      color: $blue
+      content: "Fcha"
+
+    &:-ms-input-placeholder
+      color: $blue
+      content: "Fcha"
+
+.vdpArrow, .vdpClearInput
+  color: $text
+
+.vdpPeriodControl > button
+  color: $text
+
+  &:hover
+    background-color: transparent

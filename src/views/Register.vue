@@ -1,64 +1,69 @@
 <template lang="html">
-  <div id="login" class="container mx-auto px-4 flex h-full">
-    <!-- Formulario de registro -->
-    <div class="ml-auto mr-auto h-full w-1/2">
-      <div class="m-5">
-        <form method="POST" @submit.prevent="register" class="block p-10">
-          <!-- Name Input -->
-          <input
-            class="mb-4 w-full rounded-lg shadow placeholder-gray-400 bg-white"
-            type="text"
-            v-model="name"
-            placeholder="Nombre"
-            :style="name ? 'background-color: #5e75f6;' : ''"
-          />
-          <br />
-          <!-- Email -->
-          <input
-            class="mb-4 h-12 w-full rounded-lg shadow placeholder-gray-400 bg-white"
-            type="email"
-            v-model="email"
-            placeholder="Correo Electronico"
-            :style="email ? 'background-color: #5e75f6;' : ''"
-          />
-          <br />
-          <!-- Password Input -->
-          <input
-            class="mb-4 h-12 w-full rounded-lg shadow placeholder-gray-400 bg-white"
-            type="password"
-            v-model="password"
-            placeholder="Contraseña"
-            :style="password ? 'background-color: #5e75f6;' : ''"
-          />
-          <br />
-          <!-- Confirm Password Input -->
-          <input
-            class="mb-4 h-12 w-full rounded-lg shadow placeholder-gray-400 bg-white"
-            type="password"
-            v-model="confirmation"
-            placeholder="Confirmar Contraseña"
-            :style="confirmation ? 'background-color: #5e75f6;' : ''"
-          />
-          <!-- Error Message -->
-          <Alert :msg="error" />
-          <br />
+  <div id="login" class="flex h-full bg-white">
+    <div class="flex-1 container mx-auto mt-32 flex">
+      <form method="POST" @submit.prevent="login" class="block p-5 mx-auto">
+        <h1 class="text-4xl font-semibold mb-8 text-center">
+          Registrar Usuario
+        </h1>
+        <!-- Name Input -->
+        <input
+          class="loginInput mb-8 rounded-lg shadow-md"
+          type="text"
+          v-model="name"
+          placeholder="Nombre"
+          :style="name ? 'border: 1px solid #5e75f6;' : ''"
+        />
+        <br />
+        <!-- Email -->
+        <input
+          class="loginInput mb-8 rounded-lg shadow-md"
+          type="email"
+          v-model="email"
+          placeholder="Correo Electronico"
+          :style="email ? 'border: 1px solid #5e75f6;' : ''"
+        />
+        <br />
+        <!-- Password Input -->
+        <input
+          class="loginInput mb-8 rounded-lg shadow-md"
+          type="password"
+          v-model="password"
+          placeholder="Contraseña"
+          :style="password ? 'border: 1px solid #5e75f6;' : ''"
+        />
+        <br />
+        <!-- Confirm Password Input -->
+        <input
+          class="loginInput mb-10 rounded-lg shadow-md"
+          type="password"
+          v-model="confirmation"
+          placeholder="Confirmar Contraseña"
+          :style="confirmation ? 'border: 1px solid #5e75f6;' : ''"
+        />
+        <!-- Error Message -->
+        <Alert :msg="error" />
+        <br />
+        <div class="container mx-auto flex">
           <!-- Submit Button -->
           <button
-            class="loginButton mb-4 h-12 w-full bg-yellow-500 text-white text-xl rounded-lg shadow"
+            class="loginButton rounded-lg shadow-md ml-auto mr-auto"
             type="submit"
           >
             Registar Usuario
           </button>
-          <br />
-          <!-- Cancel Button -->
-          <button
-            class="h-12 w-full bg-gray-500 text-white text-xl hover:bg-gray-400 rounded-lg shadow"
-            type="button"
-            @click="$router.push({ name: 'login' })"
-          >
-            Cancelar
-          </button>
-        </form>
+        </div>
+      </form>
+    </div>
+    <div class="sidePanelLogin flex-1 container mx-auto flex">
+      <div class="block p-5 mx-auto">
+        <!-- Cancel Button -->
+        <button
+          class="registerButton rounded-lg shadow-md"
+          type="button"
+          @click="$router.push({ name: 'login' })"
+        >
+          Cancelar
+        </button>
       </div>
     </div>
   </div>
@@ -111,52 +116,30 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-input
-  font-size: 1.25rem
-  height: 3rem
-  color: #CBD5E0
+@import ../assets/css/library.sass
 
-  &:focus
-    outline: none
-    background-color: #5e75f6
-    box-shadow: none
-    color: #fff
-    &::-webkit-input-placeholder
-      color: #5e75f6
+.loginInput
+  width: 26rem
+  height: 3.5rem
+  border: 1px solid $gray-shadow
 
-    &:-moz-placeholder
-      color: #5e75f6
+.loginButton
+  margin-left: auto
+  width: 18rem
+  height: 4rem
 
-    &::-moz-placeholder
-      color: #5e75f6
+.sidePanelLogin
+  background-color: $blue
+  background: rgb(47,58,123)
+  background: -moz-linear-gradient(0deg, rgba(47,58,123,1) 0%, rgba(94,117,246,1) 25%)
+  background: -webkit-linear-gradient(0deg, rgba(47,58,123,1) 0%, rgba(94,117,246,1) 25%)
+  background: linear-gradient(0deg, rgba(47,58,123,1) 0%, rgba(94,117,246,1) 25%)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2f3a7b",endColorstr="#5e75f6",GradientType=1)
 
-    &:-ms-input-placeholder
-      color: #5e75f6
-
-  &::-webkit-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-
-  &:-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-
-  &::-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-
-  &:-ms-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-
-button
-  height: 3rem
-
-  &:focus
-    outline: none
-
-  &.loginButton
-    background-color: #f1c842
-    &:hover
-      background-color: #f6df5e
+.registerButton
+  margin-top: 40rem
+  background-color: $gray
+  color: $text
+  &:hover
+    background-color: $white
 </style>

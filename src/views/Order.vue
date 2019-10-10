@@ -1,24 +1,25 @@
 <template>
-  <div id="order" class="bg-white rounded-lg shadow border-gray-400">
-    <h1 class="tittle font-thin text-5xl p-5">Solicitudes</h1>
+  <div id="order">
+    <h1 class="font-thin text-5xl p-5 m-5">
+      Solicitudes
+      <button
+        type="button"
+        class="defaultButton rounded-full"
+        v-if="order.status || new Date() < order.deadline"
+        @click="toggleVar('createForm')"
+      >
+        <i class="text-4xl" :class="createForm ? 'ti-close' : 'ti-plus'"></i>
+      </button>
+    </h1>
 
     <!-- Create Request Form -->
-    <div v-if="!$apollo.queries.order.loading">
-      <div
-        id="createRequestForm"
-        class="p-5"
-        v-if="order.status || new Date() < order.deadline"
-      >
-        <h1 class="text-xl mb-4">Crear Nueva Solicitud</h1>
-        <CreateRequestForm />
-      </div>
-    </div>
-    <div v-else>
-      <span>Loading...</span>
+    <div id="createRequestForm" class="p-5 shadow-md" v-if="createForm">
+      <h1 class="text-2xl m-5">Crear Nueva Solicitud</h1>
+      <CreateRequestForm />
     </div>
 
     <!-- Request List -->
-    <div class="bg-white p-5">
+    <div v-if="!$apollo.queries.order.loading" class="content-center p-5 m-5">
       <ul>
         <RequestItem
           v-for="request in requestsList"
@@ -27,6 +28,9 @@
           :orderStatus="order.status"
         />
       </ul>
+    </div>
+    <div v-else>
+      <span>Loading...</span>
     </div>
   </div>
 </template>
@@ -41,6 +45,12 @@ export default {
   components: {
     CreateRequestForm,
     RequestItem,
+  },
+
+  data() {
+    return {
+      createForm: false,
+    };
   },
 
   apollo: {
@@ -61,13 +71,27 @@ export default {
       );
     },
   },
+
+  methods: {
+    toggleVar(varName) {
+      this[varName] = !this[varName];
+    },
+  },
 };
 </script>
 
 <style lang="sass" scoped>
-.tittle
-  border-bottom: 1px solid #f7fafc
+@import ../assets/css/library.sass
 
 #createRequestForm
-  border-bottom: 1px solid #f7fafc
+  background-color: $gray-shadow
+
+.defaultButton
+  background-color: transparent
+  color: $text
+  width: 4.25rem
+  height: 4rem
+  &:hover
+    background-color: $blue
+    color: $text-light
 </style>

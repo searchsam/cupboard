@@ -1,19 +1,21 @@
 <template lang="html">
-  <div class="card-order content-center w-auto m-2 bg-white relative">
+  <div class="card-order content-center w-auto mr-4 relative">
     <div v-if="updateForm">
       <div
-        class="content-center card-content py-4 rounded-lg border border-gray-400"
+        class="card-content p-5 rounded-lg bg-white shadow-md hover:cursor-pointer"
         :style="
           this.order.status
-            ? 'border-left: 5px solid #c1f65e'
-            : 'border-left: 5px solid #f6935e'
+            ? 'border-left: 7px solid #75F65E'
+            : 'border-left: 7px solid #F65E75'
         "
         @click="goToOrder"
       >
-        <h1 class="inline-block px-8">
-          Orden: {{ order.name }} <br />
-          Fecha: {{ order.deadline.split(' ')[0] }}
-        </h1>
+        <span class="inline-block pr-10">
+          <h1 class="text-2xl font-medium mb-2">{{ order.name }} <br /></h1>
+          <p class="text-lg">
+            {{ order.deadline.split(' ')[0] }}
+          </p>
+        </span>
       </div>
 
       <div
@@ -22,36 +24,27 @@
       >
         <a
           href="#"
-          class="p-2 hover:bg-yellow-400 rounded-full"
+          class="iconButton rounded-full"
           @click.prevent="toggleVar('updateForm')"
         >
-          <i class="pe-7s-edit pe-lg pe-va"></i>
+          <i class="ti-write text-3xl"></i>
         </a>
-        <a
-          href="#"
-          class="p-2 hover:bg-gray-400 rounded-full"
-          @click.prevent="shopOrder"
-        >
-          <i class="pe-7s-cart pe-lg pe-va"></i>
+        <a href="#" class="iconButton rounded-full" @click.prevent="shopOrder">
+          <i class="ti-shopping-cart text-3xl"></i>
         </a>
       </div>
     </div>
     <div v-else>
       <form
         method="POST"
-        class="rounded-lg content-center block bg-white p-5 border border-gray-400"
-        :style="
-          this.order.status
-            ? 'border-left: 5px solid #c1f65e'
-            : 'border-left: 5px solid #f6935e'
-        "
+        class="block p-5 rounded-lg shadow-md bg-white"
         @submit.prevent="updateOrder"
       >
         <input
-          class="mb-4 h-16 w-64 rounded-lg placeholder-gray-400 bg-gray-100 mr-2 hover:shadow"
+          class="mb-4 rounded-lg shadow-md"
           v-model="name"
           placeholder="Nombre"
-          :style="name ? 'background-color: #5e75f6; color: white' : ''"
+          :style="name ? 'border: 1px solid #5e75f6; color: #2F3A7B;' : ''"
         />
         <br />
         <DatePick
@@ -60,19 +53,23 @@
           :isDateDisabled="isPastDate"
           placeholder="Fecha"
           v-model="deadline"
-          class="w-64"
-          :style="name ? '.vdpComponent.vdpWithInput>input {background-color: #5e75f6; color: white}' : ''"
+          class="mb-4 shadow-md"
+          :style="
+            deadline
+              ? '.vdpComponent.vdpWithInput>input{border: 1px solid #5e75f6; border-radius: .5rem;}'
+              : ''
+          "
         />
         <br />
         <button
-          class="mt-4 loginButton h-16 w-64 rounded-t-lg bg-yellow-500 text-white text-xl hover:bg-yellow-400"
+          class="mb-4 createOrderButton rounded-lg text-xl shadow-md"
           type="submit"
         >
           Actualizar Orden
         </button>
         <br />
         <button
-          class="registerButton h-16 w-64 rounded-b-lg bg-gray-500 text-white text-xl hover:bg-gray-400"
+          class="cancelButton rounded-lg text-xl shadow-md"
           type="button"
           @click="toggleVar('updateForm')"
         >
@@ -89,7 +86,6 @@ import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
 
 import { AlertMixin } from '@/mixins/AlertMixin';
-import { ToggleMixin } from '@/mixins/ToggleMixin';
 
 export default {
   name: 'OrderCard',
@@ -99,8 +95,6 @@ export default {
   components: {
     DatePick,
   },
-
-  mixins: [ToggleMixin],
 
   props: {
     order: {
@@ -113,6 +107,7 @@ export default {
     return {
       deadline: this.order.deadline.split(' ')[0],
       name: this.order.name,
+      updateForm: true,
     };
   },
 
@@ -142,6 +137,9 @@ export default {
         this.error = e.message.split(':')[1];
       }
     },
+    toggleVar(varName) {
+      this[varName] = !this[varName];
+    },
     async updateOrder() {
       try {
         await this.$apollo.mutate({
@@ -164,71 +162,30 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import ../../assets/css/library.sass
+
 .card-content
-    &:hover
-      border-style: solid
-      border-color: #f6df5e
-      border-width: 1px
+  p
+    color: $gray-dark
+  &:hover
+    cursor: pointer
+    background-color: $gray-light
+    border: none
 
 .card-footer
-    display: inline-grid
+  display: inline-grid
+  a:hover
+    background-color: $blue
+    color: $text-light
 
-input
-  font-size: 1.25rem
-  height: 3rem
-  width: 24rem
-  color: #CBD5E0
+.iconButton
+  padding: 0.5rem 0.6rem 0.5rem 0.8rem
 
-  &:focus
-    outline: none
-    background-color: #5e75f6
-    box-shadow: none
-    color: #fff
-    &::-webkit-input-placeholder
-      color: #5e75f6
+.createForm
+  background-color: $gray-dark
 
-    &:-moz-placeholder
-      color: #5e75f6
-
-    &::-moz-placeholder
-      color: #5e75f6
-
-    &:-ms-input-placeholder
-      color: #5e75f6
-
-  &::-webkit-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &:-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &::-moz-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-  &:-ms-input-placeholder
-    font-size: 1.25rem
-    text-align: center
-    &:focus
-      color: #5e75f6
-
-button
-  height: 3rem
-  width: 24rem
-
-  &:focus
-    outline: none
-
-  &.loginButton
-    background-color: #f1c842
-    &:hover
-      background-color: #f6df5e
+.cancelButton
+  background-color: $red-dark
+  &:hover
+    background-color: $red
 </style>
