@@ -18,7 +18,7 @@ class CreateRequestsTable extends Migration
             $table->string('description');
             $table->integer('quantity');
             $table->tinyInteger('status')
-                ->default('1');
+                ->default('2');
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')
                 ->references('id')
