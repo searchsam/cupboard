@@ -1,19 +1,19 @@
 <template>
-  <div id="order">
-    <h1 class="font-thin text-6xl">
+  <div id="order" class="bg-white rounded-lg shadow border-gray-400">
+    <h1 class="tittle font-thin text-5xl p-5">
       Ordenes
     </h1>
 
     <!-- Create New Order -->
-    <div id="createOderForm" class="w-full bg-white m-2" v-show="me.type <= 1">
-      <h1 class="p-4 text-xl">Crear Nueva Orden</h1>
+    <div id="createOderForm" v-show="me.type <= 1" class="p-5">
+      <h1 class="text-xl mb-4">Crear Nueva Orden</h1>
       <CreateOrderForm />
     </div>
 
     <!-- Orders List -->
     <div
       v-if="!$apollo.queries.orders.loading"
-      class="flex flex-wrap content-center"
+      class="flex flex-wrap content-center p-5"
     >
       <!-- Orders Cards -->
       <OrderCard v-for="order in ordersList" :key="order.id" :order="order" />
@@ -38,9 +38,8 @@ export default {
 
   data() {
     return {
-      name: '',
       deadline: '',
-      error: null,
+      name: '',
     };
   },
 
@@ -53,22 +52,28 @@ export default {
   },
 
   methods: {
-    varToggle(varName) {
-      this[varName] = !this[varName];
-    },
     clearVarsFields() {
       this.name = '';
       this.deadline = '';
       this.status = null;
     },
+    varToggle(varName) {
+      this[varName] = !this[varName];
+    },
   },
 
   computed: {
     ordersList: function() {
-      return (this.orders || []).sort(
-        (a, b) => (a.status < b.status ? 1 : -1)
-      );
+      return (this.orders || []).sort((a, b) => (a.status < b.status ? 1 : -1));
     },
   },
 };
 </script>
+
+<style lang="sass" scoped>
+.tittle
+  border-bottom: 1px solid #f7fafc
+
+#createOderForm
+  border-bottom: 1px solid #f7fafc
+</style>

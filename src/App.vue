@@ -1,5 +1,5 @@
 <template>
-  <body id="app" class="h-screen">
+  <body id="app" class="h-screen bg-gray-100">
     <RouterView />
   </body>
 </template>
@@ -15,7 +15,6 @@
 
 body
     font-family: 'Open Sans', sans-serif
-    background-color: #F5F5F5
 </style>
 
 <style lang="css">

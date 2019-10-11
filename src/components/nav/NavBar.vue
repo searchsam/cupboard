@@ -1,20 +1,28 @@
 <template lang="html">
-  <aside class="text-center relative sidebar bg-white h-full">
+  <aside class="text-center relative sidebar bg-white h-full shadow">
     <div class="block p-5">
       <span class="object-center font-semibold text-xl text-yellow-400">
         CupBoard
       </span>
     </div>
     <div>
-      <router-link to="/orders" class="block hover:bg-yellow-400 p-5">
+      <router-link
+        to="/orders"
+        class="route block rounded-lg hover:bg-yellow-400 hover:shadow"
+      >
         ORDENES
       </router-link>
-      <router-link to="/pantry" class="block hover:bg-yellow-400 p-5">
+      <router-link
+        to="/pantry"
+        class="route block rounded-lg hover:bg-yellow-400 hover:shadow"
+      >
         DESPENSA
       </router-link>
     </div>
-    <div class=" inset-x-0 bottom-0 absolute hover:bg-gray-400">
-      <a href="#" @click.prevent="logout" class="block p-5">
+    <div
+      class="route inset-x-0 bottom-0 absolute rounded-lg hover:bg-gray-400 hover:shadow"
+    >
+      <a href="#" @click.prevent="logout" class="block">
         SALIR
       </a>
     </div>
@@ -22,7 +30,7 @@
 </template>
 
 <script type="text/javascript">
-import { onLogout } from '@/vue-apollo.js';
+import { onLogout } from '@/vue-apollo';
 
 export default {
   name: 'NavBar',
@@ -38,4 +46,8 @@ export default {
 <style lang="sass">
 .sidebar
   flex-direction: column
+
+.route
+  margin: 1rem
+  padding: 1rem
 </style>

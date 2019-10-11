@@ -1,20 +1,20 @@
 <template>
-  <form class="p-4" action="" method="POST" @submit.prevent="createRequest">
+  <form action="" method="POST" @submit.prevent="createRequest">
     <input
-      class="mr-2 h-12 border-2 border-gray-400 placeholder-gray-400"
+      class="mb-4 h-16 w-64 rounded-lg placeholder-gray-400 bg-gray-100 mr-2 hover:shadow"
       v-model="description"
       type="text"
       placeholder="Peticion"
       style="width: 24rem;"
     />
     <input
-      class="mr-2 w-24 h-12 border-2 border-gray-400 placeholder-gray-400"
+      class="mb-4 h-16 w-32 rounded-lg placeholder-gray-400 bg-gray-100 mr-2 hover:shadow"
       v-model="quantity"
       type="number"
       placeholder="Cantidad"
     />
     <button
-      class="bg-yellow-500 text-white text-xl h-12 w-40 hover:bg-yellow-400"
+      class="loginButton mb-4 h-16 w-64 rounded-lg bg-yellow-500 text-white text-xl"
       type="submit"
     >
       Crear Solicitud
@@ -24,26 +24,29 @@
 </template>
 
 <script>
-import Alert from '../error/Alert';
+import { AlertMixin } from '@/mixins/AlertMixin';
 
 export default {
   name: 'CreateRequestForm',
 
-  components: {
-    Alert,
-  },
+  mixins: [AlertMixin],
 
   data() {
     return {
       description: '',
       quantity: '',
-      error: null,
     };
   },
 
   inject: ['me'],
 
   methods: {
+    cleanVars() {
+      this.description = '';
+      this.quantity = '';
+      this.error = null;
+    },
+
     async createRequest() {
       try {
         await this.$apollo.mutate({
@@ -79,12 +82,66 @@ export default {
         this.error = e.message;
       }
     },
-
-    cleanVars() {
-      this.description = '';
-      this.quantity = '';
-      this.error = null;
-    },
   },
 };
 </script>
+
+<style lang="sass" scoped>
+input
+  font-size: 1.25rem
+  height: 3rem
+  color: #CBD5E0
+
+  &:focus
+    outline: none
+    background-color: #5e75f6
+    box-shadow: none
+    color: #fff
+    &::-webkit-input-placeholder
+      color: #5e75f6
+
+    &:-moz-placeholder
+      color: #5e75f6
+
+    &::-moz-placeholder
+      color: #5e75f6
+
+    &:-ms-input-placeholder
+      color: #5e75f6
+
+  &::-webkit-input-placeholder
+    font-size: 1.25rem
+    text-align: center
+    &:focus
+      color: #5e75f6
+
+  &:-moz-placeholder
+    font-size: 1.25rem
+    text-align: center
+    &:focus
+      color: #5e75f6
+
+  &::-moz-placeholder
+    font-size: 1.25rem
+    text-align: center
+    &:focus
+      color: #5e75f6
+
+  &:-ms-input-placeholder
+    font-size: 1.25rem
+    text-align: center
+    &:focus
+      color: #5e75f6
+
+button
+  height: 3rem
+  width: 24rem
+
+  &:focus
+    outline: none
+
+  &.loginButton
+    background-color: #f1c842
+    &:hover
+      background-color: #f6df5e
+</style>
