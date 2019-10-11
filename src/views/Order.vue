@@ -10,11 +10,15 @@
         @click="toggleVar('createForm')"
       >
         <i class="text-4xl" :class="createForm ? 'ti-close' : 'ti-plus'"></i>
-    </a>
+      </a>
     </h1>
 
     <!-- Create Request Form -->
-    <div id="createRequestForm" class="createForm p-5 shadow-md" v-if="createForm">
+    <div
+      id="createRequestForm"
+      class="createForm p-5 shadow-md"
+      v-if="createForm"
+    >
       <h1 class="text-2xl m-5">Crear Nueva Solicitud</h1>
       <CreateRequestForm />
     </div>

@@ -17,6 +17,7 @@ input
   border: 1px solid $gray-shadow
 
   &:focus
+    outline: none
     border: 1px solid $blue
 
     &::-webkit-input-placeholder
@@ -110,9 +111,12 @@ a[type="button"]
   background: linear-gradient(0deg, rgba(47,58,123,1) 0%, rgba(94,117,246,1) 25%)
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2f3a7b",endColorstr="#5e75f6",GradientType=1)
 
+img.sideImage
+  height: 35rem
+
 .registerButton
-  margin-top: 40rem
-  background-color: $gray
+  margin-top: 3rem
+  background-color: $gray-shadow
   color: $text
   &:hover
     background-color: $white

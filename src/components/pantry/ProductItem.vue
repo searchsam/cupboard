@@ -14,7 +14,9 @@
         <span class="itemBody text-xl inline-block static center py-2 ml-6">
           <a class="font-semibold">{{ product.request.description }}</a>
           <br />
-          <a class="secondaryText">{{ status ? 'EN EXISTENCIA' : 'AGOTADO' }}</a>
+          <a class="secondaryText">{{
+            status ? 'EN EXISTENCIA' : 'AGOTADO'
+          }}</a>
         </span>
 
         <span class="float-right inline-block static mt-3 mr-4" v-if="status">

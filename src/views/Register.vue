@@ -55,15 +55,18 @@
       </form>
     </div>
     <div class="sidePanelLogin flex-1 container mx-auto flex">
-      <div class="block p-5 mx-auto">
+      <div class="block p-5 m-auto">
+        <img src="../assets/img/login_side_art.svg" class="sideImage mx-auto"/>
+        <div class="flex">
         <!-- Cancel Button -->
         <button
-          class="registerButton rounded-lg shadow-md"
+          class="registerButton rounded-lg shadow-md mx-auto"
           type="button"
           @click="$router.push({ name: 'login' })"
         >
-          Cancelar
+          Iniciar Sesión
         </button>
+        </div>
       </div>
     </div>
   </div>

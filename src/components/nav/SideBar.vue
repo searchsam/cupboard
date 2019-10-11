@@ -1,7 +1,7 @@
 <template lang="html">
   <aside id="sidebar" class="text-center h-full">
     <div class="block p-5">
-      <img src="../../assets/cupboard_logo.svg" class="h-24 m-auto">
+      <img src="../../assets/img/cupboard_logo.svg" class="h-24 m-auto" />
       <span class="object-center font-semibold text-xl"></span>
     </div>
     <div class="static">
@@ -76,5 +76,4 @@ export default {
   &:hover
     border-radius: .5rem
     background-color: $blue-dark
-
 </style>

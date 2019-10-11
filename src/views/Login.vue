@@ -1,16 +1,19 @@
 <template lang="html">
   <div id="login" class="flex h-full bg-white">
     <div class="sidePanelLogin flex-1 container mx-auto flex">
-      <div class="block p-5 mx-auto">
+      <div class="block p-5 m-auto">
+        <img src="../assets/img/register_side_art.svg" class="sideImage mx-auto"/>
+        <div class="flex">
         <!-- Show Register Form Button -->
         <button
-          class="registerButton rounded-lg shadow-md"
+          class="registerButton rounded-lg shadow-md mx-auto"
           :style="bottom"
           type="button"
           @click="$router.push({ name: 'register' })"
         >
           Registrarse
         </button>
+        </div>
       </div>
     </div>
     <div class="flex-1 container mx-auto mt-32 flex">
