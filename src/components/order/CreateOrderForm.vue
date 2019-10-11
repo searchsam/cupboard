@@ -3,7 +3,7 @@
     <input
       type="text"
       v-model="name"
-      class="mb-4 h-16 w-64 rounded-lg mr-2 shadow-md"
+      class="mb-4 rounded-lg mr-2"
       placeholder="Nombre"
       :style="name ? 'border: 1px solid #5e75f6;' : ''"
     />
@@ -89,6 +89,4 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-@import ../../assets/css/library.sass
-</style>
+<style lang="sass" scoped></style>

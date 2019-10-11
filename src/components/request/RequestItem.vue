@@ -17,11 +17,11 @@
           </span>
           <span class="itemBody text-xl inline-block static center py-2">
             <a class="font-semibold">{{ request.description }}</a> -
-            <a class="owner text-lg">
+            <a class="secondaryText text-lg">
               <i class="ti-user"></i> {{ request.user.name }}
             </a>
             <br />
-            <a class="status">{{ labelStatus }}</a>
+            <a class="secondaryText">{{ labelStatus }}</a>
           </span>
           <span
             class="float-right inline-block static mt-6 mr-4"
@@ -222,45 +222,4 @@ export default {
   background-color: $red-light
   i
     background-color: $red
-
-.owner, .status
-  color: $gray-dark
-
-.score
-  background-color: $gray-shadow
-
-a[type="button"]
-  appearance: none
-  &:hover
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
-    background-color: $blue
-    color: $text-light
-
-.descriptionButton
-  width: 32rem
-
-.quantityButton
-  width: 8rem
-
-.pairButton
-  width: 16rem
-
-.cancelButton
-  background-color: $red-dark
-  &:hover
-    background-color: $red
-
-.icon-flipped
-  transform: scaleX(-1, 1)
-  -moz-transform: scaleX(-1, 1)
-  -webkit-transform: scaleX(-1, 1)
-  -ms-transform: scaleX(-1, 1)
-  -o-transform: scaleX(-1, 1)
-
-.center
-  object-fit: contain
-  align-items: center
-  align-content: center
-  vertical-align: middle
-  object-position: center
 </style>

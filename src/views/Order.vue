@@ -2,18 +2,19 @@
   <div id="order">
     <h1 class="font-thin text-5xl p-5 m-5">
       Solicitudes
-      <button
+      <a
+        href="#"
         type="button"
-        class="defaultButton rounded-full"
+        class="showFormButton rounded-full"
         v-if="order.status || new Date() < order.deadline"
         @click="toggleVar('createForm')"
       >
         <i class="text-4xl" :class="createForm ? 'ti-close' : 'ti-plus'"></i>
-      </button>
+    </a>
     </h1>
 
     <!-- Create Request Form -->
-    <div id="createRequestForm" class="p-5 shadow-md" v-if="createForm">
+    <div id="createRequestForm" class="createForm p-5 shadow-md" v-if="createForm">
       <h1 class="text-2xl m-5">Crear Nueva Solicitud</h1>
       <CreateRequestForm />
     </div>
@@ -80,18 +81,4 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-@import ../assets/css/library.sass
-
-#createRequestForm
-  background-color: $gray-shadow
-
-.defaultButton
-  background-color: transparent
-  color: $text
-  width: 4.25rem
-  height: 4rem
-  &:hover
-    background-color: $blue
-    color: $text-light
-</style>
+<style lang="sass" scoped></style>

@@ -24,12 +24,18 @@
       >
         <a
           href="#"
-          class="iconButton rounded-full"
+          type="button"
+          class="rounded-full py-3"
           @click.prevent="toggleVar('updateForm')"
         >
           <i class="ti-write text-3xl"></i>
         </a>
-        <a href="#" class="iconButton rounded-full" @click.prevent="shopOrder">
+        <a
+          href="#"
+          type="button"
+          class="rounded-full py-3"
+          @click.prevent="shopOrder"
+        >
           <i class="ti-shopping-cart text-3xl"></i>
         </a>
       </div>
@@ -177,15 +183,4 @@ export default {
   a:hover
     background-color: $blue
     color: $text-light
-
-.iconButton
-  padding: 0.5rem 0.6rem 0.5rem 0.8rem
-
-.createForm
-  background-color: $gray-dark
-
-.cancelButton
-  background-color: $red-dark
-  &:hover
-    background-color: $red
 </style>

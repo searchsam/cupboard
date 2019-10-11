@@ -48,10 +48,4 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.tittle
-  border-bottom: 1px solid #f7fafc
-
-#createOderForm
-  border-bottom: 1px solid #f7fafc
-</style>
+<style lang="sass" scoped></style>

@@ -1,14 +1,14 @@
 <template>
   <form method="POST" @submit.prevent="createRequest" class="m-5">
     <input
-      class="descriptionButton rounded-lg mr-2 shadow-md"
+      class="descriptionButton rounded-lg mr-2"
       v-model="description"
       type="text"
       placeholder="Peticion"
       :style="description ? 'border: 1px solid #5e75f6;' : ''"
     />
     <input
-      class="quantityButton rounded-lg mr-2 shadow-md text-center"
+      class="quantityButton rounded-lg mr-2 text-center"
       v-model="quantity"
       type="number"
       placeholder="Cantidad"
@@ -86,12 +86,4 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-@import ../../assets/css/library.sass
-
-.descriptionButton
-  width: 32rem
-
-.quantityButton
-  width: 8rem
-</style>
+<style lang="sass" scoped></style>

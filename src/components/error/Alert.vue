@@ -2,7 +2,7 @@
   <div
     id="alert"
     v-if="this.msg"
-    class="flex items-center text-white px-4 py-3 rounded-lg shadow"
+    class="flex items-center text-white px-4 py-3 rounded-lg shadow-md"
     role="alert"
   >
     <i class="ti-alert text-4xl rounded-full p-2"></i>

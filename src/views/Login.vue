@@ -18,7 +18,7 @@
         <h1 class="text-4xl font-semibold mb-8 text-center">Iniciar Sesión</h1>
         <!-- Email Input -->
         <input
-          class="loginInput mb-8 rounded-lg shadow-md"
+          class="loginInput mb-8 rounded-lg"
           type="email"
           v-model="username"
           placeholder="Correo Electrónico"
@@ -27,7 +27,7 @@
         <br />
         <!-- Password Input -->
         <input
-          class="loginInput mb-10 rounded-lg shadow-md"
+          class="loginInput mb-10 rounded-lg"
           type="password"
           v-model="password"
           placeholder="Contraseña"
@@ -92,31 +92,4 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-@import ../assets/css/library.sass
-
-.loginInput
-  width: 26rem
-  height: 3.5rem
-  border: 1px solid $gray-shadow
-
-.loginButton
-  margin-left: auto
-  width: 18rem
-  height: 4rem
-
-.sidePanelLogin
-  background-color: $blue
-  background: rgb(47,58,123)
-  background: -moz-linear-gradient(0deg, rgba(47,58,123,1) 0%, rgba(94,117,246,1) 25%)
-  background: -webkit-linear-gradient(0deg, rgba(47,58,123,1) 0%, rgba(94,117,246,1) 25%)
-  background: linear-gradient(0deg, rgba(47,58,123,1) 0%, rgba(94,117,246,1) 25%)
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2f3a7b",endColorstr="#5e75f6",GradientType=1)
-
-.registerButton
-  margin-top: 40rem
-  background-color: $gray
-  color: $text
-  &:hover
-    background-color: $white
-</style>
+<style lang="sass" scoped></style>

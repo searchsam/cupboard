@@ -16,4 +16,5 @@
 
 @import assets/css/library.sass
 @import assets/css/date-pick.sass
+@import assets/css/style.sass
 </style>
