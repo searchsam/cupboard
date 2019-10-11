@@ -1,10 +1,12 @@
-
 /* Default style
 /// BODY
 body
   font-family: 'Open Sans', sans-serif
   background: $gray
   color: $text
+  
+h1
+  font-family: 'Montserrat', sans-serif
 
 /// INPUT
 input
@@ -59,6 +61,7 @@ button
   &:hover
     background-color: $blue
 
+/// A
 a[type="button"]
   appearance: none
   padding-right: 1rem
@@ -68,6 +71,10 @@ a[type="button"]
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
     background-color: $blue
     color: $text-light
+
+/// IMG
+img.sideImage
+  height: 35rem
 
 /* Custom style
 .icon-flipped
@@ -87,8 +94,9 @@ a[type="button"]
 .showFormButton
   background-color: transparent
   color: $text
-  width: 4.25rem
+  width: 4rem
   height: 4rem
+  
   &:hover
     background-color: $blue
     color: $text-light
@@ -110,9 +118,6 @@ a[type="button"]
   background: -webkit-linear-gradient(0deg, rgba(47,58,123,1) 0%, rgba(94,117,246,1) 25%)
   background: linear-gradient(0deg, rgba(47,58,123,1) 0%, rgba(94,117,246,1) 25%)
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2f3a7b",endColorstr="#5e75f6",GradientType=1)
-
-img.sideImage
-  height: 35rem
 
 .registerButton
   margin-top: 3rem
@@ -139,7 +144,7 @@ img.sideImage
   color: $gray-dark
 
 .bookmark
-  padding: 1.4rem 1rem 0.7rem 1rem
+  padding: 1.2rem 1rem 1rem 1rem
   background-color: $green-light
   color: $text-light
   i
@@ -152,3 +157,6 @@ img.sideImage
 
 .pairButton
   width: 16rem
+  
+.activeInput
+  border: 1px solid #5e75f6

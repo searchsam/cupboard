@@ -1,8 +1,8 @@
 <template lang="html">
-  <aside id="sidebar" class="text-center h-full">
+  <aside id="sidebar" class="text-center h-full top-0">
     <div class="block p-5">
       <img src="../../assets/img/cupboard_logo.svg" class="h-24 m-auto" />
-      <span class="object-center font-semibold text-xl"></span>
+      <h1 class="object-center text-xl"></h1>
     </div>
     <div class="static">
       <router-link

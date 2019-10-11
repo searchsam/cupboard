@@ -11,6 +11,7 @@
 @tailwind components
 @tailwind utilities
 
+@import url(http://fonts.googleapis.com/css?family=Montserrat:300italic,400italic,700italic,300,400,700)
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700)
 @import assets/css/themify-icons.sass
 

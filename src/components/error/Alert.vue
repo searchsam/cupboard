@@ -6,7 +6,7 @@
     role="alert"
   >
     <i class="ti-alert text-4xl rounded-full p-2"></i>
-    <p class="text-lg font-semibold">&nbsp;{{ this.msg }}</p>
+    <p class="text-lg font-medium">&nbsp;{{ this.msg }}</p>
   </div>
 </template>
 

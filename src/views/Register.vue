@@ -2,7 +2,7 @@
   <div id="login" class="flex h-full bg-white">
     <div class="flex-1 container mx-auto mt-32 flex">
       <form method="POST" @submit.prevent="login" class="block p-5 mx-auto">
-        <h1 class="text-4xl font-semibold mb-8 text-center">
+        <h1 class="text-4xl mb-8 text-center">
           Registrar Usuario
         </h1>
         <!-- Name Input -->
@@ -11,7 +11,7 @@
           type="text"
           v-model="name"
           placeholder="Nombre"
-          :style="name ? 'border: 1px solid #5e75f6;' : ''"
+          :class="name ? 'activeInput' : ''"
         />
         <br />
         <!-- Email -->
@@ -20,7 +20,7 @@
           type="email"
           v-model="email"
           placeholder="Correo Electronico"
-          :style="email ? 'border: 1px solid #5e75f6;' : ''"
+          :class="email ? 'activeInput' : ''"
         />
         <br />
         <!-- Password Input -->
@@ -29,7 +29,7 @@
           type="password"
           v-model="password"
           placeholder="Contraseña"
-          :style="password ? 'border: 1px solid #5e75f6;' : ''"
+          :class="password ? 'activeInput' : ''"
         />
         <br />
         <!-- Confirm Password Input -->
@@ -38,7 +38,7 @@
           type="password"
           v-model="confirmation"
           placeholder="Confirmar Contraseña"
-          :style="confirmation ? 'border: 1px solid #5e75f6;' : ''"
+          :class="confirmation ? 'activeInput' : ''"
         />
         <!-- Error Message -->
         <Alert :msg="error" />
@@ -56,16 +56,16 @@
     </div>
     <div class="sidePanelLogin flex-1 container mx-auto flex">
       <div class="block p-5 m-auto">
-        <img src="../assets/img/login_side_art.svg" class="sideImage mx-auto"/>
+        <img src="../assets/img/login_side_art.svg" class="sideImage mx-auto" />
         <div class="flex">
-        <!-- Cancel Button -->
-        <button
-          class="registerButton rounded-lg shadow-md mx-auto"
-          type="button"
-          @click="$router.push({ name: 'login' })"
-        >
-          Iniciar Sesión
-        </button>
+          <!-- Cancel Button -->
+          <button
+            class="registerButton rounded-lg shadow-md mx-auto"
+            type="button"
+            @click="$router.push({ name: 'login' })"
+          >
+            Iniciar Sesión
+          </button>
         </div>
       </div>
     </div>

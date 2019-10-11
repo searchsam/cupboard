@@ -2,24 +2,21 @@
   <div class="card-order content-center w-auto mr-4 relative">
     <div v-if="updateForm">
       <div
-        class="card-content p-5 rounded-lg bg-white shadow-md hover:cursor-pointer"
-        :style="
-          this.order.status
-            ? 'border-left: 7px solid #75F65E'
-            : 'border-left: 7px solid #F65E75'
-        "
+        class="cardContent p-5 rounded-lg bg-white shadow-md hover:cursor-pointer"
+        :class="this.order.status ? 'cardActive' : 'cardInactive'"
         @click="goToOrder"
       >
         <span class="inline-block pr-10">
-          <h1 class="text-2xl font-medium mb-2">{{ order.name }} <br /></h1>
+          <h1 class="text-2xl mb-2">{{ order.name }}</h1>
+          <br />
           <p class="text-lg">
-            {{ order.deadline.split(' ')[0] }}
+            <i class="ti-calendar"></i> {{ order.deadline.split(' ')[0] }}
           </p>
         </span>
       </div>
 
       <div
-        class="card-footer absolute top-0 right-0 table-row"
+        class="cardFooter absolute top-0 right-0 table-row"
         v-if="me.type <= 1 && order.status"
       >
         <a
@@ -50,7 +47,7 @@
           class="mb-4 rounded-lg shadow-md"
           v-model="name"
           placeholder="Nombre"
-          :style="name ? 'border: 1px solid #5e75f6; color: #2F3A7B;' : ''"
+          :class="name ? 'activeInput' : ''"
         />
         <br />
         <DatePick
@@ -59,12 +56,8 @@
           :isDateDisabled="isPastDate"
           placeholder="Fecha"
           v-model="deadline"
-          class="mb-4 shadow-md"
-          :style="
-            deadline
-              ? '.vdpComponent.vdpWithInput>input{border: 1px solid #5e75f6; border-radius: .5rem;}'
-              : ''
-          "
+          class="mb-4"
+          :class="deadline ? 'activeInput' : ''"
         />
         <br />
         <button
@@ -170,15 +163,19 @@ export default {
 <style lang="sass" scoped>
 @import ../../assets/css/library.sass
 
-.card-content
+.cardContent
   p
     color: $gray-dark
   &:hover
     cursor: pointer
-    background-color: $gray-light
-    border: none
 
-.card-footer
+.cardActive
+    border-left: 7px solid #75F65E
+
+.cardInactive
+    border-left: 7px solid #F65E75
+
+.cardFooter
   display: inline-grid
   a:hover
     background-color: $blue

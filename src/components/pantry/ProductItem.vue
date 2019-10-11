@@ -12,11 +12,12 @@
           ></i>
         </span>
         <span class="itemBody text-xl inline-block static center py-2 ml-6">
-          <a class="font-semibold">{{ product.request.description }}</a>
+          <h1 class="inline">{{ product.request.description }}</h1>
           <br />
-          <a class="secondaryText">{{
-            status ? 'EN EXISTENCIA' : 'AGOTADO'
-          }}</a>
+          <a class="secondaryText">
+            <i class="ti-info-alt"></i>
+            {{ status ? 'EN EXISTENCIA' : 'AGOTADO' }}
+          </a>
         </span>
 
         <span class="float-right inline-block static mt-3 mr-4" v-if="status">

@@ -5,14 +5,14 @@
       v-model="description"
       type="text"
       placeholder="Peticion"
-      :style="description ? 'border: 1px solid #5e75f6;' : ''"
+      :class="description ? 'activeInput' : ''"
     />
     <input
       class="quantityButton rounded-lg mr-2 text-center"
       v-model="quantity"
       type="number"
       placeholder="Cantidad"
-      :style="quantity ? 'border: 1px solid #5e75f6;' : ''"
+      :class="quantity ? 'activeInput' : ''"
     />
     <button class="rounded-lg text-xl shadow-md" type="submit">
       Crear Solicitud

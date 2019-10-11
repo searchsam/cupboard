@@ -8,9 +8,6 @@
   border-radius: .5rem
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
 
-  &:hover
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
-
   &::-webkit-input-placeholder
     color: $text-neutral
     font-size: 1.25rem
@@ -59,7 +56,11 @@
 
     &:-ms-input-placeholder
       color: $blue
-      content: "Fcha"
+      content: "Fecha"
+
+  .active
+      border: 1px solid $blue
+      border-radius: .5rem
 
 .vdpArrow, .vdpClearInput
   color: $text

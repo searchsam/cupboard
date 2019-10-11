@@ -16,12 +16,15 @@
             {{ request.quantity }}
           </span>
           <span class="itemBody text-xl inline-block static center py-2">
-            <a class="font-semibold">{{ request.description }}</a> -
+            <h1 class="inline">{{ request.description }}</h1>
+            -
             <a class="secondaryText text-lg">
               <i class="ti-user"></i> {{ request.user.name }}
             </a>
             <br />
-            <a class="secondaryText">{{ labelStatus }}</a>
+            <a class="secondaryText"
+              ><i class="ti-info-alt"></i> {{ labelStatus }}</a
+            >
           </span>
           <span
             class="float-right inline-block static mt-6 mr-4"
@@ -71,16 +74,14 @@
           type="text"
           placeholder="Peticion"
           v-model="description"
-          :style="
-            description ? 'border: 1px solid #5e75f6; color: #2F3A7B;' : ''
-          "
+          :class="description ? 'activeInput' : ''"
         />
         <input
           class="quantityButton rounded-lg mr-2"
           type="number"
           placeholder="Cantidad"
           v-model="quantity"
-          :style="quantity ? 'border: 1px solid #5e75f6; color: #2F3A7B;' : ''"
+          :class="quantity ? 'activeInput' : ''"
         />
         <button class="pairButton rounded-lg text-xl mr-2" type="submit">
           Actualizar Solicitud
@@ -206,7 +207,7 @@ export default {
 @import ../../assets/css/library.sass
 
 .bookmark
-  padding: 1.4rem 1rem 0.7rem 1rem
+  padding: 1.2rem 1rem 1rem 1rem
   background-color: $gray-shadow
   color: $text-light
   i

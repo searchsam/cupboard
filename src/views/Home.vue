@@ -1,21 +1,26 @@
 <template>
-  <div class="flex h-full relative">
-    <div class="w-1/7 static">
-      <SideBar class="fixed" />
-    </div>
-    <div class="ml-24 w-6/7 w-full static">
-      <RouterView v-if="this.me" />
+  <div class="h-full">
+    <NavBar />
+    <div class="flex relative">
+      <div class="w-1/7 static">
+        <SideBar class="fixed" />
+      </div>
+      <div class="ml-24 w-6/7 w-full static">
+        <RouterView v-if="this.me" />
+      </div>
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
+import NavBar from '@/components/nav/NavBar';
 import SideBar from '@/components/nav/SideBar';
 
 export default {
   name: 'Home',
 
   components: {
+    NavBar,
     SideBar,
   },
 

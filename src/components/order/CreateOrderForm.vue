@@ -5,7 +5,7 @@
       v-model="name"
       class="mb-4 rounded-lg mr-2"
       placeholder="Nombre"
-      :style="name ? 'border: 1px solid #5e75f6;' : ''"
+      :class="name ? 'activeInput' : ''"
     />
     <DatePick
       v-model="deadline"
@@ -14,9 +14,7 @@
       :isDateDisabled="isPastDate"
       placeholder="Fecha"
       class="mr-2"
-      :style="
-        deadline ? 'border: 1px solid #5e75f6; border-radius: .5rem;' : ''
-      "
+      :class="deadline ? 'activeInput' : ''"
     />
     <button class="mb-4 rounded-lg text-xl shadow-md" type="submit">
       Crear Orden

@@ -1,11 +1,11 @@
 <template>
   <div id="order">
-    <h1 class="font-thin text-5xl p-5 m-5">
+    <h1 class="text-5xl p-5 m-5">
       Solicitudes
       <a
         href="#"
         type="button"
-        class="showFormButton rounded-full"
+        class="showFormButton rounded-full font-bold"
         v-if="order.status || new Date() < order.deadline"
         @click="toggleVar('createForm')"
       >
