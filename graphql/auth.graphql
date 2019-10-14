@@ -83,8 +83,7 @@ input NewPasswordWithCodeInput {
                 min: "El minimo es de 6 caracteres."
             }
         )
-    passwordConfirmation: String!
-        @rename(attribute: "password_confirmation")
+    password_confirmation: String!
 }
 
 input RegisterInput {
@@ -117,6 +116,10 @@ input RegisterInput {
             messages: {required: "El campo es requerido."}
         )
     type: Int!
+        @rules(
+            apply: ["required"],
+            messages: {required: "El campo es requerido."}
+        )
 }
 
 extend type Mutation {
