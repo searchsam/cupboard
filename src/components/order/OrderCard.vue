@@ -69,7 +69,7 @@
         <button
           class="cancelButton rounded-lg text-xl shadow-md"
           type="button"
-          @click="toggleVar('updateForm')"
+          @click="toggleVar"
         >
           Cancelar
         </button>
@@ -150,7 +150,7 @@ export default {
             },
           },
         });
-        this.toggleVar('updateForm');
+        this.toggleVar();
       } catch (e) {
         this.error = e.message.split(':')[1];
       }
