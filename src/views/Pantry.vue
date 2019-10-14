@@ -1,6 +1,6 @@
 <template>
   <div id="pantry">
-    <h1 class="text-5xl p-5 m-5">
+    <h1 class="text-5xl px-5 pb-5 mx-5 mb-5">
       Despensa
     </h1>
 

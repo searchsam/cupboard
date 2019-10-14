@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="card-order content-center w-auto mr-4 mb-5 relative">
+  <div class="card-order content-center w-auto mr-6 mb-6 relative">
     <div v-if="updateForm">
       <div
         class="cardContent p-5 rounded-lg bg-white shadow-md hover:cursor-pointer"
@@ -167,16 +167,11 @@ export default {
     color: $gray-dark
   &:hover
     cursor: pointer
+    box-shadow: 0 4px 6px -1px rgba(94, 117, 246, 0.3), 0 2px 4px -1px rgba(94, 117, 246, 0.08)
 
 .cardActive
     border-left: 7px solid #75F65E
 
 .cardInactive
     border-left: 7px solid #F65E75
-
-.cardFooter
-  display: inline-grid
-  a:hover
-    background-color: $blue
-    color: $text-light
 </style>

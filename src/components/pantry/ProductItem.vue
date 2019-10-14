@@ -1,6 +1,6 @@
 <template>
-  <li class="mb-4 block relative">
-    <div class="bg-white rounded-lg shadow-md">
+  <li class="mb-6 block relative">
+    <div class="bg-white rounded-lg shadow-md hoverItem">
       <p class="text-lg static">
         <span
           class="bookmark rounded-l-lg inline-block static center"

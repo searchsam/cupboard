@@ -1,7 +1,7 @@
 <template>
-  <li class="mb-4 block relative">
+  <li class="mb-6 block relative">
     <div v-if="updateForm">
-      <div class="bg-white rounded-lg shadow-md">
+      <div class="bg-white rounded-lg shadow-md hoverItem">
         <p class="text-lg static">
           <span
             class="bookmark rounded-l-lg inline-block static center"

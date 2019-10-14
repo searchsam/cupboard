@@ -3,7 +3,7 @@
     <NavBar v-if="this.me" />
     <div class="flex relative">
       <div class="w-1/7 static">
-        <SideBar class="fixed" />
+        <SideBar class="fixed" v-if="this.me" />
       </div>
       <div class="ml-24 w-6/7 w-full static">
         <RouterView v-if="this.me" />

@@ -5,6 +5,7 @@
       <h1 class="object-center text-xl"></h1>
     </div>
     <div class="static">
+      <!-- Ordenes -->
       <router-link
         to="/orders"
         class="route block rounded-lg hover:shadow-md"
@@ -12,12 +13,22 @@
       >
         <i class="ti-receipt text-4xl"></i>
       </router-link>
+      <!-- Despensa -->
       <router-link
         to="/pantry"
         class="route block rounded-lg hover:shadow-md"
         :class="currentRouteName == 'pantry' ? 'active' : ''"
       >
         <i class="ti-package text-4xl"></i>
+      </router-link>
+      <!-- Usuarios -->
+      <router-link
+        to="/users"
+        class="route block rounded-lg hover:shadow-md"
+        :class="currentRouteName == 'users' ? 'active' : ''"
+        v-if="me.type <= 1"
+      >
+        <i class="ti-id-badge text-4xl"></i>
       </router-link>
     </div>
     <div class="route inset-x-0 bottom-0 absolute rounded-lg hover:shadow-md">
@@ -40,6 +51,8 @@ export default {
     },
   },
 
+  inject: ['me'],
+
   methods: {
     logout() {
       onLogout(this.$apollo.provider.defaultClient);
@@ -61,7 +74,7 @@ export default {
   margin: 1rem
   padding: 1rem
   &:hover
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+    box-shadow: 0 4px 6px -1px rgba(94, 117, 246, 0.3), 0 2px 4px -1px rgba(94, 117, 246, 0.08)
     background-color: $white
     color: $text
 

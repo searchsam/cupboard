@@ -18,6 +18,9 @@ input
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
   border: 1px solid $gray-shadow
 
+  &:hover
+    box-shadow: 0 4px 6px -1px rgba(94, 117, 246, 0.3), 0 2px 4px -1px rgba(94, 117, 246, 0.08)
+
   &:focus
     outline: none
     border: 1px solid $blue
@@ -60,6 +63,7 @@ button
 
   &:hover
     background-color: $blue
+    box-shadow: 0 4px 6px -1px rgba(94, 117, 246, 0.3), 0 2px 4px -1px rgba(94, 117, 246, 0.08)
 
 /// A
 a[type="button"]
@@ -68,7 +72,7 @@ a[type="button"]
   padding-left: .7rem
 
   &:hover
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+    box-shadow: 0 4px 6px -1px rgba(94, 117, 246, 0.3), 0 2px 4px -1px rgba(94, 117, 246, 0.08)
     background-color: $blue
     color: $text-light
 
@@ -90,6 +94,12 @@ img.sideImage
   align-content: center
   vertical-align: middle
   object-position: center
+
+.cardFooter
+  display: inline-grid
+  a:hover
+    background-color: $blue
+    color: $text-light
 
 .showFormButton
   background-color: transparent
@@ -125,6 +135,10 @@ img.sideImage
   color: $text
   &:hover
     background-color: $white
+
+.hoverItem
+  &:hover
+    box-shadow: 0 4px 6px -1px rgba(94, 117, 246, 0.3), 0 2px 4px -1px rgba(94, 117, 246, 0.08)
 
 .cancelButton
   background-color: $red-dark

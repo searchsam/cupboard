@@ -8,6 +8,7 @@ import Order from '@/views/Order';
 import Orders from '@/views/Orders';
 import Pantry from '@/views/Pantry';
 import Register from '@/views/Register';
+import Users from '@/views/Users';
 
 Vue.use(Router);
 
@@ -81,6 +82,14 @@ const router = new Router({
           path: '/pantry',
           name: 'pantry',
           component: Pantry,
+          meta: {
+            auth: true,
+          },
+        },
+        {
+          path: '/users',
+          name: 'users',
+          component: Users,
           meta: {
             auth: true,
           },
