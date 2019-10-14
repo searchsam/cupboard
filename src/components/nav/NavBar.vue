@@ -4,8 +4,8 @@
       <div class="flex-grow"></div>
       <div class="flex">
         <span class="block mx-3" v-if="me.type <= 1">
-            <i class="ti-wand bg-white iconPill"></i>
-            <h1 class="inline bg-white labelPill">{{ userType }}</h1>
+          <i class="bg-white iconPill" :class="userType.icon"></i>
+          <h1 class="inline bg-white labelPill">{{ userType.type }}</h1>
         </span>
         <span class="block mx-3">
           <i class="ti-user mr-3 hackergotchi"></i>
@@ -22,21 +22,15 @@ export default {
 
   inject: ['me'],
 
-  data() {
-    return {
-      explicitUserType: this.me.type
-    };
-  },
-
   computed: {
     userType() {
-        return {
-          0: "SUPER ADMIN",
-          1: "ADMIN",
-          2: "CLIENTE",
-      }[this.explicitUserType];
-    }
-  }
+      return {
+        0: { type: 'SUPER ADMIN', icon: 'ti-wand' },
+        1: { type: 'ADMIN', icon: 'ti-crown' },
+        2: { type: 'CLIENTE', icon: 'ti-light-bulb' },
+      }[this.me.type];
+    },
+  },
 };
 </script>
 
@@ -55,11 +49,12 @@ export default {
   padding: .6rem .3rem .7rem .8rem
   border-top-left-radius: 9999px
   border-bottom-left-radius: 9999px
+  box-shadow: 6px 4px 6px -1px rgba(0, 0, 0, 0.1), 6px 2px 4px -1px rgba(0, 0, 0, 0.06)
 
 .labelPill
   background-color: $white
   padding: .5rem .8rem .5rem .3rem
   border-top-right-radius: 9999px
   border-bottom-right-radius: 9999px
-
+  box-shadow: 4px 4px 6px -1px rgba(0, 0, 0, 0.1), 4px 2px 4px -1px rgba(0, 0, 0, 0.06)
 </style>

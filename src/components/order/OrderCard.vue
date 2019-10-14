@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="card-order content-center w-auto mr-4 relative">
+  <div class="card-order content-center w-auto mr-4 mb-5 relative">
     <div v-if="updateForm">
       <div
         class="cardContent p-5 rounded-lg bg-white shadow-md hover:cursor-pointer"
@@ -7,8 +7,7 @@
         @click="goToOrder"
       >
         <span class="inline-block pr-10">
-          <h1 class="text-2xl mb-2">{{ order.name }}</h1>
-          <br />
+          <h1 class="text-2xl">{{ order.name }}</h1>
           <p class="text-lg">
             <i class="ti-calendar"></i> {{ order.deadline.split(' ')[0] }}
           </p>
@@ -16,24 +15,24 @@
       </div>
 
       <div
-        class="cardFooter absolute top-0 right-0 table-row"
+        class="cardFooter absolute my-auto top-0 right-0 table-row"
         v-if="me.type <= 1 && order.status"
       >
         <a
           href="#"
           type="button"
-          class="rounded-full py-3"
+          class="rounded-full p-2"
           @click.prevent="toggleVar('updateForm')"
         >
-          <i class="ti-write text-3xl"></i>
+          <i class="ti-write text-2xl"></i>
         </a>
         <a
           href="#"
           type="button"
-          class="rounded-full py-3"
+          class="rounded-full p-2"
           @click.prevent="shopOrder"
         >
-          <i class="ti-shopping-cart text-3xl"></i>
+          <i class="ti-shopping-cart text-2xl"></i>
         </a>
       </div>
     </div>

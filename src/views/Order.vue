@@ -6,7 +6,7 @@
         href="#"
         type="button"
         class="showFormButton rounded-full font-bold"
-        v-if="order.status || new Date() < order.deadline"
+        v-if="order && (order.status || new Date() < order.deadline)"
         @click="toggleVar('createForm')"
       >
         <i class="text-4xl" :class="createForm ? 'ti-close' : 'ti-plus'"></i>

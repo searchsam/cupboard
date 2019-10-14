@@ -13,7 +13,7 @@
       start-week-on-sunday
       :isDateDisabled="isPastDate"
       placeholder="Fecha"
-      class="mr-2"
+      class="mb-4 mr-2"
       :class="deadline ? 'activeInput' : ''"
     />
     <button class="mb-4 rounded-lg text-xl shadow-md" type="submit">

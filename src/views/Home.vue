@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <NavBar />
+    <NavBar v-if="this.me" />
     <div class="flex relative">
       <div class="w-1/7 static">
         <SideBar class="fixed" />
