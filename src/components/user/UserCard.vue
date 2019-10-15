@@ -32,7 +32,7 @@
       class="cardFooter absolute my-auto top-0 right-0 table-row"
       v-if="user.type > 1"
     >
-      <a href="#" type="button" class="rounded-full p-2">
+      <a href="#" type="button" class="rounded-full p-2" @click="doAdmin">
         <i class="ti-wand text-2xl"></i>
       </a>
     </div>
@@ -67,6 +67,19 @@ export default {
       }[this.user.type];
     },
   },
+
+  methods: {
+    async doAdmin() {
+      try {
+        await this.$apollo.mutate({
+          mutation: require('@/graphql/mutations/DoAdmin').default,
+          variables: { id: this.user.id },
+        });
+      } catch (e) {
+        this.error = e.message.split(':')[1];
+      }
+    },
+  },
 };
 </script>
 
@@ -74,6 +87,7 @@ export default {
 @import ../../assets/css/library.sass
 
 .cardContent
+  border: 1px solid $gray-shadow
   p
     color: $gray-dark
   &:hover
