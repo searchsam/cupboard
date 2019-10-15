@@ -11,7 +11,7 @@ use App\Events\ShopOrder;
 use App\Events\CreateOrder;
 
 use App\Listeners\FillPantry;
-use App\Listeners\SendCustomersNotification;
+use App\Listeners\SendCreationMessage;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -28,7 +28,7 @@ class EventServiceProvider extends ServiceProvider
             FillPantry::class,
         ],
         CreateOrder::class => [
-            SendCustomersNotification::class,
+            SendCreationMessage::class,
         ],
     ];
 
