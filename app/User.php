@@ -11,6 +11,12 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
+    /**
+     * user type
+     *
+     * @var int
+     */
+    const CLIENT = 2;
     const ADMIN = 1;
     const SUPERADMIN = 0;
 

@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Order;
 
-class NewOrderNotification extends Mailable
+class NewOrderMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
