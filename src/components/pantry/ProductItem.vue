@@ -26,7 +26,7 @@
             disabled
             :value="product.existence"
             class="quantityButton rounded-lg mr-2 w-6 text-center"
-            :style="product.existence ? 'border: 1px solid #5e75f6;' : ''"
+            :class="product.existence ? 'activeInput' : ''"
           />
           <a
             href="#"
