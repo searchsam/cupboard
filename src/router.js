@@ -2,12 +2,13 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import { AUTH_TOKEN } from './vue-apollo';
 
-import Home from '@/views/Home';
-import Login from '@/views/Login';
-import Order from '@/views/Order';
-import Orders from '@/views/Orders';
-import Pantry from '@/views/Pantry';
-import Register from '@/views/Register';
+import Home from '@/views/Home/Home.vue';
+import Login from '@/views/Login/Login.vue';
+import Order from '@/views/Order/Order.vue';
+import Orders from '@/views/Orders/Orders.vue';
+import Pantry from '@/views/Pantry/Pantry.vue';
+import Register from '@/views/Register/Register.vue';
+import Users from '@/views/Users/Users.vue';
 
 Vue.use(Router);
 
@@ -23,6 +24,9 @@ const router = new Router({
       redirect: {
         name: 'login',
       },
+      meta: {
+        auth: false,
+      },
     },
     {
       path: '/login',
@@ -35,6 +39,9 @@ const router = new Router({
 
         next();
       },
+      meta: {
+        auth: false,
+      },
     },
     {
       path: '/register',
@@ -46,6 +53,9 @@ const router = new Router({
         }
 
         next();
+      },
+      meta: {
+        auth: false,
       },
     },
     {
@@ -72,6 +82,14 @@ const router = new Router({
           path: '/pantry',
           name: 'pantry',
           component: Pantry,
+          meta: {
+            auth: true,
+          },
+        },
+        {
+          path: '/users',
+          name: 'users',
+          component: Users,
           meta: {
             auth: true,
           },
