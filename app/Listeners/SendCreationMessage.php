@@ -7,10 +7,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\User;
-use App\Mail\NewOrderNotification;
+use App\Mail\NewOrderMessage;
 use Illuminate\Support\Facades\Mail;
 
-class SendCustomersNotification implements ShouldQueue
+class SendCreationMessage implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -30,10 +30,8 @@ class SendCustomersNotification implements ShouldQueue
      */
     public function handle(CreateOrder $event)
     {
-        $users = User::where('type', 2)->get();
+        $users = User::where('type', User::CLIENT)->get();
 
-        $users->each(function($user) use ($event) {
-            Mail::to($user)->send(new NewOrderNotification($event->order));
-        });
+        Mail::to($users)->send(new NewOrderMessage($event->order));
     }
 }
