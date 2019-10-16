@@ -1,4 +1,4 @@
-import Alert from '@/components/error/Alert.vue';
+import Alert from '@/components/error/Alert/Alert.vue';
 
 export const AlertMixin = {
   components: {

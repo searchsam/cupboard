@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
   <body id="app" class="h-screen">
     <RouterView />
   </body>
