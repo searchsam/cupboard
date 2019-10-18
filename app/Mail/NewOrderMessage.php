@@ -6,10 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
 use App\Order;
 
-class NewOrderNotification extends Mailable
+class NewOrderMessage extends Mailable
 {
     use Queueable, SerializesModels;
 

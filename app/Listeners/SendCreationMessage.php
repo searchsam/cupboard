@@ -7,7 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\User;
-use App\Mail\NewOrderNotification;
+use App\Mail\NewOrderMessage;
 use Illuminate\Support\Facades\Mail;
 
 class SendCreationMessage implements ShouldQueue
@@ -32,6 +32,6 @@ class SendCreationMessage implements ShouldQueue
     {
         $users = User::where('type', User::CLIENT)->get()->toArray();
 
-        Mail::to($users)->send(new NewOrderNotification($event->order));
+        Mail::to($users)->send(new NewOrderMessage($event->order));
     }
 }
