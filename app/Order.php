@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasOne, HasMany};
 
 class Order extends Model
 {
+    const COMPLETED = 0;
+    const ACTIVE = 1;
+
     /**
      * {@inheritdoc}
      */
