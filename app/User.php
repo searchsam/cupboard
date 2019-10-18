@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
 
     /**
-     * User type
+     * user type
      *
      * @var int
      */

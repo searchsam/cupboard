@@ -30,7 +30,7 @@ class SendCreationMessage implements ShouldQueue
      */
     public function handle(CreateOrder $event)
     {
-        $users = User::where('type', User::CLIENT)->get()->toArray();
+        $users = User::all()->toArray();
 
         Mail::to($users)->send(new NewOrderMessage($event->order));
     }
