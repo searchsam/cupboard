@@ -8,10 +8,10 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 use App\Events\ShopOrder;
-use App\Events\StocklessProduct;
+use App\Events\CreateOrder;
 
 use App\Listeners\FillPantry;
-use App\Listeners\SoldoutProduct;
+use App\Listeners\SendCreationMessage;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,8 +27,8 @@ class EventServiceProvider extends ServiceProvider
         ShopOrder::class => [
             FillPantry::class,
         ],
-        StocklessProduct::class => [
-            SoldoutProduct::class,
+        CreateOrder::class => [
+            SendCreationMessage::class,
         ],
     ];
 
