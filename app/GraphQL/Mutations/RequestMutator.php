@@ -6,7 +6,6 @@ use App\Exceptions\CustomException;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-use Nuwave\Lighthouse\Execution\Utils\Subscription;
 use App\Request;
 
 class RequestMutator
@@ -27,8 +26,6 @@ class RequestMutator
             'quantity' => $quantity,
             'order_id' => $orderId
         ])->fresh();
-
-        Subscription::broadcast('requestUpdate', $request);
 
         return $request;
     }

@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Request extends Model
 {
+    /**
+     * request status
+     *
+     * @var int
+     */
     const REJECT = 0;
     const APPROVE = 1;
     const WAITING = 2;

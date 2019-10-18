@@ -6,9 +6,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+
 use App\Order;
 
-class NewOrderMessage extends Mailable
+class OrderCreatedMessage extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -36,6 +37,6 @@ class NewOrderMessage extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.orders.NewOrder');
+        return $this->markdown('mail.invoce.created');
     }
 }

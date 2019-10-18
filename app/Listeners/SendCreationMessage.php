@@ -6,9 +6,12 @@ use App\Events\CreateOrder;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use App\User;
-use App\Mail\NewOrderMessage;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Mail;
+
+use App\User;
+use App\Notification\OrderCreated;
+use App\Mail\OrderCreatedMessage;
 
 class SendCreationMessage implements ShouldQueue
 {
@@ -30,8 +33,10 @@ class SendCreationMessage implements ShouldQueue
      */
     public function handle(CreateOrder $event)
     {
-        $users = User::all()->toArray();
+        error_log('Create Order Listener');
+        $users = User::all();
 
-        Mail::to($users)->send(new NewOrderMessage($event->order));
+        Notification::send($users, new OrderCreated($event->order));
+        // Mail::to($users)->send(new OrderCreatedMessage($event->order));
     }
 }

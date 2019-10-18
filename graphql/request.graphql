@@ -85,7 +85,3 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     @can(ability: "update", find: "id")
     @field(resolver: "RequestMutator@approve")
 }
-
-extend type Subscription @middleware(checks: ["auth:api"]) {
-  requestUpdate(order_id: ID! @globalId(decode: "ID") @eq): Request
-}

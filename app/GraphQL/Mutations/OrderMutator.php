@@ -3,8 +3,11 @@
 namespace App\GraphQL\Mutations;
 
 use App\Order;
-use App\Events\ShopOrder;
 use App\Events\CreateOrder;
+use App\Events\ShopOrder;
+
+use Illuminate\Notifications\ChannelManager\Notification;
+use App\Notification\OrderCreated;
 
 class OrderMutator
 {
@@ -23,7 +26,8 @@ class OrderMutator
             'deadline' => $deadline
         ])->fresh();
 
-        event(new CreateOrder($order));
+        // event(new CreateOrder($order));
+        Notification::send(App\User::all(), new OrderCreated($event->order));
 
         return $order;
     }

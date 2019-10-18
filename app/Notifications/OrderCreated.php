@@ -6,8 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Mail\OrderCreatedMessage as Mailable;
 
-class OrderCreated extends Notification
+class OrderCreated extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -40,10 +41,13 @@ class OrderCreated extends Notification
      */
     public function toMail($notifiable)
     {
+        error_log(json_encode($notifiable));
+        error_log('=========================================================');
+        error_log(json_encode($this->invoice));
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject('New Order Created')
+                    ->markdown('mail.invoice.created',  ['order' => $this->invoice]);
+        // return (new Mailable($this->invoice))->to($this->user->email);
     }
 
     /**

@@ -6,7 +6,6 @@ use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use App\Pantry;
-use App\Events\StocklessProduct;
 
 class PantryMutator
 {
