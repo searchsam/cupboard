@@ -59,12 +59,7 @@ class RequestPolicy
      */
     public function update(User $user, Request $request)
     {
-        return (
-            $user->id === $request->user->id && (
-                $request->order->status == Order::ACTIVE ||
-                $request->status == Request::APPROVE
-            )
-        );
+        return $request->order->status == Order::ACTIVE;
     }
 
     /**

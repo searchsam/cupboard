@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Pantry;
 
-class FillPantry implements ShouldQueue
+class FillPantry
 {
     /**
      * Create the event listener.
