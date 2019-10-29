@@ -6,7 +6,6 @@ use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use App\Pantry;
-use App\Events\StocklessProduct;
 
 class PantryMutator
 {
@@ -19,10 +18,7 @@ class PantryMutator
     {
         $pantryId = $args['id'];
 
-        return tap(Pantry::find($pantryId), function ($product) {
-            $product->update([
-                'existence' => $product->existence - Pantry::STOCK_UNIT
-            ]);
-        });
+        return tap(Pantry::find($pantryId))
+            ->update(['existence' => $pantry->existence - Pantry::STOCK_UNIT]);
     }
 }

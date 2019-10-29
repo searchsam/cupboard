@@ -2,9 +2,10 @@
 
 namespace App\GraphQL\Mutations;
 
+
 use App\Order;
 use App\Events\ShopOrder;
-use App\Events\CreateOrder;
+use App\Events\CreateNewOrder;
 
 class OrderMutator
 {
@@ -23,7 +24,7 @@ class OrderMutator
             'deadline' => $deadline
         ])->fresh();
 
-        event(new CreateOrder($order));
+        event(new CreateNewOrder($order));
 
         return $order;
     }

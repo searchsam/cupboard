@@ -8,7 +8,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 
 use App\Order;
 
-class CreateOrder
+class CreateNewOrder
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

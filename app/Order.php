@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasOne, HasMany};
 
 class Order extends Model
 {
+    /**
+     * order status
+     *
+     * @var int
+     */
     const COMPLETED = 0;
     const ACTIVE = 1;
 
