@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
   <body id="app" class="h-screen">
     <RouterView />
   </body>
@@ -11,9 +11,11 @@
 @tailwind components
 @tailwind utilities
 
+@import url(http://fonts.googleapis.com/css?family=Montserrat:300italic,400italic,700italic,300,400,700)
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700)
+@import assets/css/themify-icons.sass
 
-body
-    font-family: 'Open Sans', sans-serif
-    background-color: #F5F5F5
+@import assets/css/library.sass
+@import assets/css/date-pick.sass
+@import assets/css/style.sass
 </style>

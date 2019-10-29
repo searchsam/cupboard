@@ -1,9 +1,0 @@
-
-mutation UpdateOrder($input: UpdateOrderInput!) {
-  UpdateOrder(input: $input) {
-    id
-    name
-    status
-    deadline
-  }
-}
