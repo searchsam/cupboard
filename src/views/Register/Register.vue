@@ -2,9 +2,9 @@
 <style lang="sass" src="./Register.sass" scoped></style>
 
 <template lang="html">
-  <div id="login" class="flex h-full bg-white">
+  <div id="register" class="flex h-full bg-white">
     <div class="flex-1 container mx-auto mt-32 flex">
-      <form method="POST" @submit.prevent="login" class="block p-5 mx-auto">
+      <form method="POST" @submit.prevent="register" class="block p-5 mx-auto">
         <h1 class="text-4xl mb-8 text-center">
           Registrar Usuario
         </h1>

@@ -53,9 +53,11 @@ export default {
         this.error = e.message.split(':')[1];
       }
     },
+
     toggleVar(varName) {
       this[varName] = !this[varName];
     },
+
     async updateOrder() {
       try {
         await this.$apollo.mutate({
@@ -68,7 +70,7 @@ export default {
             },
           },
         });
-        this.toggleVar();
+        this.toggleVar('updateForm');
       } catch (e) {
         this.error = e.message.split(':')[1];
       }
