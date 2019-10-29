@@ -2,18 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Events\CreateOrder;
+use App\Events\CreateNewOrder;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Mail;
-
 use App\User;
-use App\Notification\OrderCreated;
-use App\Mail\OrderCreatedMessage;
+use App\Notifications\OrderCreated;
+use Illuminate\Support\Facades\Notification;
 
-class SendCreationMessage implements ShouldQueue
+class SendCreatedOrderMessage
 {
     /**
      * Create the event listener.
@@ -28,15 +25,13 @@ class SendCreationMessage implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  CreateOrder  $event
+     * @param  CreateNewOrder  $event
      * @return void
      */
-    public function handle(CreateOrder $event)
+    public function handle(CreateNewOrder $event)
     {
-        error_log('Create Order Listener');
         $users = User::all();
 
         Notification::send($users, new OrderCreated($event->order));
-        // Mail::to($users)->send(new OrderCreatedMessage($event->order));
     }
 }
