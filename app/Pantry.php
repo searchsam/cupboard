@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pantry extends Model
 {
+    /**
+     * pantry amount
+     *
+     * @var int
+     */
     const SOLDOUT_STOCK = 0;
     const STOCK_UNIT = 1;
 

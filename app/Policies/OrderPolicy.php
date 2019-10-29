@@ -58,7 +58,6 @@ class OrderPolicy
     {
         return (
             (
-                $user->id === $order->user->id ||
                 $user->type == User::ADMIN ||
                 $user->type == User::SUPERADMIN
             ) && (
