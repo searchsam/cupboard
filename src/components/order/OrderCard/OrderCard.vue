@@ -72,7 +72,7 @@
         <button
           class="cancelButton rounded-lg text-xl shadow-md"
           type="button"
-          @click="toggleVar"
+          @click="toggleVar('updateForm')"
         >
           Cancelar
         </button>

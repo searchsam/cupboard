@@ -2,7 +2,7 @@ import { AlertMixin } from '@/mixins/AlertMixin';
 import { onLogin } from '@/vue-apollo';
 
 export default {
-  name: 'Login',
+  name: 'Register',
 
   mixins: [AlertMixin],
 
