@@ -91,3 +91,9 @@ PASSPORT_CLIENT_SECRET=VUyc1ZwngoJRwicYnEVr214Hh7JuuOdfNBtQXk8q
 ```
 
 > Make sure you don't neglect where you put this data.
+
+### Active Queue
+
+```bash
+php artisan queue:work
+```
