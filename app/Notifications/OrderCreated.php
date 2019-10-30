@@ -10,7 +10,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use App\Mail\NewOrderCreated as Mailable;
 use App\Order;
 
-class OrderCreated extends Notification
+class OrderCreated extends Notification implements ShouldQueue
 {
     use Queueable;
 
