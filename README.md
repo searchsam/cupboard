@@ -38,7 +38,7 @@ composer install
 
 ### Run Migrations
 
-Before running the `migrations`, make sure that the data for the connection to `MariaDB` (and/or `MySQL`) is correct.
+Before running the `migrations`, make sure that the data for the connection to `MariaDB` (and/or `MySQL`) on your `.env` file is correct.
 
 ```cfg
 DB_CONNECTION=mysql
@@ -91,6 +91,17 @@ PASSPORT_CLIENT_SECRET=VUyc1ZwngoJRwicYnEVr214Hh7JuuOdfNBtQXk8q
 ```
 
 > Make sure you don't neglect where you put this data.
+
+### Connect to Redis
+
+In order to use `queues` it is necessary to establish a connection with a `Redis` database. Make sure that the data for the connection to `Redis` on your `.env` file is correct.
+
+```cfg
+REDIS_URL=
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+REDIS_DB=
+```
 
 ### Active Queue
 
