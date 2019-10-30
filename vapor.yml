@@ -1,5 +1,6 @@
 id: 3655
 name: cupboard
+separate-vendor: true
 environments:
     production:
         cache: nerdify
