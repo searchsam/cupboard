@@ -18,7 +18,8 @@
         "laravel/vapor-core": "^2.2",
         "mll-lab/laravel-graphql-playground": "^1.1",
         "nuwave/lighthouse": "^4.5",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "sentry/sentry-laravel": "1.4.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
