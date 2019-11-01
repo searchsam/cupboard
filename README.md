@@ -1,4 +1,4 @@
-<img src="https://github.com/nerdify/cupboard-back-end/workflows/CI/badge.svg" />
+![](https://github.com/nerdify/cupboard-back-end/workflows/CI/badge.svg")
 
 # CupBoard BackEnd
 
