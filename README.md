@@ -1,3 +1,5 @@
+https://github.com/nerdify/cupboard-back-end/workflows/ci/badge.svg
+
 # CupBoard BackEnd
 
 Simple api for simple database cupboard storage.
