@@ -87,7 +87,7 @@ Client secret: VUyc1ZwngoJRwicYnEVr214Hh7JuuOdfNBtQXk8q
 
 Place user No 2 in your `.env` file
 
-```cfg
+```cfg test
 PASSPORT_CLIENT_ID=2
 PASSPORT_CLIENT_SECRET=VUyc1ZwngoJRwicYnEVr214Hh7JuuOdfNBtQXk8q
 ```
