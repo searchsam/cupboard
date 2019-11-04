@@ -33,7 +33,6 @@ export default {
           };
         },
         updateQuery(previousResult, { subscriptionData }) {
-          console.log(subscriptionData);
           if (
             previousResult.order.requests.find(
               request => request.id === subscriptionData.data.requestCreated.id

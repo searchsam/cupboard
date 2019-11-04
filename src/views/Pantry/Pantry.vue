@@ -3,14 +3,14 @@
 
 <template lang="html">
   <div id="pantry">
-    <h1 class="text-5xl px-5 pb-5 mx-5 mb-5">
+    <h1 class="text-4xl px-5 pb-2 mx-5 mb-2">
       Despensa
     </h1>
 
     <!-- Product List -->
     <div
       v-if="!$apollo.queries.products.loading"
-      class="content-center p-5 m-5"
+      class="content-center px-5 mx-5"
     >
       <ul>
         <ProductItem

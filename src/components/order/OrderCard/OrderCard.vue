@@ -2,17 +2,21 @@
 <style lang="sass" src="./OrderCard.sass" scoped></style>
 
 <template lang="html">
-  <div class="card-order content-center w-auto mr-6 mb-6 relative">
+  <div
+    id="ordercard"
+    class="card-order content-center w-auto mr-3 mb-3 relative"
+  >
     <div v-if="updateForm">
       <div
-        class="cardContent p-5 rounded-lg bg-white shadow-md hover:cursor-pointer"
+        class="cardContent p-3 rounded-lg bg-white shadow-md hover:cursor-pointer"
         :class="this.order.status ? 'cardActive' : 'cardInactive'"
         @click="goToOrder"
       >
-        <span class="inline-block pr-10">
-          <h1 class="text-2xl">{{ order.name }}</h1>
-          <p class="text-lg">
-            <i class="ti-calendar"></i> {{ order.deadline.split(' ')[0] }}
+        <span class="inline-block pr-8">
+          <h1 class="text-xl">{{ order.name }}</h1>
+          <p>
+            <i class="ti-calendar"></i>
+            {{ order.deadline.split(' ')[0] }}
           </p>
         </span>
       </div>
@@ -27,7 +31,7 @@
           class="rounded-full p-2"
           @click.prevent="toggleVar('updateForm')"
         >
-          <i class="ti-write text-2xl"></i>
+          <i class="ti-write text-lg"></i>
         </a>
         <a
           href="#"
@@ -35,7 +39,7 @@
           class="rounded-full p-2"
           @click.prevent="shopOrder"
         >
-          <i class="ti-shopping-cart text-2xl"></i>
+          <i class="ti-shopping-cart text-lg"></i>
         </a>
       </div>
     </div>
@@ -62,15 +66,12 @@
           :class="deadline ? 'activeInput' : ''"
         />
         <br />
-        <button
-          class="mb-4 createOrderButton rounded-lg text-xl shadow-md"
-          type="submit"
-        >
+        <button class="mb-4 rounded-lg shadow-md" type="submit">
           Actualizar Orden
         </button>
         <br />
         <button
-          class="cancelButton rounded-lg text-xl shadow-md"
+          class="cancelButton rounded-lg shadow-md"
           type="button"
           @click="toggleVar('updateForm')"
         >

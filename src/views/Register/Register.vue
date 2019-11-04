@@ -3,14 +3,14 @@
 
 <template lang="html">
   <div id="register" class="flex h-full bg-white">
-    <div class="flex-1 container mx-auto mt-32 flex">
+    <div class="flex-1 container m-auto flex">
       <form method="POST" @submit.prevent="register" class="block p-5 mx-auto">
-        <h1 class="text-4xl mb-8 text-center">
+        <h1 class="text-3xl mb-8 text-center">
           Registrar Usuario
         </h1>
         <!-- Name Input -->
         <input
-          class="loginInput mb-8 rounded-lg"
+          class="loginInput mb-4 rounded-lg"
           type="text"
           v-model="name"
           placeholder="Nombre"
@@ -19,7 +19,7 @@
         <br />
         <!-- Email -->
         <input
-          class="loginInput mb-8 rounded-lg"
+          class="loginInput mb-4 rounded-lg"
           type="email"
           v-model="email"
           placeholder="Correo Electronico"
@@ -28,7 +28,7 @@
         <br />
         <!-- Password Input -->
         <input
-          class="loginInput mb-8 rounded-lg shadow-md"
+          class="loginInput mb-4 rounded-lg shadow-md"
           type="password"
           v-model="password"
           placeholder="Contraseña"
@@ -37,7 +37,7 @@
         <br />
         <!-- Confirm Password Input -->
         <input
-          class="loginInput mb-10 rounded-lg shadow-md"
+          class="loginInput mb-5 rounded-lg shadow-md"
           type="password"
           v-model="confirmation"
           placeholder="Confirmar Contraseña"

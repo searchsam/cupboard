@@ -2,22 +2,22 @@
 <style lang="sass" src="./CreateRequestForm.sass" scoped></style>
 
 <template lang="html">
-  <form method="POST" @submit.prevent="createRequest" class="m-5">
+  <form method="POST" @submit.prevent="createRequest" class="my-2">
     <input
-      class="mb-4 descriptionButton rounded-lg mr-2"
+      class="descriptionButton mb-2 rounded-lg mr-2"
       v-model="description"
       type="text"
       placeholder="Peticion"
       :class="description ? 'activeInput' : ''"
     />
     <input
-      class="mb-4 quantityButton rounded-lg mr-2 text-center"
+      class="quantityButton text-center mb-2 rounded-lg mr-2"
       v-model="quantity"
       type="number"
       placeholder="Cantidad"
       :class="quantity ? 'activeInput' : ''"
     />
-    <button class="mb-4 rounded-lg text-xl shadow-md" type="submit">
+    <button class="mb-2 rounded-lg mr-2" type="submit">
       Crear Solicitud
     </button>
     <Alert :msg="error" />

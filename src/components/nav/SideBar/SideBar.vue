@@ -3,8 +3,8 @@
 
 <template lang="html">
   <aside id="sidebar" class="text-center h-full top-0">
-    <div class="block p-5">
-      <img src="../../../assets/img/cupboard_logo.svg" class="h-24 m-auto" />
+    <div class="block p-3">
+      <img src="../../../assets/img/cupboard_logo.svg" class="h-20 m-auto" />
       <h1 class="object-center text-xl"></h1>
     </div>
     <div class="static">
@@ -14,7 +14,7 @@
         class="route block rounded-lg hover:shadow-md"
         :class="currentRouteName == 'orders' ? 'active' : ''"
       >
-        <i class="ti-receipt text-4xl"></i>
+        <i class="ti-receipt text-3xl"></i>
       </router-link>
       <!-- Despensa -->
       <router-link
@@ -22,7 +22,7 @@
         class="route block rounded-lg hover:shadow-md"
         :class="currentRouteName == 'pantry' ? 'active' : ''"
       >
-        <i class="ti-package text-4xl"></i>
+        <i class="ti-package text-3xl"></i>
       </router-link>
       <!-- Usuarios -->
       <router-link
@@ -36,7 +36,7 @@
     </div>
     <div class="route inset-x-0 bottom-0 absolute rounded-lg hover:shadow-md">
       <a href="#" @click.prevent="logout" class="block">
-        <i class="ti-shift-left text-4xl"></i>
+        <i class="ti-shift-left text-3xl"></i>
       </a>
     </div>
   </aside>
