@@ -1,4 +1,4 @@
-<img src="https://github.com/nerdify/cupboard-back-end/workflows/CI/badge.svg" />
+![](https://github.com/nerdify/cupboard-back-end/workflows/CI/badge.svg)
 
 # CupBoard BackEnd
 
@@ -86,19 +86,19 @@ Client ID: 1
 Client secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Password grant client created successfully.
 Client ID: 2
-Client secret: VUyc1ZwngoJRwicYnEVr214Hh7JuuOdfNBtQXk8q
+Client secret: secrectkeyforuser2
 ```
 
 Place user No 2 in your `.env` file
 
 ```cfg
 PASSPORT_CLIENT_ID=2
-PASSPORT_CLIENT_SECRET=VUyc1ZwngoJRwicYnEVr214Hh7JuuOdfNBtQXk8q
+PASSPORT_CLIENT_SECRET=secrectkeyforuser2
 ```
 
 > Make sure you don't neglect where you put this data.
 
-### 7\.Connect to Redis
+### 7.Connect to Redis
 
 In order to use `queues` it is necessary to establish a connection with a `Redis` database. Make sure that the data for the connection to `Redis` on your `.env` file is correct.
 
@@ -186,4 +186,4 @@ sudo systemctl restart supervisord
 
 ```bash
 php artisan server
-
+```
