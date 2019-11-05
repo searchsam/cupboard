@@ -13,9 +13,7 @@ import PusherLink from './pusher-link.js';
 Vue.use(VueApollo);
 
 // Name of the localStorage item
-export const AUTH_TOKEN = 'apolloToken';
-const PUSHER_API_KEY = 'aac09f51f8919ae45ec7';
-const PUSHER_CLUSTER = 'us2';
+export const AUTH_TOKEN = process.env.VUE_APP_AUTH_TOKEN;
 
 // Http endpoint
 const httpEndpoint =
@@ -28,8 +26,8 @@ export const filesRoot =
 Vue.prototype.$filesRoot = filesRoot;
 
 const pusherLink = new PusherLink({
-  pusher: new Pusher(PUSHER_API_KEY, {
-    cluster: PUSHER_CLUSTER,
+  pusher: new Pusher(process.env.VUE_APP_PUSHER_API_KEY, {
+    cluster: process.env.VUE_APP_PUSHER_CLUSTER,
     authEndpoint: `${httpEndpoint}/subscriptions/auth`,
     auth: {
       headers: {
