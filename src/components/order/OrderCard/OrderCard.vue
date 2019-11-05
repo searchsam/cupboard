@@ -4,7 +4,7 @@
 <template lang="html">
   <div
     id="ordercard"
-    class="card-order content-center w-auto mr-3 mb-3 relative"
+    class="card-order content-center w-1/4 mr-3 mb-3 relative"
   >
     <div v-if="updateForm">
       <div
