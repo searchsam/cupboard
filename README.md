@@ -142,6 +142,11 @@ Be sure to change the path to your laravel application on `command` and `stdout_
 ```bash
 sudo supervisorctl reread
 sudo supervisorctl update
+```
+
+The previous commands only run the first time. The next command starts the supervisor job program.
+
+```bash
 sudo supervisorctl start laravel-worker:*
 ```
 
