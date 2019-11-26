@@ -1,29 +1,25 @@
-# cupboard
+# Initial page
 
-## Project setup
-```
-npm install
-```
+## Getting Super Powers
 
-### Compiles and hot-reloads for development
+Becoming a super hero is a fairly straight forward process:
+
 ```
-npm run serve
+$ give me super-powers
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+{% hint style="info" %}
+ Super-powers are granted randomly so please submit an issue if you're not happy with yours.
+{% endhint %}
 
-### Run your tests
-```
-npm run test
-```
+Once you're strong enough, save the world:
 
-### Lints and fixes files
+{% code title="hello.sh" %}
+```bash
+# Ain't no code for that yet, sorry
+echo 'You got to trust me on this, I saved the world'
 ```
-npm run lint
-```
+{% endcode %}
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
