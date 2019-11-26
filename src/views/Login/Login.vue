@@ -23,10 +23,10 @@
     </div>
     <div class="flex-1 container mx-auto mt-32 flex">
       <form method="POST" @submit.prevent="login" class="block p-5 mx-auto">
-        <h1 class="text-4xl mb-8 text-center">Iniciar Sesión</h1>
+        <h1 class="text-3xl mb-8 text-center">Iniciar Sesión</h1>
         <!-- Email Input -->
         <input
-          class="loginInput mb-8 rounded-lg"
+          class="loginInput mb-4 rounded-lg"
           type="email"
           v-model="username"
           placeholder="Correo Electrónico"
@@ -35,7 +35,7 @@
         <br />
         <!-- Password Input -->
         <input
-          class="loginInput mb-10 rounded-lg"
+          class="loginInput mb-5 rounded-lg"
           type="password"
           v-model="password"
           placeholder="Contraseña"
@@ -44,10 +44,7 @@
         <br />
         <div class="container mx-auto flex">
           <!-- Submit Button -->
-          <button
-            class="loginButton rounded-lg shadow-md ml-auto mr-auto"
-            type="submit"
-          >
+          <button class="rounded-lg shadow-md mx-auto" type="submit">
             Iniciar Sesion
           </button>
         </div>

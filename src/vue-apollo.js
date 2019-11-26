@@ -4,22 +4,44 @@ import {
   createApolloClient,
   restartWebsockets,
 } from 'vue-cli-plugin-apollo/graphql-client';
+import { ApolloLink } from 'apollo-link';
+import { createHttpLink } from 'apollo-link-http';
+import Pusher from 'pusher-js';
+import PusherLink from './pusher-link.js';
 
 // Install the vue plugin
 Vue.use(VueApollo);
 
 // Name of the localStorage item
-export const AUTH_TOKEN = 'apolloToken';
+export const AUTH_TOKEN = process.env.VUE_APP_AUTH_TOKEN;
 
 // Http endpoint
 const httpEndpoint =
-  process.env.VUE_APP_GRAPHQL_HTTP || 'http://localhost:8001/graphql';
+  process.env.VUE_APP_GRAPHQL_HTTP ||
+  'http://cupboard-back-end.test:8000/graphql';
 // Files URL root
 export const filesRoot =
   process.env.VUE_APP_FILES_ROOT ||
   httpEndpoint.substr(0, httpEndpoint.indexOf('/graphql'));
 
 Vue.prototype.$filesRoot = filesRoot;
+
+const pusherLink = new PusherLink({
+  pusher: new Pusher(process.env.VUE_APP_PUSHER_API_KEY, {
+    cluster: process.env.VUE_APP_PUSHER_CLUSTER,
+    authEndpoint: `${httpEndpoint}/subscriptions/auth`,
+    auth: {
+      headers: {
+        authorization: 'Bearer ' + localStorage.getItem(AUTH_TOKEN) || '',
+      },
+    },
+  }),
+});
+
+const link = ApolloLink.from([
+  pusherLink,
+  createHttpLink({ uri: httpEndpoint }),
+]);
 
 // Config
 const defaultOptions = {
@@ -42,6 +64,7 @@ const defaultOptions = {
   // note: don't override httpLink here, specify httpLink options in the
   // httpLinkOptions property of defaultOptions.
   // link: myLink
+  link: link,
 
   // Override default cache
   // cache: myCache

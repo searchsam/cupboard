@@ -3,7 +3,7 @@
 
 <template lang="html">
   <div id="order">
-    <h1 class="text-5xl px-5 pb-5 mx-5 mb-5">
+    <h1 class="text-4xl px-5 pb-2 mx-5 mb-2">
       Solicitudes
       <a
         href="#"
@@ -12,22 +12,22 @@
         v-if="order && (order.status || new Date() < order.deadline)"
         @click="toggleVar('createForm')"
       >
-        <i class="text-4xl" :class="createForm ? 'ti-close' : 'ti-plus'"></i>
+        <i class="text-3xl" :class="createForm ? 'ti-close' : 'ti-plus'"></i>
       </a>
     </h1>
 
     <!-- Create Request Form -->
     <div
       id="createRequestForm"
-      class="createForm p-5 shadow-md"
+      class="createForm py-5 px-10 shadow-md mb-5"
       v-if="createForm"
     >
-      <h1 class="text-2xl m-5">Crear Nueva Solicitud</h1>
+      <h1 class="text-xl">Crear Nueva Solicitud</h1>
       <CreateRequestForm />
     </div>
 
     <!-- Request List -->
-    <div v-if="!$apollo.queries.order.loading" class="content-center p-5 m-5">
+    <div v-if="!$apollo.queries.order.loading" class="content-center px-5 mx-5">
       <ul>
         <RequestItem
           v-for="request in requestsList"

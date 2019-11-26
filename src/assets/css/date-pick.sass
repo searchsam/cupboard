@@ -2,7 +2,7 @@
     color: $text
 
 .vdpComponent.vdpWithInput > input
-  font-size: 1.25rem
+  font-size: $input-font-size
   background-color: $white
   color: $text
   border-radius: .5rem
@@ -10,31 +10,31 @@
 
   &::-webkit-input-placeholder
     color: $text-neutral
-    font-size: 1.25rem
+    font-size: $input-font-size
     text-align: center
     content: "Fecha"
 
   &:-ms-input-placeholder
     color: $text-neutral
     content: "Fecha"
-    font-size: 1.25rem
+    font-size: $input-font-size
     text-align: center
 
   &::placeholder
     color: $text-neutral
-    font-size: 1.25rem
+    font-size: $input-font-size
     text-align: center
     content: "Fecha"
 
   &:-moz-placeholder
     color: $text-neutral
-    font-size: 1.25rem
+    font-size: $input-font-size
     text-align: center
     content: "Fecha"
 
   &::-moz-placeholder
     color: $text-neutral
-    font-size: 1.25rem
+    font-size: $input-font-size
     text-align: center
     content: "Fecha"
 
@@ -67,6 +67,15 @@
 
 .vdpPeriodControl > button
   color: $text
+  padding: 1rem .4rem
+  font-size: 1.5rem
+  display: inline-block
+  height: auto
+  width: auto
 
   &:hover
     background-color: transparent
+
+.vdpArrow:active, .vdpArrow:focus, .vdpArrow:hover
+  background-color: transparent
+  box-shadow: none
