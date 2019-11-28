@@ -19,6 +19,7 @@
         "mll-lab/laravel-graphql-playground": "^1.1",
         "nuwave/lighthouse": "^4.5",
         "predis/predis": "^1.1",
+        "pusher/pusher-php-server": "^4.1",
         "sentry/sentry-laravel": "1.4.1"
     },
     "require-dev": {
