@@ -1,5 +1,7 @@
 import CreateRequestForm from '@/components/request/CreateRequestForm/CreateRequestForm.vue';
 import RequestItem from '@/components/request/RequestItem/RequestItem.vue';
+import CURRENT_ORDER from '@/graphql/queries/CurrentOrder';
+import ON_REQUEST_CREATED from '@/graphql/subscriptions/RequestCreated';
 
 export default {
   name: 'Order',
@@ -19,14 +21,14 @@ export default {
 
   apollo: {
     order: {
-      query: require('@/graphql/queries/CurrentOrder').default,
+      query: CURRENT_ORDER,
       variables() {
         return {
           id: this.$route.params.id,
         };
       },
       subscribeToMore: {
-        document: require('@/graphql/subscriptions/RequestCreated').default,
+        document: ON_REQUEST_CREATED,
         variables() {
           return {
             order_id: this.$route.params.id,

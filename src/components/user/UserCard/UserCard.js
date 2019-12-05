@@ -1,4 +1,5 @@
 import { AlertMixin } from '@/mixins/AlertMixin';
+import DO_ADMIN from '@/graphql/mutations/DoAdmin';
 
 export default {
   name: 'UserCard',
@@ -28,7 +29,7 @@ export default {
     async doAdmin() {
       try {
         await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/DoAdmin').default,
+          mutation: DO_ADMIN,
           variables: { id: this.user.id },
         });
       } catch (e) {

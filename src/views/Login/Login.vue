@@ -21,8 +21,12 @@
         </div>
       </div>
     </div>
-    <div class="flex-1 container mx-auto mt-32 flex">
-      <form method="POST" @submit.prevent="login" class="block p-5 mx-auto">
+    <div class="flex-1 container my-auto flex">
+      <form
+        method="POST"
+        @submit.prevent="login"
+        class="block px-8 pb-8 mx-auto"
+      >
         <h1 class="text-3xl mb-8 text-center">Iniciar Sesión</h1>
         <!-- Email Input -->
         <input

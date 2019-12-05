@@ -1,5 +1,7 @@
 import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
+import CREATE_ORDER from '@/graphql/mutations/CreateOrder';
+import ORDERS from '@/graphql/queries/AllOrders';
 
 import { AlertMixin } from '@/mixins/AlertMixin';
 
@@ -23,7 +25,7 @@ export default {
     async createOrder() {
       try {
         await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/CreateOrder').default,
+          mutation: CREATE_ORDER,
           variables: {
             input: {
               name: this.name,
@@ -32,7 +34,7 @@ export default {
           },
           update: (store, { data: { createOrder } }) => {
             const query = {
-              query: require('@/graphql/queries/AllOrders').default,
+              query: ORDERS,
             };
             const data = store.readQuery(query);
             data.orders.push(createOrder);

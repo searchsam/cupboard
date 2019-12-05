@@ -1,5 +1,6 @@
 import { AlertMixin } from '@/mixins/AlertMixin';
 import { onLogin } from '@/vue-apollo';
+import LOGIN from '@/graphql/mutations/Login';
 
 export default {
   name: 'Login',
@@ -18,7 +19,7 @@ export default {
     async login() {
       try {
         const response = await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/Login').default,
+          mutation: LOGIN,
           variables: {
             input: {
               username: this.username,

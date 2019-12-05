@@ -1,4 +1,5 @@
 import { AlertMixin } from '@/mixins/AlertMixin';
+import DECREASE_PRODUCT from '@/graphql/mutations/DecreaseProduct';
 
 export default {
   name: 'ProductItem',
@@ -24,7 +25,7 @@ export default {
     async decrease() {
       try {
         await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/DecreaseProduct').default,
+          mutation: DECREASE_PRODUCT,
           variables: { id: this.product.id },
         });
       } catch (e) {

@@ -1,4 +1,6 @@
 import { AlertMixin } from '@/mixins/AlertMixin';
+import CREATE_REQUEST from '@/graphql/mutations/CreateRequest';
+import CURRENT_ORDER from '@/graphql/queries/CurrentOrder';
 
 export default {
   name: 'CreateRequestForm',
@@ -24,7 +26,7 @@ export default {
     async createRequest() {
       try {
         await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/CreateRequest').default,
+          mutation: CREATE_REQUEST,
           variables: {
             input: {
               description: this.description,
@@ -34,7 +36,7 @@ export default {
           },
           update: (store, { data: { createRequest } }) => {
             const query = {
-              query: require('@/graphql/queries/CurrentOrder').default,
+              query: CURRENT_ORDER,
               variables: { id: this.$route.params.id },
             };
 

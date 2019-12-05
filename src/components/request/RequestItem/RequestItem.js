@@ -1,4 +1,7 @@
 import { AlertMixin } from '@/mixins/AlertMixin';
+import APPROVE_REQUEST from '@/graphql/mutations/ApproveRequest';
+import DENY_REQUEST from '@/graphql/mutations/DenyRequest';
+import CURRENT_ORDER from '@/graphql/queries/CurrentOrder';
 
 export default {
   name: 'RequestItem',
@@ -54,7 +57,7 @@ export default {
     async approve() {
       try {
         await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/ApproveRequest').default,
+          mutation: APPROVE_REQUEST,
           variables: { id: this.request.id },
         });
       } catch (e) {
@@ -64,11 +67,11 @@ export default {
     async deny() {
       try {
         await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/DenyRequest').default,
+          mutation: DENY_REQUEST,
           variables: { id: this.request.id },
           update: (store, { data: { denyRequest } }) => {
             const query = {
-              query: require('@/graphql/queries/CurrentOrder').default,
+              query: CURRENT_ORDER,
               variables: { order_id: denyRequest.order.id },
             };
             store.writeQuery({

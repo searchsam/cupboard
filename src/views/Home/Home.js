@@ -1,5 +1,6 @@
 import NavBar from '@/components/nav/NavBar/NavBar.vue';
 import SideBar from '@/components/nav/SideBar/SideBar.vue';
+import CURRENT_USER from '@/graphql/queries/CurrentUser';
 
 export default {
   name: 'Home',
@@ -11,7 +12,7 @@ export default {
 
   apollo: {
     me: {
-      query: require('@/graphql/queries/CurrentUser').default,
+      query: CURRENT_USER,
     },
   },
 

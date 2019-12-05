@@ -1,5 +1,7 @@
 import CreateOrderForm from '@/components/order/CreateOrderForm/CreateOrderForm.vue';
 import OrderCard from '@/components/order/OrderCard/OrderCard.vue';
+import ORDERS from '@/graphql/queries/AllOrders';
+import ON_ORDER_CREATED from '@/graphql/subscriptions/OrderCreated';
 
 export default {
   name: 'Orders',
@@ -21,7 +23,28 @@ export default {
 
   apollo: {
     orders: {
-      query: require('@/graphql/queries/AllOrders').default,
+      query: ORDERS,
+      subscribeToMore: {
+        document: ON_ORDER_CREATED,
+        updateQuery(previousResult, { subscriptionData }) {
+          if (
+            previousResult.orders.find(
+              orders => orders.id === subscriptionData.data.orderCreated.id
+            )
+          ) {
+            return previousResult;
+          }
+
+          return {
+            orders: [
+              ...previousResult.orders,
+              {
+                ...subscriptionData.data.orderCreated,
+              },
+            ],
+          };
+        },
+      },
     },
   },
 
@@ -37,7 +60,7 @@ export default {
   },
 
   computed: {
-    ordersList: function() {
+    ordersList() {
       return (this.orders || []).sort((a, b) => (a.status < b.status ? 1 : -1));
     },
   },

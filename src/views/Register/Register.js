@@ -1,5 +1,6 @@
 import { AlertMixin } from '@/mixins/AlertMixin';
 import { onLogin } from '@/vue-apollo';
+import REGISTER from '@/graphql/mutations/Register';
 
 export default {
   name: 'Register',
@@ -19,7 +20,7 @@ export default {
     async register() {
       try {
         const response = await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/Register').default,
+          mutation: REGISTER,
           variables: {
             input: {
               name: this.name,

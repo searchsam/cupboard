@@ -1,4 +1,5 @@
 import UserCard from '@/components/user/UserCard/UserCard.vue';
+import USERS from '@/graphql/queries/AllUsers';
 
 export default {
   name: 'Users',
@@ -11,12 +12,12 @@ export default {
 
   apollo: {
     users: {
-      query: require('@/graphql/queries/AllUsers').default,
+      query: USERS,
     },
   },
 
   computed: {
-    usersList: function() {
+    usersList() {
       return (this.users || []).sort((a, b) => (a.type < b.type ? 1 : -1));
     },
   },

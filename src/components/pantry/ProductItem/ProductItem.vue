@@ -6,7 +6,7 @@
     <div class="bg-white rounded-lg shadow-md hoverItem">
       <p class="text-lg static">
         <span
-          class="bookmark rounded-l-lg inline-block static center"
+          class="bookmark rounded-l-lg inline-block static center mr-5"
           :class="!status ? 'reject' : ''"
         >
           <i

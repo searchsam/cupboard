@@ -1,5 +1,7 @@
 import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
+import SHOP_ORDER from '@/graphql/mutations/ShopOrder';
+import UPDATE_ORDER from '@/graphql/mutations/UpdateOrder';
 
 import { AlertMixin } from '@/mixins/AlertMixin';
 
@@ -46,7 +48,7 @@ export default {
     async shopOrder() {
       try {
         await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/ShopOrder').default,
+          mutation: SHOP_ORDER,
           variables: { id: this.order.id },
         });
       } catch (e) {
@@ -61,7 +63,7 @@ export default {
     async updateOrder() {
       try {
         await this.$apollo.mutate({
-          mutation: require('@/graphql/mutations/UpdateOrder').default,
+          mutation: UPDATE_ORDER,
           variables: {
             input: {
               id: this.order.id,
