@@ -5,9 +5,8 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 
-use App\Mail\NewOrderCreated as Mailable;
+use App\Mail\NewOrderCreated;
 use App\Order;
 
 class OrderCreated extends Notification implements ShouldQueue
@@ -24,7 +23,7 @@ class OrderCreated extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param Order $order
      */
     public function __construct(Order $order)
     {
@@ -50,7 +49,7 @@ class OrderCreated extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new Mailable($this->order))->to($notifiable->email);
+        return (new NewOrderCreated($this->order))->to($notifiable->email);
     }
 
     /**
