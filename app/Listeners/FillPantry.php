@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\ShopOrder;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
 use App\Pantry;
 

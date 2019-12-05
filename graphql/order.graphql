@@ -73,7 +73,7 @@ input UpdateOrderInput {
         )
 }
 
-extend type Query {
+extend type Query @middleware(checks: ["auth:api"]) {
     " All orders (Order by clause) "
     orders(orderBy: [OrderByClause!] @orderBy): [Order!]! @all
     " Find order dy ID "
@@ -103,4 +103,9 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     shopOrder(id: ID! @globalId(decode: "ID") @eq): Order
         @can(ability: "update", find: "id")
         @field(resolver: "OrderMutator@shop")
+}
+
+extend type Subscription {
+    " Update Order model "
+    orderCreated: Order
 }

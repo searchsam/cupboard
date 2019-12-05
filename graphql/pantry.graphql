@@ -1,30 +1,45 @@
+"""
+Pantry Model
+"""
 type Pantry @model {
-  id: ID!
-  existence: Int!
-  createdAt: DateTime! @rename(attribute: "created_at")
-  updatedAt: DateTime! @rename(attribute: "updated_at")
-  request: Request! @belongsTo
+    id: ID!
+    " Order existence "
+    existence: Int!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+    " Request relation "
+    request: Request! @belongsTo
 }
 
+"""
+Enun Pantry Status Type
+"""
 enum PantryStatus {
-  SOLDOUT @enum(value: 0)
-  STOCK @enum(value: 1)
+    SOLDOUT @enum(value: 0)
+    STOCK @enum(value: 1)
 }
 
 extend type Query @middleware(checks: ["auth:api"]) {
-  products(orderBy: [OrderByClause!] @orderBy): [Pantry!]! @all
+    " All products on Pantry (Order by clause) "
+    products(orderBy: [OrderByClause!] @orderBy): [Pantry!]! @all
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-  decrease(
-    id: ID!
-      @globalId(decode: "ID")
-      @eq
-      @rules(
-        apply: ["required"]
-        messages: { required: "El campo es requerido" }
-      )
-  ): Pantry
-    @can(ability: "update", find: "id")
-    @field(resolver: "PantryMutator@decrease")
+    " Drecrece existence on Patry "
+    decrease(
+        id: ID!
+            @globalId(decode: "ID")
+            @eq
+            @rules(
+                apply: ["required"]
+                messages: { required: "El campo es requerido" }
+            )
+    ): Pantry
+        @can(ability: "update", find: "id")
+        @field(resolver: "PantryMutator@decrease")
+}
+
+extend type Subscription {
+    " Update Pantry model "
+    productUpdated: Pantry
 }
