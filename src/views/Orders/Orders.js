@@ -37,8 +37,11 @@ export default {
   },
 
   computed: {
-    ordersList: function() {
+    ordersList() {
       return (this.orders || []).sort((a, b) => (a.status < b.status ? 1 : -1));
+    },
+    buttonToggleForm() {
+      return this.createForm ? 'ti-close' : 'ti-plus';
     },
   },
 };

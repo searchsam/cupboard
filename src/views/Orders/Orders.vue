@@ -12,15 +12,23 @@
         v-if="me.type <= 1"
         @click="toggleVar('createForm')"
       >
-        <i class="text-4xl" :class="createForm ? 'ti-close' : 'ti-plus'"></i>
+        <transition name="fade">
+          <i class="text-4xl" v-bind:class="buttonToggleForm"></i>
+        </transition>
       </a>
     </h1>
 
-    <!-- Create New Order -->
-    <div id="createOderForm" class="createForm p-5 shadow-md" v-if="createForm">
-      <h1 class="text-2xl m-5">Crear Nueva Orden</h1>
-      <CreateOrderForm />
-    </div>
+    <transition name="slide-fade">
+      <!-- Create New Order -->
+      <div
+        id="createOderForm"
+        class="createForm p-5 shadow-md"
+        v-if="createForm"
+      >
+        <h1 class="text-2xl m-5">Crear Nueva Orden</h1>
+        <CreateOrderForm />
+      </div>
+    </transition>
 
     <!-- Orders List -->
     <div

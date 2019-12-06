@@ -16,25 +16,29 @@
       </a>
     </h1>
 
-    <!-- Create Request Form -->
-    <div
-      id="createRequestForm"
-      class="createForm p-5 shadow-md"
-      v-if="createForm"
-    >
-      <h1 class="text-2xl m-5">Crear Nueva Solicitud</h1>
-      <CreateRequestForm />
-    </div>
+    <transition name="slide-fade">
+      <!-- Create Request Form -->
+      <div
+        id="createRequestForm"
+        class="createForm p-5 shadow-md"
+        v-if="createForm"
+      >
+        <h1 class="text-2xl m-5">Crear Nueva Solicitud</h1>
+        <CreateRequestForm />
+      </div>
+    </transition>
 
     <!-- Request List -->
     <div v-if="!$apollo.queries.order.loading" class="content-center p-5 m-5">
       <ul>
-        <RequestItem
-          v-for="request in requestsList"
-          :key="request.id"
-          :request="request"
-          :orderStatus="order.status"
-        />
+        <transition appear name="fade">
+          <RequestItem
+            v-for="request in requestsList"
+            :key="request.id"
+            :request="request"
+            :orderStatus="order.status"
+          />
+        </transition>
       </ul>
     </div>
     <div v-else>
