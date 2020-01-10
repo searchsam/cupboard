@@ -8,9 +8,9 @@ use Nuwave\Lighthouse\Subscriptions\Subscriber;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Nuwave\Lighthouse\Schema\Types\GraphQLSubscription;
 
-use App\Request as RequestModel;
+use App\Order;
 
-class RequestCreated extends GraphQLSubscription
+class OrderCreated extends GraphQLSubscription
 {
     /**
      * Check if subscriber is allowed to listen to the subscription.
@@ -39,13 +39,13 @@ class RequestCreated extends GraphQLSubscription
     /**
      * Resolve the subscription.
      *
-     * @param  \App\RequestModel  $root
+     * @param  \App\Order  $root
      * @param  mixed[]  $args
      * @param  \Nuwave\Lighthouse\Support\Contracts\GraphQLContext  $context
      * @param  \GraphQL\Type\Definition\ResolveInfo  $resolveInfo
      * @return mixed
      */
-    public function resolve($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): RequestModel
+    public function resolve($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Order
     {
         return $root;
     }

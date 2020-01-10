@@ -3,12 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\ShopOrder;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
 use App\Pantry;
 
-class FillPantry
+class FillPantry implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -28,14 +28,11 @@ class FillPantry
      */
     public function handle(ShopOrder $event)
     {
-        $requests = $event->order->requests()->approved()->get();
+        $requests = $event->order->requests()
+            ->approved()
+            ->get(['id as request_id', 'quantity as existence'])
+            ->toArray();
 
-        $requests->each(function ($request)
-        {
-            Pantry::create([
-                'existence' => $request->quantity,
-                'request_id' => $request->id
-            ]);
-        });
+        $event->order->pantry()->createMany($requests);
     }
 }

@@ -45,7 +45,7 @@ class OrderCreated extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return NewOrderCreated
+     * @return App\Mail\NewOrderCreated as Mailable
      */
     public function toMail($notifiable)
     {

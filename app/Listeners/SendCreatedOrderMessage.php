@@ -3,14 +3,13 @@
 namespace App\Listeners;
 
 use App\Events\CreateNewOrder;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\User;
 use App\Notifications\OrderCreated;
 use Illuminate\Support\Facades\Notification;
 
-class SendCreatedOrderMessage
+class SendCreatedOrderMessage implements ShouldQueue
 {
     /**
      * Create the event listener.
