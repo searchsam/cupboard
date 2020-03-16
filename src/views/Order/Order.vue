@@ -31,14 +31,12 @@
     <!-- Request List -->
     <div v-if="!$apollo.queries.order.loading" class="content-center p-5 m-5">
       <ul>
-        <transition appear name="fade">
-          <RequestItem
-            v-for="request in requestsList"
-            :key="request.id"
-            :request="request"
-            :orderStatus="order.status"
-          />
-        </transition>
+        <RequestItem
+          v-for="request in requestsList"
+          :key="request.id"
+          :request="request"
+          :orderStatus="order.status"
+        />
       </ul>
     </div>
     <div v-else>
