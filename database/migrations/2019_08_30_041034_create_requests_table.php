@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use App\Request;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateRequestsTable extends Migration
 {
@@ -15,10 +16,6 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
-            $table->integer('quantity');
-            $table->tinyInteger('status')
-                ->default('2');
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')
                 ->references('id')
@@ -31,6 +28,10 @@ class CreateRequestsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->string('description');
+            $table->integer('quantity');
+            $table->integer('status')
+                ->default(Request::WAITING);
             $table->timestamps();
         });
     }

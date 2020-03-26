@@ -3,13 +3,13 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Order;
 
-class NewOrderMessage extends Mailable
+class NewOrderCreated extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -23,7 +23,7 @@ class NewOrderMessage extends Mailable
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param Order $order
      */
     public function __construct(Order $order)
     {
@@ -37,6 +37,6 @@ class NewOrderMessage extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.orders.NewOrder');
+        return $this->markdown('emails.orders.created');
     }
 }

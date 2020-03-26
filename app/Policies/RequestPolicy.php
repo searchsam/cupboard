@@ -2,12 +2,11 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Order;
 use App\Request;
-use Illuminate\Auth\Access\HandlesAuthorization;
-
+use App\User;
 use Carbon\Carbon;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RequestPolicy
 {
@@ -16,7 +15,7 @@ class RequestPolicy
     /**
      * Determine whether the user can view any requests.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -27,8 +26,8 @@ class RequestPolicy
     /**
      * Determine whether the user can view the request.
      *
-     * @param  \App\User  $user
-     * @param  \App\Request  $request
+     * @param User    $user
+     * @param Request $request
      * @return mixed
      */
     public function view(User $user, Request $request)
@@ -39,7 +38,8 @@ class RequestPolicy
     /**
      * Determine whether the user can create requests.
      *
-     * @param  \App\User  $user
+     * @param User  $user
+     * @param Order $order
      * @return mixed
      */
     public function create(User $user, Order $order)
@@ -53,25 +53,20 @@ class RequestPolicy
     /**
      * Determine whether the user can update the request.
      *
-     * @param  \App\User  $user
-     * @param  \App\Request  $request
+     * @param User    $user
+     * @param Request $request
      * @return mixed
      */
     public function update(User $user, Request $request)
     {
-        return (
-            $user->id === $request->user->id && (
-                $request->order->status == Order::ACTIVE ||
-                $request->status == Request::APPROVE
-            )
-        );
+        return $request->order->status == Order::ACTIVE;
     }
 
     /**
      * Determine whether the user can delete the request.
      *
-     * @param  \App\User  $user
-     * @param  \App\Request  $request
+     * @param User    $user
+     * @param Request $request
      * @return mixed
      */
     public function delete(User $user, Request $request)
@@ -82,8 +77,8 @@ class RequestPolicy
     /**
      * Determine whether the user can restore the request.
      *
-     * @param  \App\User  $user
-     * @param  \App\Request  $request
+     * @param User    $user
+     * @param Request $request
      * @return mixed
      */
     public function restore(User $user, Request $request)
@@ -94,8 +89,8 @@ class RequestPolicy
     /**
      * Determine whether the user can permanently delete the request.
      *
-     * @param  \App\User  $user
-     * @param  \App\Request  $request
+     * @param User    $user
+     * @param Request $request
      * @return mixed
      */
     public function forceDelete(User $user, Request $request)

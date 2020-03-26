@@ -2,26 +2,28 @@
 
 namespace App;
 
-use Laravel\Passport\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
     /**
-     * user type
+     * User Type Values
      *
      * @var int
      */
-    const CLIENT = 2;
     const ADMIN = 1;
+    const CLIENT = 2;
     const SUPERADMIN = 0;
 
     /**
-     * {@inheritdoc}
+     * The attributes that are mass assignable.
+     *
+     * @var array
      */
     protected $fillable = [
         'name', 'email', 'password', 'type'
@@ -33,7 +35,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**

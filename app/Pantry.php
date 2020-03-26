@@ -7,14 +7,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pantry extends Model
 {
+
+    /**
+     * Pantry Amount Values
+     *
+     * @var int
+     */
     const SOLDOUT_STOCK = 0;
     const STOCK_UNIT = 1;
 
     /**
-     * {@inheritdoc}
+     * The attributes that are mass assignable.
+     *
+     * @var array
      */
     protected $fillable = [
-        'existence', 'request_id'
+        'existence',
+        'request_id',
     ];
 
     /**

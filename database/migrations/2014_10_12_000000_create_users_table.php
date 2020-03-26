@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use App\User;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -21,7 +22,8 @@ class CreateUsersTable extends Migration
                 ->nullable();
             $table->string('name');
             $table->string('password');
-            $table->integer('type');
+            $table->integer('type')
+                ->default(User::CLIENT);
             $table->rememberToken();
             $table->timestamps();
         });

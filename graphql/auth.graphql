@@ -1,48 +1,30 @@
-""" Login Input Type """
+"""
+Login Input Type
+"""
 input LoginInput {
-    " Identificador del Usuario Eamil "
-    username: String!
-        @rules(
-            apply: ["required", "email"],
-            messages: {
-                required: "El campo es requerido.",
-                email: "No es una direccion de correo valida."
-            }
-        )
-    " Contraseña de Usuario "
-    password: String!
-        @rules(
-            apply: ["required"],
-            messages: {required: "El campo es requerido."}
-        )
+    " User ID Email "
+    username: String! @rules(apply: ["required", "email"])
+    " User password "
+    password: String! @rules(apply: ["required"])
 }
 
 input RefreshTokenInput {
-    refreshToken: String
-        @rename(attribute: "refresh_token")
+    refreshToken: String @rename(attribute: "refresh_token")
 }
 
 type AuthPayload {
-    accessToken: String!
-        @rename(attribute: "access_token")
-    refreshToken: String!
-        @rename(attribute: "refresh_token")
-    expiresIn: Int!
-        @rename(attribute: "expires_in")
-    tokenType: String!
-        @rename(attribute: "token_type")
+    accessToken: String! @rename(attribute: "access_token")
+    refreshToken: String! @rename(attribute: "refresh_token")
+    expiresIn: Int! @rename(attribute: "expires_in")
+    tokenType: String! @rename(attribute: "token_type")
     user: User!
 }
 
 type RefreshTokenPayload {
-    accessToken: String!
-        @rename(attribute: "access_token")
-    refreshToken: String!
-        @rename(attribute: "refresh_token")
-    expiresIn: Int!
-        @rename(attribute: "expires_in")
-    tokenType: String!
-        @rename(attribute: "token_type")
+    accessToken: String! @rename(attribute: "access_token")
+    refreshToken: String! @rename(attribute: "refresh_token")
+    expiresIn: Int! @rename(attribute: "expires_in")
+    tokenType: String! @rename(attribute: "token_type")
 }
 
 type LogoutResponse {
@@ -56,70 +38,22 @@ type ForgotPasswordResponse {
 }
 
 input ForgotPasswordInput {
-    email: String!
-        @rules(apply: ["required", "email"])
+    email: String! @rules(apply: ["required", "email"])
 }
 
 input NewPasswordWithCodeInput {
-    email: String!
-        @rules(
-            apply: ["required", "email"],
-            messages: {
-                required: "El campo es requerido.",
-                email: "No es una direccion de correo valida."
-            }
-        )
-    token: String!
-        @rules(
-            apply: ["required", "string"],
-            messages: { required: "El campo es requerido."}
-        )
-    password: String!
-        @rules(
-            apply: ["required", "confirmed", "min:6"],
-            messages: {
-                required: "El campo es requerido.",
-                confirmed: "Los campos no coinciden.",
-                min: "El minimo es de 6 caracteres."
-            }
-        )
+    email: String! @rules(apply: ["required", "email"])
+    token: String! @rules(apply: ["required", "string"])
+    password: String! @rules(apply: ["required", "confirmed", "min:6"])
     password_confirmation: String!
 }
 
 input RegisterInput {
-    name: String!
-        @rules(
-            apply: ["required", "string"],
-            messages: {required: "El campo es requerido."}
-        )
-    email: String!
-        @rules(
-            apply: ["required", "email", "unique:users,email"],
-            messages: {
-                required: "El campo es requerido.",
-                email: "No es una direccion de correo valida.",
-                unique: "El correo electronico ya existe."
-            }
-        )
-    password: String!
-        @rules(
-            apply: ["required", "confirmed", "min:6"],
-            messages: {
-                required: "El campo es requerido.",
-                confirmed: "Los campos no coinciden.",
-                min: "El minimo es de 6 caracteres."
-            }
-        )
-    password_confirmation: String!
-        @rules(
-            apply: ["required"],
-            messages: {required: "El campo es requerido."}
-        )
-    type: Int!
-        @rules(
-            apply: ["required"],
-            messages: {required: "El campo es requerido."}
-        )
+    name: String! @rules(apply: ["required", "string"])
+    email: String! @rules(apply: ["required", "email", "unique:users,email"])
+    password: String! @rules(apply: ["required", "confirmed", "min:6"])
+    password_confirmation: String! @rules(apply: ["required"])
+    type: Int! @rules(apply: ["required"])
 }
 
 extend type Mutation {
@@ -135,11 +69,15 @@ extend type Mutation {
         @field(
             resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Logout@resolve"
         )
-    forgotPassword(input: ForgotPasswordInput! @spread): ForgotPasswordResponse!
+    forgotPassword(
+        input: ForgotPasswordInput! @spread
+    ): ForgotPasswordResponse!
         @field(
             resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\ForgotPassword@resolve"
         )
-    updateForgottenPassword(input: NewPasswordWithCodeInput @spread): ForgotPasswordResponse!
+    updateForgottenPassword(
+        input: NewPasswordWithCodeInput @spread
+    ): ForgotPasswordResponse!
         @field(
             resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\ResetPassword@resolve"
         )

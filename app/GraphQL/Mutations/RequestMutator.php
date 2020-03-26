@@ -2,11 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Exceptions\CustomException;
-use GraphQL\Type\Definition\ResolveInfo;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-
 use App\Request;
+use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
 class RequestMutator
 {
@@ -27,6 +24,8 @@ class RequestMutator
             'order_id' => $orderId
         ])->fresh();
 
+        Subscription::broadcast('requestCreated', $request);
+
         return $request;
     }
 
@@ -41,11 +40,15 @@ class RequestMutator
         $description = $args['description'];
         $quantity = $args['quantity'];
 
-        return tap(Request::find($requestId))
+        $request = tap(Request::find($requestId))
             ->update([
                 'description' => $description,
                 'quantity' => $quantity,
             ]);
+
+        Subscription::broadcast('requestCreated', $request);
+
+        return $request;
     }
 
     /**
@@ -57,8 +60,12 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        return tap(Request::find($requestId))
+        $request = tap(Request::find($requestId))
             ->update(['status' => Request::REJECT]);
+
+        Subscription::broadcast('requestCreated', $request);
+
+        return $request;
     }
 
     /**
@@ -70,7 +77,11 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        return tap(Request::find($requestId))
+        $request = tap(Request::find($requestId))
             ->update(['status' => Request::APPROVE]);
+
+        Subscription::broadcast('requestCreated', $request);
+
+        return $request;
     }
 }

@@ -2,16 +2,13 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Event;
+use App\Events\CreateNewOrder;
+use App\Events\ShopOrder;
+use App\Listeners\FillPantry;
+use App\Listeners\SendCreatedOrderMessage;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-
-use App\Events\ShopOrder;
-use App\Events\CreateOrder;
-
-use App\Listeners\FillPantry;
-use App\Listeners\SendCreationMessage;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,8 +24,8 @@ class EventServiceProvider extends ServiceProvider
         ShopOrder::class => [
             FillPantry::class,
         ],
-        CreateOrder::class => [
-            SendCreationMessage::class,
+        CreateNewOrder::class => [
+            SendCreatedOrderMessage::class,
         ],
     ];
 

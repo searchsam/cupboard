@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Order;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class OrderPolicy
@@ -13,7 +13,7 @@ class OrderPolicy
     /**
      * Determine whether the user can view any orders.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -24,8 +24,8 @@ class OrderPolicy
     /**
      * Determine whether the user can view the order.
      *
-     * @param  \App\User  $user
-     * @param  \App\Order  $order
+     * @param User  $user
+     * @param Order $order
      * @return mixed
      */
     public function view(User $user, Order $order)
@@ -36,7 +36,7 @@ class OrderPolicy
     /**
      * Determine whether the user can create orders.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
@@ -50,15 +50,14 @@ class OrderPolicy
     /**
      * Determine whether the user can update the order.
      *
-     * @param  \App\User  $user
-     * @param  \App\Order  $order
+     * @param User  $user
+     * @param Order $order
      * @return mixed
      */
     public function update(User $user, Order $order)
     {
         return (
             (
-                $user->id === $order->user->id ||
                 $user->type == User::ADMIN ||
                 $user->type == User::SUPERADMIN
             ) && (
@@ -70,8 +69,8 @@ class OrderPolicy
     /**
      * Determine whether the user can delete the order.
      *
-     * @param  \App\User  $user
-     * @param  \App\Order  $order
+     * @param User  $user
+     * @param Order $order
      * @return mixed
      */
     public function delete(User $user, Order $order)
@@ -82,8 +81,8 @@ class OrderPolicy
     /**
      * Determine whether the user can restore the order.
      *
-     * @param  \App\User  $user
-     * @param  \App\Order  $order
+     * @param User  $user
+     * @param Order $order
      * @return mixed
      */
     public function restore(User $user, Order $order)
@@ -94,8 +93,8 @@ class OrderPolicy
     /**
      * Determine whether the user can permanently delete the order.
      *
-     * @param  \App\User  $user
-     * @param  \App\Order  $order
+     * @param User  $user
+     * @param Order $order
      * @return mixed
      */
     public function forceDelete(User $user, Order $order)

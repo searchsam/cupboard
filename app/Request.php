@@ -2,24 +2,37 @@
 
 namespace App;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Request extends Model
 {
+    /**
+     * Request Status Values
+     *
+     * @var int
+     */
     const REJECT = 0;
     const APPROVE = 1;
     const WAITING = 2;
 
     /**
-     * {@inheritdoc}
+     * The attributes that are mass assignable.
+     *
+     * @var array
      */
     protected $fillable = [
-        'user_id', 'order_id', 'description', 'quantity', 'status'
+        'user_id',
+        'order_id',
+        'description',
+        'quantity',
+        'status'
     ];
 
     /**
-     * {@inheritdoc}
+     * @param $query
+     * @return QueryBuilder
      */
     public function scopeApproved($query)
     {

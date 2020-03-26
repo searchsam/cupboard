@@ -7,14 +7,25 @@ use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasOne, HasMany};
 
 class Order extends Model
 {
+
+    /**
+     * Order Status Values
+     *
+     * @var int
+     */
     const COMPLETED = 0;
     const ACTIVE = 1;
 
     /**
-     * {@inheritdoc}
+     * The attributes that are mass assignable.
+     *
+     * @var array
      */
     protected $fillable = [
-        'name', 'status', 'deadline', 'user_id'
+        'deadline',
+        'name',
+        'status',
+        'user_id'
     ];
 
     /**

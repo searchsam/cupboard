@@ -2,11 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
-use GraphQL\Type\Definition\ResolveInfo;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-
 use App\Pantry;
-use App\Events\StocklessProduct;
+use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
 class PantryMutator
 {
@@ -19,10 +16,12 @@ class PantryMutator
     {
         $pantryId = $args['id'];
 
-        return tap(Pantry::find($pantryId), function ($product) {
-            $product->update([
-                'existence' => $product->existence - Pantry::STOCK_UNIT
-            ]);
+        $pantry = tap(Pantry::find($pantryId), function ($pantry) {
+            $pantry->update(['existence' => $pantry->existence - Pantry::STOCK_UNIT]);
         });
+
+        Subscription::broadcast('productUpdated', $pantry);
+
+        return $pantry;
     }
 }
