@@ -8,11 +8,11 @@ class UserMutator
 {
 
     /**
-     * @param       $root
+     * @param       $rootValue
      * @param array $args
      * @return mixed
      */
-    public function doAdmin($root, array $args)
+    public function doAdmin($rootValue, array $args)
     {
         $userId = $args['id'];
 

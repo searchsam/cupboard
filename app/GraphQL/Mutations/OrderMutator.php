@@ -5,17 +5,16 @@ namespace App\GraphQL\Mutations;
 use App\Events\CreateNewOrder;
 use App\Events\ShopOrder;
 use App\Order;
-use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
 class OrderMutator
 {
 
     /**
-     * @param       $root
+     * @param       $rootValue
      * @param array $args
      * @return mixed
      */
-    public function create($root, array $args)
+    public function create($rootValue, array $args)
     {
         $deadline = $args['deadline'];
         $name = $args['name'];
@@ -26,49 +25,41 @@ class OrderMutator
         ])->fresh();
 
         event(new CreateNewOrder($order));
-        Subscription::broadcast('orderCreated', $order);
 
         return $order;
     }
 
     /**
-     * @param       $root
+     * @param       $rootValue
      * @param array $args
      * @return mixed
      */
-    public function update($root, array $args)
+    public function update($rootValue, array $args)
     {
         $orderId = $args['id'];
         $deadline = $args['deadline'];
         $name = $args['name'];
 
-        $order = tap(Order::find($orderId))
-            ->update([
+        return tap(Order::find($orderId), function ($order) use ($deadline, $name) {
+            $order->update([
                 'deadline' => $deadline,
                 'name'     => $name
             ]);
-
-        Subscription::broadcast('orderCreated', $order);
-
-        return $order;
+        });
     }
 
     /**
-     * @param       $root
+     * @param       $rootValue
      * @param array $args
      * @return mixed
      */
-    public function shop($root, array $args)
+    public function shop($rootValue, array $args)
     {
         $orderId = $args['id'];
 
-        $order = tap(Order::find($orderId), function ($order) {
+        return tap(Order::find($orderId), function ($order) {
             $order->update(['status' => Order::COMPLETED]);
             event(new ShopOrder($order));
         });
-
-        Subscription::broadcast('orderCreated', $order);
-
-        return $order;
     }
 }

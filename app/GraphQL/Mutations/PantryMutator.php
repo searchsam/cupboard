@@ -16,12 +16,8 @@ class PantryMutator
     {
         $pantryId = $args['id'];
 
-        $pantry = tap(Pantry::find($pantryId), function ($pantry) {
-            $pantry->update(['existence' => $pantry->existence - Pantry::STOCK_UNIT]);
+        return tap(Pantry::find($pantryId), function ($pantry) {
+            $pantry->decrement(['existence', Pantry::STOCK_UNIT]);
         });
-
-        Subscription::broadcast('productUpdated', $pantry);
-
-        return $pantry;
     }
 }

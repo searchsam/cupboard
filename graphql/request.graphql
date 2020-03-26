@@ -52,10 +52,12 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     " Create Request "
     createRequest(input: CreateRequestInput! @spread): Request
         @field(resolver: "RequestMutator@create")
+        @broadcast(subscription: "requestCreated")
     " Update Request "
     updateRequest(input: UpdateRequestInput! @spread): Request
         @can(ability: "update", find: "id")
         @field(resolver: "RequestMutator@update")
+        @broadcast(subscription: "requestCreated")
     " Reject Request "
     denyRequest(
         id: ID!
@@ -65,6 +67,7 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     ): Request
         @can(ability: "update", find: "id")
         @field(resolver: "RequestMutator@deny")
+        @broadcast(subscription: "requestCreated")
     " Approve Request "
     approveRequest(
         id: ID!
@@ -74,6 +77,7 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     ): Request
         @can(ability: "update", find: "id")
         @field(resolver: "RequestMutator@approve")
+        @broadcast(subscription: "requestCreated")
 }
 
 extend type Subscription {

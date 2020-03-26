@@ -26,6 +26,7 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     ): Pantry
         @can(ability: "update", find: "id")
         @field(resolver: "PantryMutator@decrease")
+        @broadcast(subscription: "productUpdated")
 }
 
 extend type Subscription {

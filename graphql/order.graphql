@@ -55,6 +55,7 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     createOrder(input: CreateOrderInput! @spread): Order
         @can(ability: "create")
         @field(resolver: "OrderMutator@create")
+        @broadcast(subscription: "orderCreated")
 
     " Update Order "
     updateOrder(input: UpdateOrderInput! @spread): Order

@@ -6,7 +6,6 @@ use App\Events\CreateNewOrder;
 use App\Notifications\OrderCreated;
 use App\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Notification;
 
 class SendCreatedOrderMessage implements ShouldQueue
 {
@@ -20,7 +19,6 @@ class SendCreatedOrderMessage implements ShouldQueue
     public function handle(CreateNewOrder $event)
     {
         $users = User::all();
-
-        Notification::send($users, new OrderCreated($event->order));
+        $users->notify(new OrderCreated($event->order));
     }
 }

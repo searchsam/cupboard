@@ -18,15 +18,11 @@ class RequestMutator
         $quantity = $args['quantity'];
         $orderId = $args['order_id'];
 
-        $request = auth()->user()->requests()->create([
+        return auth()->user()->requests()->create([
             'description' => $description,
             'quantity' => $quantity,
             'order_id' => $orderId
         ])->fresh();
-
-        Subscription::broadcast('requestCreated', $request);
-
-        return $request;
     }
 
     /**
@@ -40,15 +36,12 @@ class RequestMutator
         $description = $args['description'];
         $quantity = $args['quantity'];
 
-        $request = tap(Request::find($requestId))
-            ->update([
+        return tap(Request::find($requestId), function ($request) use ($description, $quantity) {
+            $request->update([
                 'description' => $description,
-                'quantity' => $quantity,
+                'quantity'    => $quantity,
             ]);
-
-        Subscription::broadcast('requestCreated', $request);
-
-        return $request;
+        });
     }
 
     /**
@@ -60,12 +53,9 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        $request = tap(Request::find($requestId))
-            ->update(['status' => Request::REJECT]);
-
-        Subscription::broadcast('requestCreated', $request);
-
-        return $request;
+        return tap(Request::find($requestId), function ($request) {
+            $request->update(['status' => Request::REJECT]);
+        });
     }
 
     /**
@@ -77,11 +67,8 @@ class RequestMutator
     {
         $requestId = $args['id'];
 
-        $request = tap(Request::find($requestId))
-            ->update(['status' => Request::APPROVE]);
-
-        Subscription::broadcast('requestCreated', $request);
-
-        return $request;
+        return tap(Request::find($requestId), function ($request) {
+            $request->update(['status' => Request::APPROVE]);
+        });
     }
 }
