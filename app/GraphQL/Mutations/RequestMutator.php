@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Events\ApproveRequest;
 use App\Request;
 use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
@@ -69,6 +70,7 @@ class RequestMutator
 
         return tap(Request::find($requestId), function ($request) {
             $request->update(['status' => Request::APPROVE]);
+            event(new ApproveRequest($request));
         });
     }
 }

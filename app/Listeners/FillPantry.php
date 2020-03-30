@@ -11,7 +11,7 @@ class FillPantry implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param ShopOrder $event
+     * @param  ShopOrder  $event
      * @return void
      */
     public function handle(ShopOrder $event)

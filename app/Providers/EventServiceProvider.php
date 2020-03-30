@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ApproveRequest;
 use App\Events\CreateNewOrder;
 use App\Events\ShopOrder;
+use App\Listeners\AddStatToProduct;
 use App\Listeners\FillPantry;
 use App\Listeners\SendCreatedOrderMessage;
 use Illuminate\Auth\Events\Registered;
@@ -26,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CreateNewOrder::class => [
             SendCreatedOrderMessage::class,
+        ],
+        ApproveRequest::class => [
+            AddStatToProduct::class,
         ],
     ];
 
